@@ -4,278 +4,496 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Meme Zone</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Redressed&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
-  body {
-    margin: 0;
-    font-family: 'Redressed', cursive;
-    background: linear-gradient(135deg, #f9d210, #f14d1b);
-    color: #fff;
-  }
-  header {
-    background: linear-gradient(45deg, #f9d210, #f14d1b);
-    padding: 20px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    animation: bounce 2s infinite;
-  }
-  header h1 {
-    margin: 0;
-    font-size: 2.5em;
-  }
-  nav {
-    margin-top: 10px;
-  }
-  nav button {
-    background-color: transparent;
-    border: 2px solid #fff;
-    border-radius: 20px;
-    padding: 8px 16px;
-    margin: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  nav button:hover {
-    background-color: #fff;
-    color: #f14d1b;
-  }
-  .hero {
-    padding: 40px 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #f9d210, #f14d1b);
-  }
-  .hero h2 {
-    font-size: 3em;
-    margin-bottom: 10px;
-  }
-  .hero p {
-    font-size: 1.2em;
-  }
-  .btn {
-    background-color: #fff;
-    color: #f14d1b;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-size: 1.2em;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
-  }
-  .btn:hover {
-    background-color: #f14d1b;
-    color: #fff;
-    transform: scale(1.05);
-  }
-  .memes-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  .meme-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-  .meme-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
-  }
-  .meme-image {
-    width: 100%;
-    display: block;
-    border-bottom: 4px solid #f14d1b;
-  }
-  .meme-info {
-    padding: 15px;
-  }
-  .meme-title {
-    font-size: 1.2em;
-    margin-bottom: 8px;
-    color: #222;
-  }
-  .category {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    margin-bottom: 10px;
-    background-color: #eee;
-    color: #333;
-  }
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .likes {
-    font-size: 0.9em;
-    color: #F14D1B;
-  }
-  .share-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    color: #f14d1b;
-    transition: color 0.3s;
-  }
-  .share-btn:hover {
-    color: #fff;
-  }
-  footer {
-    background-color: #222;
-    padding: 20px;
-    text-align: center;
-    color: #ddd;
-  }
-  .social-icons {
-    margin: 10px 0;
-  }
-  .social-icons a {
-    margin: 0 10px;
-    color: #fff;
-    font-size: 1.5em;
-    transition: transform 0.3s;
-  }
-  .social-icons a:hover {
-    transform: scale(1.2);
-  }
+:root {
+  --color-amarillo: #F9D210;
+  --color-naranja: #F14D1B;
+  --color-rojo: #83181C;
+  --color-tiktok: #FF6B9D;
+  --color-gris: #7E8285;
+  --color-negro: #000000;
+  --color-blanco: #FFFFFF;
+  --color-fondo: #F5F5F5;
+  --borde-radius: 18px;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Montserrat', 'Redressed', cursive, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--color-amarillo) 0%, var(--color-naranja) 70%);
+  color: var(--color-negro);
+  min-height: 100vh;
+}
+header {
+  background: linear-gradient(45deg, var(--color-amarillo), var(--color-naranja));
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-bottom: 8px;
+}
+.logo {
+  font-family: 'Redressed', cursive;
+  color: var(--color-blanco);
+  font-size: 2.6em;
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+  letter-spacing: 4px;
+  animation: bounce 2s infinite;
+}
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
+  0%, 100% { transform: translateY(0);}
+  40% { transform: translateY(-12px);}
+  60% { transform: translateY(-7px);}
+}
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+nav button {
+  background: rgba(255,255,255,0.22);
+  color: var(--color-rojo);
+  border: none;
+  border-radius: var(--borde-radius);
+  padding: 8px 18px;
+  font-size: 1.1em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin-bottom: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(229, 155, 49, 0.06);
+  transition: background 0.25s, color 0.25s;
+}
+nav button.active,
+nav button:hover {
+  background: var(--color-blanco);
+  color: var(--color-naranja);
+}
+
+.hero-section {
+  padding: 38px 12px 44px 12px;
+  background: linear-gradient(135deg, #fff7d1 10%, var(--color-naranja) 91%);
+  border-radius: 0 0 38px 38px;
+  box-shadow: 0 5px 20px rgba(249,210,16,0.10);
+  margin-bottom: 22px;
+  text-align: center;
+}
+.hero-section h1 {
+  font-family: 'Redressed', cursive;
+  font-size: 3em;
+  color: var(--color-rojo);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.hero-section p {
+  font-size: 1.3em;
+  color: #333;
+}
+.hero-section .hero-btn {
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  border: none;
+  padding: 17px 38px;
+  font-size: 1.2em;
+  border-radius: 32px;
+  margin-top: 24px;
+  box-shadow: 0 4px 12px rgba(241,77,27,0.15);
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+.hero-section .hero-btn:hover {
+  background: var(--color-amarillo);
+  color: var(--color-rojo);
+  transform: scale(1.045);
+}
+
+.categorias {
+  max-width: 950px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+.categoria-btn {
+  padding: 7px 24px;
+  border-radius: 18px;
+  border: 2px solid var(--color-blanco);
+  color: var(--color-blanco);
+  font-weight: 700;
+  font-size: 1em;
+  background: var(--color-naranja);
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: background 0.18s, color 0.18s, border 0.2s;
+}
+.categoria-btn.active,
+.categoria-btn:hover {
+  background: var(--color-blanco);
+  color: var(--color-rojo);
+  border: 2px solid var(--color-rojo);
+}
+
+.section-title {
+  font-family: 'Montserrat', Arial, sans-serif;
+  text-align: center;
+  font-size: 2em;
+  color: var(--color-rojo);
+  margin-top: 26px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.memes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto 38px auto;
+}
+
+.meme-card {
+  background: var(--color-blanco);
+  border-radius: var(--borde-radius);
+  box-shadow: 0 8px 22px 0 rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.17s, box-shadow 0.17s;
+  min-height: 365px;
+  position: relative;
+  animation: fadeIn 1s;
+}
+.meme-card:hover {
+  transform: translateY(-10px) scale(1.025);
+  box-shadow: 0 16px 36px 0 rgba(241,77,27, 0.22);
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform:translateY(20px);}
+  100% { opacity: 1; transform: none;}
+}
+.meme-img {
+  width: 100%;
+  height: 176px;
+  object-fit: cover;
+  background: #eee;
+  border-bottom: 6px solid var(--color-naranja);
+  display: block;
+}
+.meme-badge {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  padding: 4px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--color-blanco);
+  font-size: 1em;
+  z-index: 2;
+  background: var(--color-naranja);
+}
+.meme-trending {
+  animation: pulse 2s infinite;
+  background: var(--color-amarillo)!important;
+  color: var(--color-rojo)!important;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(241,77,27, 0.1);}
+   70% { box-shadow: 0 0 15px 10px rgba(241,77,27,0.18);}
+  100% { box-shadow: 0 0 0 0 rgba(241,77,27, 0.09);}
+}
+.meme-content {
+  flex: 1;
+  padding: 14px 18px 8px 18px;
+}
+.meme-title {
+  font-weight: 900;
+  font-size: 1.17em;
+  color: var(--color-rojo);
+}
+.meme-desc {
+  color: #444;
+  font-size: 1em;
+  margin-bottom: 7px;
+}
+
+.meme-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 18px 15px 18px;
+}
+.likes {
+  color: var(--color-naranja);
+  font-size: 1.1em;
+  font-weight: 700;
+  background: #FFF5E1;
+  border-radius: 9px;
+  padding: 3px 13px 3px 8px;
+  margin-right: 12px;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid var(--color-amarillo);
+  transition: background 0.20s, border 0.22s;
+}
+.likes:hover { background: var(--color-amarillo); border-bottom: 2px solid var(--color-naranja);}
+.share-btn {
+  background: var(--color-rojo);
+  color: var(--color-blanco);
+  padding: 6px 18px;
+  border-radius: 24px;
+  border: none;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 7px;
+  transition: background 0.2s;
+}
+.share-btn:hover {
+  background: var(--color-naranja);
+}
+
+footer {
+  background: var(--color-rojo);
+  color: var(--color-blanco);
+  text-align: center;
+  font-size: 1em;
+  padding: 23px 12px 16px 12px;
+  margin-top: 38px;
+  border-radius: 32px 32px 0 0;
+}
+footer .social-icons a {
+  display: inline-block;
+  margin: 0 11px;
+  font-size: 1.33em;
+  color: var(--color-amarillo);
+  transition: transform 0.19s;
+}
+footer .social-icons a:hover {
+  transform:scale(1.18);
+  color: var(--color-blanco);
+}
+
+@media (max-width: 650px) {
+  .logo {font-size: 2em;}
+  .hero-section h1 {font-size: 2em;}
 }
 </style>
 </head>
 <body>
-
 <header>
-  <h1>MEME ZONE</h1>
+  <div class="logo">MEME ZONE</div>
   <nav>
-    <button>Inicio</button>
-    <button>Trending</button>
-    <button>Clásicos</button>
-    <button>Crear Meme</button>
+    <button class="active" onclick="changeSection('inicio')">Inicio</button>
+    <button onclick="changeSection('trending')">Trending</button>
+    <button onclick="changeSection('categorias')">Categorías</button>
+    <button onclick="changeSection('contacto')">Contacto</button>
   </nav>
 </header>
-
-<div class="hero">
-  <h2>¡Bienvenido a la Zona de Memes!</h2>
-  <p>El lugar más divertido y viral de memes del 2025</p>
-  <button class="btn">Explorar Memes</button>
+<div class="hero-section" id="hero">
+  <h1>¡BIENVENIDO A MEME ZONE!</h1>
+  <p>La web más divertida y viral para disfrutar de los mejores memes del momento.</p>
+  <button class="hero-btn" onclick="scrollToMemes()">Explorar Ahora</button>
 </div>
-
-<div class="memes-container" id="memes">
-  <!-- Los memes aparecen aquí -->
+<div class="categorias" id="categorias">
+  <button class="categoria-btn active" onclick="filterCategory('Todos')">Todos</button>
+  <button class="categoria-btn" onclick="filterCategory('Viral')" style="background:#F14D1B;">Viral</button>
+  <button class="categoria-btn" onclick="filterCategory('Clásico')" style="background:#83181C;">Clásico</button>
+  <button class="categoria-btn" onclick="filterCategory('TikTok')" style="background:#FF6B9D;">TikTok</button>
+  <button class="categoria-btn" onclick="filterCategory('Wholesome')" style="background:#7E8285;">Wholesome</button>
+  <button class="categoria-btn" onclick="filterCategory('Debate')" style="background:#000;">Debate</button>
 </div>
+<div class="section-title" id="grid-title">Memes Populares</div>
+<div class="memes-grid" id="memesGrid"></div>
 
 <footer>
   <div class="social-icons">
-    <a href="#">🌐</a>
-    <a href="#">🐦</a>
-    <a href="#">📸</a>
+    <a href="#"><span>🌐</span></a>
+    <a href="#"><span>🐦</span></a>
+    <a href="#"><span>📸</span></a>
   </div>
-  <p>&copy; 2025 Meme Zone. Todos los derechos reservados.</p>
+  <div style="margin-top:12px;">
+    &copy; 2025 Meme Zone. Todos los derechos reservados.
+  </div>
 </footer>
 
 <script>
-const memes = [
-  {
-    id: 1,
-    title: "Chill Guy",
-    category: "Viral",
-    image: "https://i.imgflip.com/6r2t6j.jpg",
-    likes: 120
-  },
-  {
-    id: 2,
-    title: "100 Men vs 1 Gorilla",
-    category: "Debate",
-    image: "https://i.imgflip.com/7jajqu.jpg",
-    likes: 98
-  },
-  {
-    id: 3,
-    title: "Woman Yelling at Cat",
-    category: "Clásico",
-    image: "https://i.imgflip.com/345v97.jpg",
-    likes: 250
-  },
-  {
-    id: 4,
-    title: "Drake Hotline Bling",
-    category: "Clásico",
-    image: "https://i.imgflip.com/30b1gx.jpg",
-    likes: 230
-  },
-  {
-    id: 5,
-    title: "Distracted Boyfriend",
-    category: "Clásico",
-    image: "https://i.imgflip.com/1ur9b0.jpg",
-    likes: 210
-  },
-  {
-    id: 6,
-    title: "Surprised Pikachu",
-    category: "Clásico",
-    image: "https://i.imgflip.com/2kbn1e.jpg",
-    likes: 190
-  },
-  {
-    id: 7,
-    title: "Pepe el Camarón Rey",
-    category: "Storytime",
-    image: "https://i.imgflip.com/4acd7j.png",
-    likes: 130
-  }
+// Datos de memes reales:
+const MEMES = [
+  { id:1, titulo:"Chill Guy", categoria:"Viral", descripcion:"Ese soy yo, un tipo relajado sin preocupaciones", imagen:"https://i.imgflip.com/6r2t6j.jpg", likes:2450, trending:true },
+  { id:2, titulo:"Drake Hotline Bling", categoria:"Clásico", descripcion:"No me gusta / Sí me gusta", imagen:"https://i.imgflip.com/30b1gx.jpg", likes:5420, trending:true },
+  { id:3, titulo:"Woman Yelling at Cat", categoria:"Clásico", descripcion:"Mujer molesta vs gato calmado", imagen:"https://i.imgflip.com/345v97.jpg", likes:4890, trending:true },
+  { id:4, titulo:"Distracted Boyfriend", categoria:"Clásico", descripcion:"Cuando ves algo mejor", imagen:"https://i.imgflip.com/1ur9b0.jpg", likes:4120, trending:false },
+  { id:5, titulo:"Surprised Pikachu", categoria:"Clásico", descripcion:"Expresar sorpresa fingida", imagen:"https://i.imgflip.com/2kbn1e.jpg", likes:3890, trending:false },
+  { id:6, titulo:"Uno Reverse Card", categoria:"Viral", descripcion:"Cambio de tables de la nada", imagen:"https://i.imgflip.com/25w3ua.jpg", likes:3670, trending:true },
+  { id:7, titulo:"Mocking SpongeBob", categoria:"Viral", descripcion:"Burlarse de algo de manera sarcástica", imagen:"https://i.imgflip.com/58mvy7.jpg", likes:3450, trending:false },
+  { id:8, titulo:"This is Fine", categoria:"Wholesome", descripcion:"Todo está bajo control... ¿o no?", imagen:"https://i.imgflip.com/2ey0z.jpg", likes:3220, trending:false },
+  { id:9, titulo:"Expanding Brain", categoria:"Debate", descripcion:"Progresión de ideas cada vez más locas", imagen:"https://i.imgflip.com/2l2lgi.jpg", likes:2980, trending:false },
+  { id:10, titulo:"Loss", categoria:"Clásico", descripcion:"El meme más antiguo y misterioso", imagen:"https://i.imgflip.com/3yxd3s.jpg", likes:2760, trending:false },
+  { id:11, titulo:"Trollface", categoria:"Clásico", descripcion:"Cara de trolleo épico", imagen:"https://i.imgflip.com/1xkuak.jpg", likes:2540, trending:false },
+  { id:12, titulo:"Brainlet vs Gigachad", categoria:"Debate", descripcion:"Comparación de opiniones", imagen:"https://i.imgflip.com/5cw47v.jpg", likes:2890, trending:true },
+  { id:13, titulo:"Me and the Boys", categoria:"Viral", descripcion:"Yo y los chicos haciendo algo", imagen:"https://i.imgflip.com/1xkx2o.jpg", likes:2670, trending:false },
+  { id:14, titulo:"Stonks", categoria:"TikTok", descripcion:"Meme de economía absurda", imagen:"https://i.imgflip.com/3h5w3b.jpg", likes:2450, trending:false },
+  { id:15, titulo:"Change My Mind", categoria:"Debate", descripcion:"Convénceme de lo contrario", imagen:"https://i.imgflip.com/fwv0h.jpg", likes:2330, trending:false },
+  { id:16, titulo:"Bad Luck Brian", categoria:"Clásico", descripcion:"Siempre le pasa lo peor", imagen:"https://i.imgflip.com/i3wyn.jpg", likes:2100, trending:false },
+  { id:17, titulo:"Success Kid", categoria:"Wholesome", descripcion:"¡Lo logré!", imagen:"https://i.imgflip.com/1bhf.jpg", likes:1890, trending:false },
+  { id:18, titulo:"Evil Patrick", categoria:"Viral", descripcion:"Patrick siendo malvado", imagen:"https://i.imgflip.com/49ffl0.jpg", likes:2670, trending:true },
+  { id:19, titulo:"Running Away Balloon", categoria:"TikTok", descripcion:"Algo persiguiendo algo más", imagen:"https://i.imgflip.com/3t8q9b.jpg", likes:1670, trending:false },
+  { id:20, titulo:"Confused Math Lady", categoria:"Viral", descripcion:"Intentando entender algo", imagen:"https://i.imgflip.com/2r3pg9.jpg", likes:2340, trending:false }
 ];
 
-const container = document.getElementById('memes');
+let estado = {
+  categoria:"Todos"
+};
 
-memes.forEach(meme => {
-  const card = document.createElement('div');
-  card.className = 'meme-card';
-
-  card.innerHTML = `
-    <img src="${meme.image}" class="meme-image" alt="${meme.title}">
-    <div class="meme-info">
-      <div class="meme-title">${meme.title}</div>
-      <div class="category" style="background-color: ${
-        meme.category === 'Viral' ? '#F14D1B' :
-        meme.category === 'Clásico' ? '#F9D210' :
-        meme.category === 'Debate' ? '#FF6B9D' :
-        meme.category === 'Storytime' ? '#83181C' :
-        '#7E8285'
-      };">${meme.category}</div>
-      <div class="actions">
-        <div class="likes">👍 ${meme.likes}</div>
-        <button class="share-btn" onclick="shareMeme('${meme.title}')">🔗</button>
+// Renderizado de memes
+function renderMemes() {
+  const grid = document.getElementById('memesGrid');
+  let memesMostrar = MEMES;
+  if (estado.categoria !== "Todos") {
+    memesMostrar = MEMES.filter(e => e.categoria===estado.categoria);
+  }
+  grid.innerHTML = '';
+  memesMostrar.forEach(meme => {
+    const card = document.createElement("div");
+    card.className = "meme-card";
+    card.innerHTML = `
+      <span class="meme-badge ${meme.trending?'meme-trending':''}" style="background:${getColorCategoria(meme.categoria)};">${meme.categoria}${meme.trending?' 🔥':''}</span>
+      <img src="${meme.imagen}" alt="${meme.titulo}" class="meme-img" loading="lazy"/>
+      <div class="meme-content">
+        <div class="meme-title">${meme.titulo}</div>
+        <div class="meme-desc">${meme.descripcion}</div>
       </div>
-    </div>
-  `;
-  container.appendChild(card);
-});
+      <div class="meme-actions">
+        <button class="likes" onclick="likeMeme(${meme.id}, this)">❤️ <span>${meme.likes}</span></button>
+        <button class="share-btn" onclick="shareMeme('${meme.titulo}','${meme.imagen}')">Compartir</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  document.getElementById('grid-title').innerText = estado.categoria==="Todos" ? "Memes Populares" : `Categoría: ${estado.categoria}`;
+}
+renderMemes();
 
-function shareMeme(title) {
-  alert('Compartido: ' + title);
+function getColorCategoria(cat) {
+  if (cat==="Viral") return "#F14D1B";
+  if (cat==="Clásico") return "#83181C";
+  if (cat==="TikTok") return "#FF6B9D";
+  if (cat==="Wholesome") return "#7E8285";
+  if (cat==="Debate") return "#000000";
+  return "#F9D210";
+}
+
+function filterCategory(cat) {
+  estado.categoria = cat;
+  document.querySelectorAll('.categoria-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.categoria-btn').forEach(b=>{
+    if (b.innerText.trim()===cat) b.classList.add('active');
+  });
+  renderMemes();
+  window.scrollTo({top:document.getElementById('memesGrid').offsetTop-20,behavior:'smooth'});
+}
+
+// Función para dar like
+function likeMeme(id, btn) {
+  const meme = MEMES.find(m=>m.id===id);
+  meme.likes++;
+  btn.querySelector('span').innerText = meme.likes;
+  btn.style.background = "#F9D210";
+  setTimeout(()=>btn.style.background="#FFF5E1",450);
+}
+
+// Compartir meme
+function shareMeme(title, imgUrl) {
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: '¡Mira este meme!',
+      url: imgUrl
+    });
+  } else {
+    alert("Copia este enlace de la imagen: " + imgUrl);
+  }
+}
+
+// Navegación
+function changeSection(tipo) {
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>{
+    if ((tipo==='inicio' && b.innerText==='Inicio') ||
+        (tipo==='trending' && b.innerText==='Trending') ||
+        (tipo==='categorias' && b.innerText==='Categorías') ||
+        (tipo==='contacto' && b.innerText==='Contacto')) {
+      b.classList.add('active');
+    }
+  });
+  document.getElementById('hero').style.display = tipo==='inicio' ? "block" : "none";
+  document.getElementById('categorias').style.display = (tipo==='inicio'||tipo==='trending'||tipo==='categorias') ? "flex" : "none";
+  document.getElementById('memesGrid').style.display = (tipo==='inicio'||tipo==='trending'||tipo==='categorias') ? "grid" : "none";
+  document.getElementById('grid-title').innerText =
+    tipo==='trending' ? "🔥 Memes en Tendencia" :
+    tipo==='contacto' ? "" :
+    estado.categoria==="Todos" ? "Memes Populares" : `Categoría: ${estado.categoria}`;
+  if (tipo==='trending') {
+    filtrarTrending();
+  } else if(tipo==='categorias') {
+    filterCategory("Todos");
+  } else if(tipo==='inicio') {
+    filterCategory("Todos");
+    renderMemes();
+  } else if(tipo==='contacto') {
+    showContact();
+  }
+}
+function filtrarTrending() {
+  document.querySelectorAll('.categoria-btn').forEach(b=>b.classList.remove('active'));
+  const grid = document.getElementById('memesGrid');
+  let memesMostrar = MEMES.filter(e => e.trending);
+  grid.innerHTML = '';
+  memesMostrar.forEach(meme => {
+    const card = document.createElement("div");
+    card.className = "meme-card";
+    card.innerHTML = `
+      <span class="meme-badge meme-trending" style="background:${getColorCategoria(meme.categoria)};">${meme.categoria} 🔥</span>
+      <img src="${meme.imagen}" alt="${meme.titulo}" class="meme-img" loading="lazy"/>
+      <div class="meme-content">
+        <div class="meme-title">${meme.titulo}</div>
+        <div class="meme-desc">${meme.descripcion}</div>
+      </div>
+      <div class="meme-actions">
+        <button class="likes" onclick="likeMeme(${meme.id}, this)">❤️ <span>${meme.likes}</span></button>
+        <button class="share-btn" onclick="shareMeme('${meme.titulo}','${meme.imagen}')">Compartir</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+function showContact() {
+  document.getElementById('hero').style.display = "none";
+  document.getElementById('categorias').style.display = "none";
+  document.getElementById('memesGrid').style.display = "block";
+  let grid = document.getElementById('memesGrid');
+  grid.innerHTML = `<div style="padding:25px 12px 32px 12px;text-align:center;">
+    <h2 style="color:#83181C">Contacto &amp; Newsletter</h2>
+    <p>Contáctanos para sugerencias o tu propio meme:<br>
+    <b>Email:</b> <a href="mailto:info@memes.zone">info@memes.zone</a></p>
+    <form style="margin:25px auto;max-width:360px;">
+      <input type="email" placeholder="Tu email para novedades" style="padding:11px 19px;width:80%;border-radius:11px;border:2px solid #F9D210;font-size:1em;margin-bottom:9px;">
+      <button type="submit" style="padding:11px 23px;border:none;background:#F14D1B;color:#fff;border-radius:12px;font-size:1em;cursor:pointer;">Suscribirse</button>
+    </form>
+  </div>`;
+}
+// Scroll suave al grid de memes
+function scrollToMemes() {
+  window.scrollTo({ top: document.getElementById('memesGrid').offsetTop-34, behavior: 'smooth' });
 }
 </script>
-
 </body>
 </html>
