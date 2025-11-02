@@ -18,35 +18,39 @@ body {
 }
 header {
   text-align: center;
-  padding: 20px 0 12px 0;
   background: var(--main-grad);
   box-shadow: 0 8px 28px rgba(60, 205, 212, 0.13);
   position: sticky;
   top: 0;
   z-index: 10;
+  padding-bottom: 7px;
 }
 .logo {
   font-family: 'Fredoka One', cursive;
-  font-size: 2.2em;
+  font-size: 3em;
   font-weight: 900;
-  letter-spacing: 3px;
+  margin-bottom: 20px;
   color: #fff;
-  margin-bottom: 6px;
-  text-shadow: 2px 3px 13px #29F4FF55;
-  animation: bounce 2.2s infinite;
-  display:inline-block;
+  letter-spacing: 5px;
+  text-shadow: 4px 4px 0 #29F4FF80, 0 6px 24px #FFC93C;
+  margin-top: 0.9em;
+  line-height: 1.15;
+  background: linear-gradient(90deg,#0ffdc3,#4cbdfa,#fba9f6,#faff7b,#51ffa3,#abcdfe 83%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bounce 2.5s infinite cubic-bezier(.82,-0.7,.44,1.89);
 }
 @keyframes bounce {
   0%, 100% { transform: translateY(0);}
-  40% { transform: translateY(-10px);}
-  60% { transform: translateY(-5px);}
+  30% { transform: translateY(-25px);}
+  60% { transform: translateY(-10px);}
 }
 nav {
   display: flex;
   justify-content: center;
-  gap: 18px;
+  gap: 25px;
   flex-wrap: wrap;
-  margin-bottom: 6px;
+  margin-bottom: 16px;
 }
 nav button {
   background: #fff;
@@ -55,60 +59,68 @@ nav button {
   font-weight: 500;
   border: none;
   border-radius: 18px;
-  font-size: 1.12em;
-  padding: 8px 23px;
+  font-size: 1.22em;
+  padding: 10px 33px;
   cursor: pointer;
   margin-bottom: 8px;
+  margin-top: 8px;
   box-shadow: 0 2px 13px #53e08318;
   transition: 0.2s;
+  position: relative;
 }
 nav button.active,
 nav button:hover {
   background: var(--btn-grad);
   color: #FFF;
-  transform: scale(1.09);
+  transform: scale(1.12);
 }
-.hero {
+#pantalla-inicio {
+  padding: 35px 13px 30px 13px;
+  max-width: 430px;
+  margin: 36px auto 0 auto;
   background: var(--main-grad);
-  padding: 28px 13px 22px 13px;
-  text-align: center;
-  border-radius: 0 0 36px 36px;
-  margin-bottom: 18px;
-  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 7px 23px #53e0832f;
 }
-.hero h2 {
-  font-family: 'Fredoka One', cursive;
-  font-size: 2.28em;
-  margin: 0 0 18px 0;
-  letter-spacing: 1px;
-  text-shadow: 2px 3px 13px #27ffb1a2;
-  display:inline-block;
+.num-teclado {
+  display: grid;
+  grid-template-columns: repeat(3,60px);
+  gap: 20px;
+  justify-content: center;
+  margin: 30px 0 6px 0;
 }
-.hero p {
-  font-size: 1.22em;
-  margin-bottom: 20px;
+.num-teclado button {
+  font-size: 2.1em;
   font-family: 'Fredoka One', cursive;
-  color: #fff;
-}
-.hero .hero-btn {
-  background: var(--btn-grad);
-  color: #fff;
-  font-family: 'Fredoka One', cursive;
-  border: none;
-  border-radius: 22px;
-  font-size: 1.13em;
-  padding: 13px 38px;
-  font-weight: 700;
+  background: #fff;
+  color: #2ae97e;
+  border: 3px solid #67A2FF;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px #51ffa344;
   cursor: pointer;
-  margin-top:10px;
-  box-shadow: 0 3px 16px #2beed855;
-  transition: 0.2s;
+  transition:0.18s;
 }
-.hero .hero-btn:hover {
-  background: #74ffc1;
-  color: #067d96;
-  transform: scale(1.07);
+.num-teclado button:active, .num-teclado button:hover {
+  background: #29F4FF;
+  color: #fff;
+  border: 3px solid #53E083;
+  transform: scale(1.13);
 }
+.xd-frase {
+  min-height: 38px;
+  margin-top: 23px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.4em;
+  text-align: center;
+  color: #2ca193;
+  font-weight: bold;
+  background: #cbfdeec9;
+  border-radius: 13px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 10px #aafde422;
+  animation: fraseXDfade 0.6s;
+}
+@keyframes fraseXDfade {from {opacity:0; transform:translateY(15px);}to{opacity:1;transform:none;}}
 .memes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
@@ -240,30 +252,39 @@ form button {
 }
 .com-emoji { font-size:1.2em; margin-right:5px; }
 @media (max-width: 650px) {
-  .logo,.hero h2 {font-size: 1.03em;}
-  nav button {font-size:0.94em;padding:6px 12px;}
+  .logo {font-size:1.6em;}
+  nav button {font-size:0.97em;padding:6px 12px;}
   .meme-card {min-height:160px;}
+  #pantalla-inicio {padding:20px 6px 20px 6px;}
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">zoevaloprueba 💎✨🤣  </div>
+  <div class="logo" style="margin-bottom:32px;">✨🤩 zoevaloprueba 🎉🤣</div>
   <nav>
-    <button class="active" onclick="showHome()">🏠 Inicio</button>
-    <button onclick="scrollToMemes()">😂 Memes</button>
-    <button onclick="showComentarios()">💬 Comentarios</button>
-    <button onclick="showContacto()">📧 Contacto</button>
+    <button onclick="btnClickSound();showHome()" class="active">🏠 Inicio</button>
+    <button onclick="btnClickSound();scrollToMemes()">😂 Memes</button>
+    <button onclick="btnClickSound();showComentarios()">💬 Comentarios</button>
+    <button onclick="btnClickSound();showContacto()">📧 Contacto</button>
   </nav>
 </header>
-<div class="hero" id="hero">
-  <h2>¡Bienvenido a la Zona de Memes! 🦄🥳🚀</h2>
-  <p>Página de prueba para ver memes. 😍😂🥇  
-    Elige tu meme favorito y prepárate para una sorpresa...<br>
-    ¡Sitio súper cool, colorido y lleno de emojis! 🐸🧠🥇💥🎉</p>
-  <button class="hero-btn" onclick="scrollToMemes()">Ver Memes 🎉</button>
+<div id="pantalla-inicio">
+  <h2 style="font-family:'Fredoka One',cursive;font-size:2.1em;color:#2cd0ba;margin-bottom:10px;">Selecciona tu favorito</h2>
+  <div class="num-teclado">
+    <button onclick="muestraFraseXD(1);btnClickSound()">1</button>
+    <button onclick="muestraFraseXD(2);btnClickSound()">2</button>
+    <button onclick="muestraFraseXD(3);btnClickSound()">3</button>
+    <button onclick="muestraFraseXD(4);btnClickSound()">4</button>
+    <button onclick="muestraFraseXD(5);btnClickSound()">5</button>
+    <button onclick="muestraFraseXD(6);btnClickSound()">6</button>
+    <button onclick="muestraFraseXD(7);btnClickSound()">7</button>
+    <button onclick="muestraFraseXD(8);btnClickSound()">8</button>
+    <button onclick="muestraFraseXD(9);btnClickSound()">9</button>
+  </div>
+  <div id="frase-xd" class="xd-frase"></div>
 </div>
-<div class="memes-grid" id="memesGrid"></div>
+<div class="memes-grid" id="memesGrid" style="display:none"></div>
 <div id="comentarios" style="display:none"></div>
 <footer>
   <div class="social-icons">
@@ -274,6 +295,9 @@ form button {
   </div>
   <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
 </footer>
+<audio id="audio-burbuja" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_116bfa0145.mp3" type="audio/mpeg">
+</audio>
 <script>
 const MEMES = [
   {
@@ -297,26 +321,45 @@ const MEMES = [
   {
     titulo:"Gato Meme 🐱",
     descripcion:"¿Miau dices? 😺",
-    img:"https://upload.wikimedia.org/wikipedia/commons/0/0a/Woman_Yelling_at_Cat.jpg",
+    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/gato%20meme.jpeg",
     emoji:"😺"
   },
   {
     titulo:"Patrick Malvado 😏",
     descripcion:"Risa traviesa 🦑",
-    img:"https://i.imgur.com/o3xEQ9z.png",
+    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/patricio.jpg",
     emoji:"😏"
   },
   {
     titulo:"Stonks 💹",
     descripcion:"Dinero para todos 🤑",
-    img:"https://upload.wikimedia.org/wikipedia/commons/e/ec/Stonks_meme_man.jpg",
+    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/stonks.jpeg",
     emoji:"💹"
   }
 ];
-const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"; // Imagen de respaldo para errores
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+const FRASES_XD = [
+  "Me siento como queso derretido siendo pizza 🍕",
+  "Hoy me levanté con ganas de correr... ¡pero solo en Minecraft! ⛏️🤣",
+  "Cuando veo memes mi IQ sube y baja a la velocidad de la luz! ⚡🧠",
+  "Estoy tan listo que ni Bob Esponja me alcanza 🧽⏰",
+  "¿Quién necesita lógica cuando tienes memes? 🦄🚀",
+  "Si apagas el WiFi los memes lloran 😭📳",
+  "Le hablé a mi planta y ahora es admin del grupo 🌱🧑‍💻",
+  "Explosión de memes en 3... 2... 1... 💥😎",
+  "Nivel de random: SÍ. Nivel de XD: 99+ 🤯😂"
+];
+function muestraFraseXD(num) {
+  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
+}
+function btnClickSound() {
+  let a = document.getElementById('audio-burbuja');
+  if (a && typeof a.play === 'function') { a.currentTime = 0; a.play(); }
+}
 function renderMemes() {
   document.getElementById('comentarios').style.display="none";
+  document.getElementById('pantalla-inicio').style.display="none";
   const grid = document.getElementById('memesGrid');
   grid.style.display="grid";
   grid.innerHTML = '';
@@ -331,7 +374,7 @@ function renderMemes() {
         <div class="meme-desc">${meme.descripcion}</div>
       </div>
       <div class="meme-actions">
-        <button class="btn-rickroll" onclick="window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
+        <button class="btn-rickroll" onclick="btnClickSound();window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
       </div>`;
     grid.appendChild(card);
   });
@@ -339,7 +382,7 @@ function renderMemes() {
 function scrollToMemes() {
   removeActiveNav();
   document.querySelectorAll('nav button')[1].classList.add('active');
-  document.getElementById('hero').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
   document.getElementById('comentarios').style.display = "none";
   document.getElementById('memesGrid').style.display = "grid";
   renderMemes();
@@ -348,15 +391,14 @@ function scrollToMemes() {
 function showHome() {
   removeActiveNav();
   document.querySelectorAll('nav button')[0].classList.add('active');
-  document.getElementById('hero').style.display = "block";
-  document.getElementById('memesGrid').style.display = "grid";
+  document.getElementById('pantalla-inicio').style.display = "block";
+  document.getElementById('memesGrid').style.display = "none";
   document.getElementById('comentarios').style.display = "none";
-  renderMemes();
 }
 function showContacto() {
   removeActiveNav();
   document.querySelectorAll('nav button')[3].classList.add('active');
-  document.getElementById('hero').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
   document.getElementById('memesGrid').style.display = "block";
   document.getElementById('comentarios').style.display = "none";
   document.getElementById('memesGrid').innerHTML = `
@@ -373,7 +415,7 @@ function showContacto() {
 function showComentarios() {
   removeActiveNav();
   document.querySelectorAll('nav button')[2].classList.add('active');
-  document.getElementById('hero').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
   document.getElementById('memesGrid').style.display = "none";
   document.getElementById('comentarios').style.display = "block";
   renderComentarios();
