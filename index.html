@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>zoevaloprueba - Zona de Memes 😎✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+<title>zoevaloprueba - Página de Memes 😎✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2&display=swap" rel="stylesheet">
 <style>
 :root {
   --main-grad: linear-gradient(135deg, #29F4FF 10%, #53E083 60%, #67A2FF 100%);
@@ -26,8 +26,9 @@ header {
   z-index: 10;
 }
 .logo {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 2.05em;
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2em;
+  font-weight: 900;
   letter-spacing: 3px;
   color: #fff;
   margin-bottom: 6px;
@@ -50,53 +51,53 @@ nav {
 nav button {
   background: #fff;
   color: #29F4FF;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Fredoka One', cursive;
   font-weight: 500;
   border: none;
   border-radius: 18px;
-  font-size: 1.1em;
-  padding: 7px 19px;
+  font-size: 1.12em;
+  padding: 8px 23px;
   cursor: pointer;
-  box-shadow: 0 2px 10px #53e08318;
   margin-bottom: 8px;
+  box-shadow: 0 2px 13px #53e08318;
   transition: 0.2s;
 }
 nav button.active,
 nav button:hover {
   background: var(--btn-grad);
-  color: #FFFFFF;
-  transform: scale(1.10);
+  color: #FFF;
+  transform: scale(1.09);
 }
 .hero {
   background: var(--main-grad);
-  padding: 23px 13px 18px 13px;
+  padding: 28px 13px 22px 13px;
   text-align: center;
   border-radius: 0 0 36px 36px;
   margin-bottom: 18px;
   color: #fff;
 }
 .hero h2 {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 2em;
-  margin: 0 0 16px 0;
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.28em;
+  margin: 0 0 18px 0;
   letter-spacing: 1px;
-  text-shadow: 2px 3px 12px #27ffb1a2;
+  text-shadow: 2px 3px 13px #27ffb1a2;
   display:inline-block;
 }
 .hero p {
-  font-size: 1.1em;
-  margin-bottom: 14px;
-  font-family: 'Luckiest Guy', cursive;
+  font-size: 1.22em;
+  margin-bottom: 20px;
+  font-family: 'Fredoka One', cursive;
   color: #fff;
 }
 .hero .hero-btn {
   background: var(--btn-grad);
   color: #fff;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Fredoka One', cursive;
   border: none;
   border-radius: 22px;
-  font-size: 1.1em;
-  padding: 11px 33px;
+  font-size: 1.13em;
+  padding: 13px 38px;
   font-weight: 700;
   cursor: pointer;
   margin-top:10px;
@@ -111,18 +112,18 @@ nav button:hover {
 .memes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 22px;
+  gap: 19px;
   max-width: 900px;
-  margin: 0 auto 28px auto;
+  margin: 0 auto 23px auto;
   padding: 0 11px;
 }
 .meme-card {
   background: var(--card-grad);
-  border-radius: 38px;
+  border-radius: 30px;
   box-shadow: 0 7px 30px 0 #2beed844;
   animation: fadeIn 0.8s;
   cursor: pointer;
-  min-height: 285px;
+  min-height: 260px;
   display: flex;
   flex-direction: column;
   border:5px solid #f3fff7c9;
@@ -136,9 +137,9 @@ nav button:hover {
 @keyframes fadeIn { 0% {opacity:0; transform: translateY(18px);} 100% {opacity:1;transform:none;} }
 .meme-img {
   width: 100%;
-  height: 155px;
+  height: 145px;
   object-fit: cover;
-  border-radius: 38px 38px 0 0;
+  border-radius: 30px 30px 0 0;
   border-bottom: 6px solid #53E083;
   background: #e0fff8;
   display:block;
@@ -146,15 +147,15 @@ nav button:hover {
 }
 .meme-content {
   flex: 1;
-  padding: 14px 16px 7px 16px;
+  padding: 12px 15px 4px 15px;
   text-align:left;
 }
 .meme-title {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Fredoka One', cursive;
   font-weight: 900;
-  font-size: 1.125em;
+  font-size: 1.08em;
   color: #21b7a6;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   letter-spacing: 1px;
   display:flex;
   align-items:center;
@@ -163,7 +164,7 @@ nav button:hover {
 .meme-desc {
   font-size: 1em;
   color: #17b16b;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Baloo 2', cursive;
   margin-bottom:6px;
 }
 .emoji-huge { font-size:1.35em; }
@@ -176,8 +177,8 @@ nav button:hover {
 .btn-rickroll {
   background: #29F4FF;
   color: #fff;
-  font-family: 'Luckiest Guy', cursive;
-  font-size:1.05em;
+  font-family: 'Fredoka One', cursive;
+  font-size:1em;
   font-weight:700;
   border:none;
   border-radius:20px;
@@ -195,12 +196,12 @@ footer {
   background: linear-gradient(90deg,#1fe7f1 30%, #53E083 100%);
   color: #fff;
   text-align: center;
-  font-size: 1.1em;
-  padding: 20px 11px 16px 11px;
-  margin-top: 33px;
-  border-radius: 31px 31px 0 0;
-  font-family: 'Luckiest Guy', cursive;
-  box-shadow:0 -11px 25px #53E08348;
+  font-size: 1.09em;
+  padding: 18px 11px 13px 11px;
+  margin-top: 29px;
+  border-radius: 29px 29px 0 0;
+  font-family: 'Fredoka One', cursive;
+  box-shadow:0 -11px 23px #53E08348;
 }
 footer .social-icons {
   margin: 9px 0;
@@ -216,12 +217,54 @@ footer .social-icons a:hover {
   transform:scale(1.19);
   color:#53E083;
 }
-@media (max-width: 650px) {
-  .logo,.hero h2 {font-size: 1.02em;}
-  nav button {font-size:0.97em;padding:6px 12px;}
-  .meme-card {min-height:170px;}
+.comentarios-btn {
+  background: var(--btn-grad);
+  color: #fff;
+  font-family: 'Fredoka One', cursive;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.13em;
+  padding: 12px 34px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom:13px;
+  box-shadow: 0 2px 10px #29F4FF44;
+  transition:0.20s;
 }
-
+.comentarios-btn:hover {
+  background: #74ffc1;
+  color: #067d96;
+  transform: scale(1.07);
+}
+.comentarios-section {
+  max-width:520px; margin:0 auto 20px auto; background:#e5fff2cc; border-radius:22px; padding:22px 18px;
+  box-shadow:0 3px 11px #29f4ff33;
+}
+.comentarios-section h2 {
+  font-family:'Fredoka One',cursive; color:#21b7a6;
+}
+form textarea {
+  width:90%; min-height:44px; border-radius:13px; border:2px solid #29F4FF; font-size:1.05em; font-family:'Baloo 2';
+  margin-bottom:13px; padding:8px;
+}
+form button {
+  background: #29F4FF;
+  color:#fff; font-family:'Fredoka One';font-size:1em;border:none;border-radius:15px;padding:9px 25px;cursor:pointer;
+  margin-bottom:14px;
+}
+.comentario {
+  color:#24a16c; margin-bottom:8px; border-radius:14px; background:#fff; padding:11px 16px;
+  font-size:1.04em; font-family:'Baloo 2';
+  box-shadow:0 1px 4px #53E08323;
+}
+.com-emoji {
+  font-size:1.2em; margin-right:5px;
+}
+@media (max-width: 650px) {
+  .logo,.hero h2 {font-size: 1.03em;}
+  nav button {font-size:0.94em;padding:6px 12px;}
+  .meme-card {min-height:160px;}
+}
 </style>
 </head>
 <body>
@@ -230,16 +273,21 @@ footer .social-icons a:hover {
   <nav>
     <button class="active" onclick="showHome()">🏠 Inicio</button>
     <button onclick="scrollToMemes()">😂 Memes</button>
+    <button onclick="showComentarios()">💬 Comentarios</button>
     <button onclick="showContacto()">📧 Contacto</button>
   </nav>
 </header>
 <div class="hero" id="hero">
   <h2>¡Bienvenido a la Zona de Memes! 🦄🥳🚀</h2>
-  <p>Elige tu meme favorito y prepárate para una sorpresa...<br>¡Sitio super cool, colorido y lleno de emojis para chicos y grandes! 🐸🧠🥇💥</p>
+  <p>Página de prueba para ver memes. 😍😂🥇  
+    Elige tu meme favorito y prepárate para una sorpresa...<br>
+    ¡Sitio súper cool, colorido y lleno de emojis para chicos y grandes! 🐸🧠🥇💥🎉</p>
   <button class="hero-btn" onclick="scrollToMemes()">Ver Memes 🎉</button>
+        <button class="comentarios-btn" onclick="showComentarios()">💬 Ir a Comentarios</button>
 </div>
 
 <div class="memes-grid" id="memesGrid"></div>
+<div id="comentarios" style="display:none"></div>
 
 <footer>
   <div class="social-icons">
@@ -265,7 +313,9 @@ const MEMES = [
 // URL RickRoll
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 function renderMemes() {
+  document.getElementById('comentarios').style.display="none";
   const grid = document.getElementById('memesGrid');
+  grid.style.display="grid";
   grid.innerHTML = '';
   MEMES.forEach(meme => {
     const card = document.createElement('div');
@@ -283,10 +333,10 @@ function renderMemes() {
     grid.appendChild(card);
   });
 }
-renderMemes();
 function showHome() {
   document.getElementById('hero').style.display = "block";
   document.getElementById('memesGrid').style.display = "grid";
+  document.getElementById('comentarios').style.display = "none";
   removeActiveNav();
   document.querySelectorAll('nav button')[0].classList.add('active');
   renderMemes();
@@ -294,12 +344,13 @@ function showHome() {
 function showContacto() {
   document.getElementById('hero').style.display = "none";
   document.getElementById('memesGrid').style.display = "block";
+  document.getElementById('comentarios').style.display = "none";
   removeActiveNav();
-  document.querySelectorAll('nav button')[2].classList.add('active');
+  document.querySelectorAll('nav button')[3].classList.add('active');
   document.getElementById('memesGrid').innerHTML = `
     <div style="padding:27px 16px 36px 16px;text-align:center;">
-    <h2 style="font-family:Luckiest Guy,cursive;color:#1ca87e;font-size:1.33em">Contacto &amp; Newsletter 💌</h2>
-    <p>¿Ideas, memes o saludos? <br> ¡Escribe a: <b>info@zoevaloprueba.com</b> 📧</p>
+    <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.33em">Contacto &amp; Newsletter 💌</h2>
+    <p>¿Ideas, memes o saludos? <br> Escribe a: <b>zoevaloprueba@gmail.com</b> 📧</p>
     <form style="margin:18px auto;max-width:315px;">
       <input type="email" placeholder="Tu email para memes 🔥" style="padding:11px 14px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:9px;">
       <button type="submit" style="padding:11px 22px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
@@ -307,17 +358,58 @@ function showContacto() {
     <div style="font-size:2em">💚🦄🎉🤣😂🍀</div>
     </div>`;
 }
+function showComentarios() {
+  document.getElementById('hero').style.display = "none";
+  document.getElementById('memesGrid').style.display = "none";
+  document.getElementById('comentarios').style.display = "block";
+  removeActiveNav();
+  document.querySelectorAll('nav button')[2].classList.add('active');
+  renderComentarios();
+}
 function removeActiveNav() {
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
 }
-function scrollToMemes() {
-  document.getElementById('hero').style.display = "none";
-  document.getElementById('memesGrid').style.display = "grid";
-  removeActiveNav();
-  document.querySelectorAll('nav button')[1].classList.add('active');
-  renderMemes();
-  window.scrollTo({ top: document.getElementById('memesGrid').offsetTop-22, behavior: 'smooth' });
+
+// Comentarios: guardados y vistos en localStorage
+function renderComentarios() {
+  let array = [];
+  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
+  const comDiv = document.getElementById('comentarios');
+  comDiv.innerHTML = `
+    <div class="comentarios-section">
+      <h2>💬 Comentarios públicos de usuarios</h2>
+      <form onsubmit="guardarComentario(event)">
+        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
+        <button type="submit">¡Enviar comentario! 🚀</button>
+      </form>
+      <div id="comentariosList" style="margin-top:19px"></div>
+    </div>`;
+  mostrarComentarios(array);
 }
+function guardarComentario(e) {
+  e.preventDefault();
+  let array = [];
+  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
+  let texto = document.getElementById('comentarioText').value.trim();
+  if (texto.length<1) return;
+  // emoji aleatorio
+  const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
+  let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
+  array.unshift({mensaje:texto,emoji});
+  localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
+  document.getElementById('comentarioText').value = "";
+  mostrarComentarios(array);
+}
+function mostrarComentarios(array) {
+  const list = document.getElementById('comentariosList');
+  if (!array || array.length == 0) {
+    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
+    return;
+  }
+  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
+}
+function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
+scrollToMemes();
 </script>
 </body>
 </html>
