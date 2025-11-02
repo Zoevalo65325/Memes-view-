@@ -238,17 +238,13 @@ form button {
   font-size:1.04em; font-family:'Baloo 2';
   box-shadow:0 1px 4px #53E08323;
 }
-.com-emoji {
-  font-size:1.2em; margin-right:5px;
-}
+.com-emoji { font-size:1.2em; margin-right:5px; }
 @media (max-width: 650px) {
   .logo,.hero h2 {font-size: 1.03em;}
   nav button {font-size:0.94em;padding:6px 12px;}
   .meme-card {min-height:160px;}
 }
 </style>
-<!-- Google reCAPTCHA v2 -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <header>
@@ -279,7 +275,6 @@ form button {
   <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
 </footer>
 <script>
-// Memes con imágenes JPG/PNG de imgflip (compatibles)
 const MEMES = [
   { titulo:"Chill Guy 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://i.imgflip.com/6r2t6j.jpg", emoji:"😌" },
   { titulo:"Drake Aprobando 👍", descripcion:"¡Sí, así sí! 🤩", img:"https://i.imgflip.com/30b1gx.jpg", emoji:"👍" },
@@ -289,7 +284,7 @@ const MEMES = [
   { titulo:"SpongeBob Mock 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://i.imgflip.com/58mvy7.jpg", emoji:"🤪" },
   { titulo:"Stonks 💹", descripcion:"Dinero para todos 🤑", img:"https://i.imgflip.com/3h5w3b.jpg", emoji:"💹" }
 ];
-// URL RickRoll
+const MEME_BACKUP = "https://i.imgur.com/W5bIY5q.png"; // Imagen de respaldo para errores
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 function renderMemes() {
   document.getElementById('comentarios').style.display="none";
@@ -301,7 +296,7 @@ function renderMemes() {
     card.className = 'meme-card';
     card.onclick = ()=>window.open(RICKROLL_URL,'_blank');
     card.innerHTML = `
-      <img class="meme-img" src="${meme.img}" alt="${meme.titulo}" />
+      <img class="meme-img" src="${meme.img}" alt="${meme.titulo}" onerror="this.src='${MEME_BACKUP}'" />
       <div class="meme-content">
         <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${meme.titulo}</div>
         <div class="meme-desc">${meme.descripcion}</div>
@@ -312,20 +307,29 @@ function renderMemes() {
     grid.appendChild(card);
   });
 }
+function scrollToMemes() {
+  removeActiveNav();
+  document.querySelectorAll('nav button')[1].classList.add('active');
+  document.getElementById('hero').style.display = "none";
+  document.getElementById('comentarios').style.display = "none";
+  document.getElementById('memesGrid').style.display = "grid";
+  renderMemes();
+  window.scrollTo({ top: document.getElementById('memesGrid').offsetTop-22, behavior: 'smooth' });
+}
 function showHome() {
+  removeActiveNav();
+  document.querySelectorAll('nav button')[0].classList.add('active');
   document.getElementById('hero').style.display = "block";
   document.getElementById('memesGrid').style.display = "grid";
   document.getElementById('comentarios').style.display = "none";
-  removeActiveNav();
-  document.querySelectorAll('nav button')[0].classList.add('active');
   renderMemes();
 }
 function showContacto() {
+  removeActiveNav();
+  document.querySelectorAll('nav button')[3].classList.add('active');
   document.getElementById('hero').style.display = "none";
   document.getElementById('memesGrid').style.display = "block";
   document.getElementById('comentarios').style.display = "none";
-  removeActiveNav();
-  document.querySelectorAll('nav button')[3].classList.add('active');
   document.getElementById('memesGrid').innerHTML = `
     <div style="padding:27px 16px 36px 16px;text-align:center;">
     <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.33em">Contacto &amp; Newsletter 💌</h2>
@@ -338,17 +342,16 @@ function showContacto() {
     </div>`;
 }
 function showComentarios() {
+  removeActiveNav();
+  document.querySelectorAll('nav button')[2].classList.add('active');
   document.getElementById('hero').style.display = "none";
   document.getElementById('memesGrid').style.display = "none";
   document.getElementById('comentarios').style.display = "block";
-  removeActiveNav();
-  document.querySelectorAll('nav button')[2].classList.add('active');
   renderComentarios();
 }
 function removeActiveNav() {
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
 }
-// Comentarios con reCAPTCHA
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
@@ -358,7 +361,6 @@ function renderComentarios() {
       <h2>💬 Comentarios públicos de usuarios</h2>
       <form id="comentarioForm" onsubmit="guardarComentario(event)">
         <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
-        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
         <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
       <div id="comentariosList" style="margin-top:19px"></div>
@@ -367,26 +369,17 @@ function renderComentarios() {
 }
 function guardarComentario(e) {
   e.preventDefault();
-  let valid = false;
-  if (typeof grecaptcha !== "undefined") {
-    valid = grecaptcha.getResponse().length > 0;
-  }
-  if(!valid) {
-    alert("Verifica el captcha para comentar (no robots)!");
-    return;
-  }
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
   let texto = document.getElementById('comentarioText').value.trim();
-  if (texto.length<1) return;
-  // emoji aleatorio
-  const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
-  let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-  array.unshift({mensaje:texto,emoji});
-  localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
-  document.getElementById('comentarioText').value = "";
-  if (typeof grecaptcha !== "undefined") grecaptcha.reset();
-  mostrarComentarios(array);
+  if (texto.length<1) alert("Coloca tu comentario 😎"); else {
+    const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
+    let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
+    array.unshift({mensaje:texto,emoji});
+    localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
+    document.getElementById('comentarioText').value = "";
+    mostrarComentarios(array);
+  }
 }
 function mostrarComentarios(array) {
   const list = document.getElementById('comentariosList');
@@ -397,7 +390,7 @@ function mostrarComentarios(array) {
   list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
 }
 function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
-scrollToMemes();
+showHome();
 </script>
 </body>
 </html>
