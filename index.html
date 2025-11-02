@@ -217,25 +217,6 @@ footer .social-icons a:hover {
   transform:scale(1.19);
   color:#53E083;
 }
-.comentarios-btn {
-  background: var(--btn-grad);
-  color: #fff;
-  font-family: 'Fredoka One', cursive;
-  border: none;
-  border-radius: 20px;
-  font-size: 1.13em;
-  padding: 12px 34px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-bottom:13px;
-  box-shadow: 0 2px 10px #29F4FF44;
-  transition:0.20s;
-}
-.comentarios-btn:hover {
-  background: #74ffc1;
-  color: #067d96;
-  transform: scale(1.07);
-}
 .comentarios-section {
   max-width:520px; margin:0 auto 20px auto; background:#e5fff2cc; border-radius:22px; padding:22px 18px;
   box-shadow:0 3px 11px #29f4ff33;
@@ -266,6 +247,8 @@ form button {
   .meme-card {min-height:160px;}
 }
 </style>
+<!-- Google reCAPTCHA v2 -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <header>
@@ -281,14 +264,11 @@ form button {
   <h2>¡Bienvenido a la Zona de Memes! 🦄🥳🚀</h2>
   <p>Página de prueba para ver memes. 😍😂🥇  
     Elige tu meme favorito y prepárate para una sorpresa...<br>
-    ¡Sitio súper cool, colorido y lleno de emojis para chicos y grandes! 🐸🧠🥇💥🎉</p>
+    ¡Sitio súper cool, colorido y lleno de emojis! 🐸🧠🥇💥🎉</p>
   <button class="hero-btn" onclick="scrollToMemes()">Ver Memes 🎉</button>
-        <button class="comentarios-btn" onclick="showComentarios()">💬 Ir a Comentarios</button>
 </div>
-
 <div class="memes-grid" id="memesGrid"></div>
 <div id="comentarios" style="display:none"></div>
-
 <footer>
   <div class="social-icons">
     <a href="#">🌈</a>
@@ -298,15 +278,14 @@ form button {
   </div>
   <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
 </footer>
-
 <script>
-// Memes con imágenes válidas y emojis
+// Memes con imágenes JPG/PNG de imgflip (compatibles)
 const MEMES = [
   { titulo:"Chill Guy 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://i.imgflip.com/6r2t6j.jpg", emoji:"😌" },
   { titulo:"Drake Aprobando 👍", descripcion:"¡Sí, así sí! 🤩", img:"https://i.imgflip.com/30b1gx.jpg", emoji:"👍" },
-  { titulo:"Pikachu Sorprendido 😱", descripcion:"¡No me lo esperaba! ⚡", img:"https://media.tenor.com/Y0NAxZrjOpwAAAAC/pikachu-surprised.gif", emoji:"⚡" },
+  { titulo:"Pikachu Sorprendido 😱", descripcion:"¡No me lo esperaba! ⚡", img:"https://i.imgflip.com/2kbn1e.jpg", emoji:"⚡" },
   { titulo:"Gato Meme 🐱", descripcion:"¿Miau dices? 😺", img:"https://i.imgflip.com/345v97.jpg", emoji:"😺" },
-  { titulo:"Patrick Malvado 😏", descripcion:"Risa traviesa 🦑", img:"https://media.tenor.com/2x0OdvIScLAAAAAC/patricio-patrick.gif", emoji:"😏" },
+  { titulo:"Patrick Malvado 😏", descripcion:"Risa traviesa 🦑", img:"https://i.imgflip.com/49ffl0.jpg", emoji:"😏" },
   { titulo:"SpongeBob Mock 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://i.imgflip.com/58mvy7.jpg", emoji:"🤪" },
   { titulo:"Stonks 💹", descripcion:"Dinero para todos 🤑", img:"https://i.imgflip.com/3h5w3b.jpg", emoji:"💹" }
 ];
@@ -369,8 +348,7 @@ function showComentarios() {
 function removeActiveNav() {
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
 }
-
-// Comentarios: guardados y vistos en localStorage
+// Comentarios con reCAPTCHA
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
@@ -378,8 +356,9 @@ function renderComentarios() {
   comDiv.innerHTML = `
     <div class="comentarios-section">
       <h2>💬 Comentarios públicos de usuarios</h2>
-      <form onsubmit="guardarComentario(event)">
+      <form id="comentarioForm" onsubmit="guardarComentario(event)">
         <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
+        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
         <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
       <div id="comentariosList" style="margin-top:19px"></div>
@@ -388,6 +367,14 @@ function renderComentarios() {
 }
 function guardarComentario(e) {
   e.preventDefault();
+  let valid = false;
+  if (typeof grecaptcha !== "undefined") {
+    valid = grecaptcha.getResponse().length > 0;
+  }
+  if(!valid) {
+    alert("Verifica el captcha para comentar (no robots)!");
+    return;
+  }
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
   let texto = document.getElementById('comentarioText').value.trim();
@@ -398,6 +385,7 @@ function guardarComentario(e) {
   array.unshift({mensaje:texto,emoji});
   localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
   document.getElementById('comentarioText').value = "";
+  if (typeof grecaptcha !== "undefined") grecaptcha.reset();
   mostrarComentarios(array);
 }
 function mostrarComentarios(array) {
