@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Meme Zone</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Red+ressed&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
   body {
     margin: 0;
     font-family: 'Redressed', cursive;
@@ -100,6 +100,7 @@
   .meme-title {
     font-size: 1.2em;
     margin-bottom: 8px;
+    color: #222;
   }
   .category {
     display: inline-block;
@@ -117,6 +118,7 @@
   }
   .likes {
     font-size: 0.9em;
+    color: #F14D1B;
   }
   .share-btn {
     background: none;
@@ -179,7 +181,7 @@
 </div>
 
 <div class="memes-container" id="memes">
-  <!-- Aquí se insertarán los memes dinámicamente -->
+  <!-- Los memes aparecen aquí -->
 </div>
 
 <footer>
@@ -197,24 +199,51 @@ const memes = [
     id: 1,
     title: "Chill Guy",
     category: "Viral",
-    image: "https://images.unsplash.com/photo-1614632377566-134d0859f1b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://i.imgflip.com/6r2t6j.jpg",
     likes: 120
   },
   {
     id: 2,
     title: "100 Men vs 1 Gorilla",
     category: "Debate",
-    image: "https://images.unsplash.com/photo-1617320052732-9c935a281aad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://i.imgflip.com/7jajqu.jpg",
     likes: 98
   },
   {
     id: 3,
     title: "Woman Yelling at Cat",
     category: "Clásico",
-    image: "https://images.unsplash.com/photo-1648831354485-94c11a57c6d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://i.imgflip.com/345v97.jpg",
     likes: 250
+  },
+  {
+    id: 4,
+    title: "Drake Hotline Bling",
+    category: "Clásico",
+    image: "https://i.imgflip.com/30b1gx.jpg",
+    likes: 230
+  },
+  {
+    id: 5,
+    title: "Distracted Boyfriend",
+    category: "Clásico",
+    image: "https://i.imgflip.com/1ur9b0.jpg",
+    likes: 210
+  },
+  {
+    id: 6,
+    title: "Surprised Pikachu",
+    category: "Clásico",
+    image: "https://i.imgflip.com/2kbn1e.jpg",
+    likes: 190
+  },
+  {
+    id: 7,
+    title: "Pepe el Camarón Rey",
+    category: "Storytime",
+    image: "https://i.imgflip.com/4acd7j.png",
+    likes: 130
   }
-  // Se pueden agregar más memes aquí
 ];
 
 const container = document.getElementById('memes');
@@ -230,7 +259,9 @@ memes.forEach(meme => {
       <div class="category" style="background-color: ${
         meme.category === 'Viral' ? '#F14D1B' :
         meme.category === 'Clásico' ? '#F9D210' :
-        '#83181C'
+        meme.category === 'Debate' ? '#FF6B9D' :
+        meme.category === 'Storytime' ? '#83181C' :
+        '#7E8285'
       };">${meme.category}</div>
       <div class="actions">
         <div class="likes">👍 ${meme.likes}</div>
