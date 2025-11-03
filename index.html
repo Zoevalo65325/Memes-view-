@@ -3,85 +3,132 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>zoevaloprueba - Página de Memes 😎✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+<title>Zoevaloprueba - Memes épicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --main-grad: linear-gradient(135deg, #29F4FF 10%, #53E083 60%, #67A2FF 100%);
-}
 body {
-  margin: 0;
-  background: var(--main-grad);
-  min-height: 100vh;
+  margin:0;
+  background: #0d1023 url('https://www.transparenttextures.com/patterns/stardust.png');
+  min-height:100vh;
 }
-header {
-  text-align: center;
-  background: var(--main-grad);
-  box-shadow: 0 8px 28px rgba(60, 205, 212, 0.07);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding-bottom: 0;
+
+/* --- CABECERA TIPO PÓSTER --- */
+.epic-title-poster {
+  position: relative;
+  width: 100vw;
+  max-width: 900px;
+  margin: 0 auto 0 auto;
+  min-height: 315px;
+  padding-top:90px;
+  text-align:center;
+  background:transparent;
+  overflow:visible;
 }
-.logo {
-  font-family: 'Bangers', Impact, sans-serif;
-  font-size: clamp(2.7em, 8vw, 5em);
-  font-weight: 900;
-  margin-bottom: 3px;
-  margin-top: 1.2em;
-  letter-spacing: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.poster-bg-deco {
+  position: absolute; left: 50%; top: 66px; width: 460px; height: 230px;
+  transform: translateX(-50%);
+  z-index:1;
+  background-image:
+    repeating-conic-gradient(from 0deg, #ffd553 0 14%, #ff70d3 14% 32%, #25e0f2 34% 50%, #fff 50% 65%, #21ffb3 65% 74%, #303bbf 74% 100%);
+  background-size:180% 180%;
+  filter: blur(8px) brightness(1.16) opacity(.65) saturate(1.8);
+  border-radius: 50%;
+  animation: bgAuraSpin 7.5s linear infinite alternate;
+  box-shadow: 0 0 70px 22px #09c7f722;
 }
-.logo span {
+@keyframes bgAuraSpin {100%{background-position:180% 0;}}
+.poster-title {
+  position:relative;
+  z-index:3;
+  font-family:'Luckiest Guy','Bangers',Impact,sans-serif;
+  font-size:clamp(2.3em,9vw,5.8em);
+  color:#ff31a8;
+  letter-spacing:.06em;
+  font-weight:900;
+  text-transform:uppercase;
+  background:rgba(0,0,0,0.19);
+  border-radius:28px;
+  border:7px solid #1c172e;
+  padding:18px 33px 22px 33px;
   display:inline-block;
-}
-.logo .color1 { color: #25e0f3; }
-.logo .color2 { color: #17ed9e; }
-.logo .color3 { color: #ffd553; }
-.logo .color4 { color: #fa6a49; }
-.logo .color5 { color: #f557cb; }
-.logo .shadow {
+  box-shadow: 0 7px 38px #1ff5e929, 0 0px 14px #303bbf50;
+  margin:0 auto 10px auto;
   text-shadow:
-    0 3px 16px #183b4a,
-    0 1px 2px #fff,
-    1px 3px 0px #242a4380;
+    0 3px 0 #fff373,
+    0 8px 28px #1ff6b3a9,
+    3px 3px 12px #ff31a892;
+  animation: breatheTitle 4.2s alternate ease-in-out infinite;
 }
-.logo .emoji { margin: 0 0.17em; font-size:0.6em;}
-@media (max-width:650px) {
-  .logo{font-size:2em;}
+@keyframes breatheTitle { 50%{transform:scale(1.036);} }
+.poster-title span {
+  display:inline-block;
+  font-size:1em;
+  animation:popTitle .6s cubic-bezier(.6,-1.0,.3,2.1) alternate infinite;
+  margin:0 1.9px;
 }
+.poster-title span:nth-child(1) {color:#ff48c4; animation-delay:.04s;}
+.poster-title span:nth-child(2) {color:#21e75a; animation-delay:.11s;}
+.poster-title span:nth-child(3) {color:#fff373; animation-delay:.16s;}
+.poster-title span:nth-child(4) {color:#21ffb3; animation-delay:.18s;}
+.poster-title span:nth-child(5) {color:#25e0f2; animation-delay:.24s;}
+.poster-title span:nth-child(6) {color:#ff31a8; animation-delay:.29s;}
+.poster-title span:nth-child(7) {color:#fff373; animation-delay:.34s;}
+.poster-title span:nth-child(8) {color:#21e75a; animation-delay:.38s;}
+.poster-title span:nth-child(9) {color:#21ffb3; animation-delay:.44s;}
+.poster-title span:nth-child(10){color:#25e0f2; animation-delay:.52s;}
+.poster-title span:nth-child(11){color:#ff48c4; animation-delay:.59s;}
+.poster-title span:nth-child(12){color:#21e75a; animation-delay:.07s;}
+.poster-title span:nth-child(13){color:#ff31a8; animation-delay:.14s;}
+@keyframes popTitle {45%{transform:scale(1.14) rotate(-2deg);}100%{transform:scale(0.97) rotate(2deg);} }
+.poster-sticker {
+  position: absolute;
+  font-size:2em;
+  z-index:3;
+  pointer-events:none;
+  user-select:none;
+  filter: drop-shadow(0 5px 22px #fff3) brightness(1.14);
+  animation: flotarSticker 8s ease-in-out infinite alternate;
+}
+@keyframes flotarSticker {60%{transform:translateY(-18px) scale(1.13);}100%{transform:translateY(2px) scale(0.99);}}
+@media (max-width:700px){
+  .epic-title-poster{min-height:100px;padding-top:30px;}
+  .poster-bg-deco{width:160px;height:81px;}
+  .poster-title{padding:5px 6px 6px 8px;font-size:1.22em;}
+  .poster-sticker{font-size:1.09em;}
+}
+
+/* ------ NAV & secciónes ------- */
 nav {
   display: flex;
   justify-content: center;
-  gap: 13px;
+  gap: 11px;
   flex-wrap: wrap;
-  margin-bottom: 11px;
-  margin-top: 8px;
+  background:rgba(13,16,35,0.03);
+  margin-bottom: 18px;
+  margin-top: 0px;
   position: relative;
 }
 nav button {
   background: #fff;
   color: #29F4FF;
   font-family: 'Baloo 2', cursive;
-  font-size: 1.13em;
+  font-size: 1.07em;
   font-weight: 600;
   border: none;
   border-radius: 14px;
-  padding: 9px 24px;
+  padding: 9px 20px;
   cursor: pointer;
-  box-shadow: 0 2px 7px #53e08311;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   margin-top: 3px;
-  transition: 0.15s;
+  transition: 0.13s;
   position: relative;
 }
 nav button.active,
 nav button:hover {
-  background: #23e2bb;
-  color: #FFF;
-  transform: scale(1.08);
+  background: #21e75a;
+  color: #fff;
+  transform: scale(1.052);
 }
 nav button:focus { outline: none;}
 nav button#notocar-btn {
@@ -89,38 +136,34 @@ nav button#notocar-btn {
   color: #fff;
   font-weight: bold;
   box-shadow: 0 2px 11px #fa6a49ab;
-  border: none;
 }
 
-.fade-out { animation: fadeOutSection 0.45s;}
-@keyframes fadeOutSection { 0% {opacity:1;} 100% {opacity:0; transform:scale(0.98);} }
-.fade-in { animation: fadeInSection 0.45s;}
-@keyframes fadeInSection { 0% {opacity:0; transform:scale(1.04);} 100% {opacity:1; transform:none;} }
+/* ------ MEMES, XD, COMENTARIOS ------ */
 #pantalla-inicio {
-  padding: 30px 9px 22px 9px;
+  padding: 26px 7px 17px 7px;
   max-width: 430px;
-  margin: 30px auto 0 auto;
-  background: var(--main-grad);
+  margin: 18px auto 0 auto;
+  background: var(--main-grad,#1f59be19);
   border-radius: 20px;
-  box-shadow: 0 7px 23px #53e0831c;
+  box-shadow: 0 7px 23px #53e0832c;
   transition: 0.4s;
 }
 .pantalla-teclado {
   font-family:'Baloo 2',cursive;
-  font-size:2.05em;
+  font-size:2em;
   color:#2cd0ba;
-  margin-bottom:18px;
+  margin-bottom:16px;
   text-align:center;
 }
 .num-teclado {
   display: grid;
   grid-template-columns: repeat(3,78px);
-  gap: 26px;
+  gap: 23px;
   justify-content: center;
-  margin: 28px 0 9px 0;
+  margin: 18px 0 9px 0;
 }
 .num-teclado button {
-  font-size:2.1em;
+  font-size:2em;
   font-family:'Baloo 2',cursive;
   background:#fff;
   color:#2ae97e;
@@ -137,20 +180,20 @@ nav button#notocar-btn {
   background: #25e0f3;
   color: #fff;
   border: 2.5px solid #23e2bb;
-  transform: scale(1.11);
+  transform: scale(1.09);
 }
 .xd-frase {
-  min-height: 42px;
-  margin-top: 17px;
+  min-height: 37px;
+  margin-top: 13px;
   font-family: 'Baloo 2', cursive;
-  font-size: 1.1em;
+  font-size: 1.11em;
   text-align: center;
   color: #18697d;
   font-weight: bold;
   background: #cbfdeec9;
-  border-radius: 13px;
-  padding: 12px 16px;
-  box-shadow: 0 2px 8px #aafde415;
+  border-radius: 10px;
+  padding: 12px 15px;
+  box-shadow: 0 2px 7px #aafde415;
   animation: fraseXDfade 0.5s;
 }
 @keyframes fraseXDfade {from {opacity:0; transform:translateY(14px);}to{opacity:1;transform:none;}}
@@ -164,42 +207,42 @@ nav button#notocar-btn {
   padding: 0 11px;
 }
 .meme-card {
-  background: var(--main-grad);
-  border-radius: 30px;
-  box-shadow: 0 7px 30px 0 #2beed844;
+  background:linear-gradient(129deg,#dbfff7 50%,#e5f2fc 90%);
+  border-radius: 28px;
+  box-shadow: 0 7px 30px 0 #2beed81a;
   animation: fadeIn 0.7s;
   cursor: pointer;
-  min-height: 260px;
+  min-height: 244px;
   display: flex;
   flex-direction: column;
-  border:5px solid #f3fff7c9;
+  border:5px solid #f3fafd;
   position:relative;
   transition: box-shadow 0.16s, transform 0.13s;
 }
 .meme-card:hover {
-  transform: scale(1.045) rotate(-2deg);
-  box-shadow: 0 22px 54px 0 #33e0ff71;
+  transform: scale(1.042) rotate(-1deg);
+  box-shadow: 0 12px 32px 0 #33e0ff71;
 }
-@keyframes fadeIn { 0% {opacity:0; transform: translateY(18px);} 100% {opacity:1;transform:none;} }
+@keyframes fadeIn { 0% {opacity:0; transform: translateY(13px);} 100% {opacity:1;transform:none;} }
 .meme-img {
   width: 100%;
-  height: 170px;
+  height: 156px;
   object-fit: cover;
-  border-radius: 30px 30px 0 0;
-  border-bottom: 6px solid #53E083;
+  border-radius: 28px 28px 0 0;
+  border-bottom: 5px solid #53E083;
   background: #e0fff8;
   display:block;
   margin-bottom: -8px;
 }
 .meme-content {
   flex: 1;
-  padding: 12px 15px 4px 15px;
+  padding: 10px 13px 3px 13px;
   text-align:left;
 }
 .meme-title {
   font-family: 'Baloo 2', cursive;
   font-weight: 900;
-  font-size: 1.14em;
+  font-size: 1.09em;
   color: #21b7a6;
   margin-bottom: 4px;
   letter-spacing: 1px;
@@ -208,17 +251,17 @@ nav button#notocar-btn {
   gap:8px;
 }
 .meme-desc {
-  font-size: 1em;
-  color: #17b16b;
+  font-size: 0.97em;
+  color: #17875a;
   font-family: 'Baloo 2', cursive;
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
-.emoji-huge { font-size:1.29em; }
+.emoji-huge { font-size:1.2em; }
 .meme-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 7px 19px 13px 19px;
+  padding: 4px 17px 8px 17px;
 }
 .btn-rickroll {
   background: #29F4FF;
@@ -227,8 +270,8 @@ nav button#notocar-btn {
   font-size:1em;
   font-weight:700;
   border:none;
-  border-radius:20px;
-  padding:8px 22px;
+  border-radius:17px;
+  padding:8px 16px;
   box-shadow:0 4px 11px #29F4FF33;
   cursor:pointer;
   transition:0.12s;
@@ -236,60 +279,63 @@ nav button#notocar-btn {
 .btn-rickroll:hover {
   background: #53E083;
   color: #183010;
-  transform:scale(1.10);
+  transform:scale(1.06);
 }
 footer {
-  background: linear-gradient(90deg,#1fe7f1 30%, #53E083 100%);
+  background: linear-gradient(96deg,#1fe7f1 68%, #53E083 100%);
   color: #fff;
   text-align: center;
-  font-size: 1.09em;
-  padding: 15px 10px 12px 10px;
-  margin-top: 23px;
-  border-radius: 23px 23px 0 0;
+  font-size: 1.07em;
+  padding: 9px 10px 10px 10px;
+  margin-top: 18px;
+  border-radius: 18px 18px 0 0;
   font-family: 'Baloo 2', cursive;
-  box-shadow:0 -11px 23px #53E08322;
+  box-shadow:0 -8px 20px #53E08317;
 }
 footer .social-icons {
-  margin: 9px 0;
+  margin: 4px 0 8px 0;
 }
 footer .social-icons a {
   display: inline-block;
-  margin: 0 9px;
-  font-size: 1.13em;
+  margin: 0 7px;
+  font-size: 1.05em;
   color: #fafffd;
   transition: transform .11s;
 }
 footer .social-icons a:hover {
-  transform:scale(1.14);
+  transform:scale(1.13);
   color:#53E083;
 }
 .comentarios-section {
-  max-width:520px; margin:0 auto 20px auto; background:#e5fff2cc; border-radius:22px; padding:19px 15px;
-  box-shadow:0 3px 11px #29f4ff17;
+  max-width:510px; margin:0 auto 17px auto; background:#e5fff2cc; border-radius:17px; padding:16px 11px;
+  box-shadow:0 3px 8px #29f4ff0a;
 }
 .comentarios-section h2 {
   font-family:'Baloo 2',cursive; color:#21b7a6;
 }
 form textarea {
-  width:90%; min-height:44px; border-radius:13px; border:2px solid #29F4FF; font-size:1.03em; font-family:'Baloo 2';
-  margin-bottom:13px; padding:8px;
+  width:90%; min-height:34px; border-radius:11px; border:2px solid #29F4FF; font-size:1em; font-family:'Baloo 2';
+  margin-bottom:10px; padding:8px;
 }
 form button {
   background: #29F4FF;
-  color:#fff; font-family:'Baloo 2';font-size:1em;border:none;border-radius:15px;padding:9px 25px;cursor:pointer;
-  margin-bottom:13px;
+  color:#fff; font-family:'Baloo 2';font-size:1em;border:none;border-radius:13px;padding:8px 15px;cursor:pointer;
+  margin-bottom:10px;
 }
 .comentario {
-  color:#24a16c; margin-bottom:8px; border-radius:12px; background:#fff; padding:10px 13px;
-  font-size:1em; font-family:'Baloo 2';
-  box-shadow:0 1px 4px #53E08313;
+  color:#24a16c; margin-bottom:4px; border-radius:10px; background:#fff; padding:8px 10px;
+  font-size:.97em; font-family:'Baloo 2';
+  box-shadow:0 1px 3px #53E08310;
 }
-.com-emoji { font-size:1.17em; margin-right:4px; }
+.com-emoji { font-size:1em; margin-right:4px; }
+.fade-out { animation: fadeOutSection 0.41s;}
+@keyframes fadeOutSection { 0% {opacity:1;} 100% {opacity:0; transform:scale(0.98);} }
+.fade-in { animation: fadeInSection 0.41s;}
+@keyframes fadeInSection { 0% {opacity:0; transform:scale(1.04);} 100% {opacity:1; transform:none;} }
 
-/* Pantalla especial "No tocar" */
 #no-tocar-oscuro {
   position:fixed; top:0;left:0;width:100%;height:100%;
-  background:#101820ee;
+  background:#101820f3;
   z-index:99999;
   display:none;
   align-items:center;
@@ -298,16 +344,18 @@ form button {
   animation:fadeOscuro 0.5s;
 }
 @keyframes fadeOscuro {0%{opacity:0;}100%{opacity:1;}}
-#no-tocar-mensaje {
+.no-tocar-letra {
   color:#fff;
-  font-family:'Bangers',cursive;
-  font-size:2.7em;
+  font-family:'Luckiest Guy',cursive;
+  font-size:2.45em;
   text-align:center;
-  margin-bottom:17px;
-  transition:0.4s;
+  margin-bottom:25px;
+  transition:0.3s;
   letter-spacing:2px;
-  text-shadow:0 15px 45px #000f,0 1px 0px #fff;
+  text-shadow:0 15px 45px #000f,0 2px 0px #fff;
+  animation:popBig .88s infinite alternate ease-in-out;
 }
+@keyframes popBig {100%{transform:scale(1.05);}}
 #no-tocar-wasaaa {
   background:black;
   display:flex;
@@ -316,45 +364,56 @@ form button {
   justify-content:center;
 }
 #no-tocar-wasaaa img {
-  width:320px; max-width:94vw; border-radius:22px; box-shadow:0 12px 60px #111a;
+  width:330px; max-width:94vw; border-radius:22px; box-shadow:0 12px 60px #111a;
+  animation: scareJump 0.24s 6 alternate;
 }
+@keyframes scareJump {50%{transform:scale(1.13) rotate(3deg);}100%{filter:brightness(1.33);}}
 #no-tocar-wasaaa .wasa-text {
-  color:#fff; font-size:2em; font-family:'Bangers',cursive; margin-top:9px;
+  color:#fff; font-size:2.1em; font-family:'Luckiest Guy',cursive; margin-top:13px;
   text-shadow:0 8px 20px #f00b;
   animation:wasa-fade 1s;
 }
 @keyframes wasa-fade {0%{opacity:.1;}100%{opacity:1;}}
 
-@media (max-width:650px){
-  .logo{font-size:1.7em;}
-  .pantalla-teclado{font-size:1em;}
-  .xd-frase{font-size:0.9em;}
-  nav {gap:6px;}
-  #pantalla-inicio {padding:11px 2px 11px 2px;}
-  .num-teclado{grid-template-columns:repeat(3,44px);gap:8px;}
-  .num-teclado button {font-size:1em;width:44px;height:44px;}
-  #no-tocar-mensaje{font-size:1em;}
-  #no-tocar-wasaaa img{width:140px;}
+@media (max-width:700px){
+  .epic-title-poster{min-height:80px;padding-top:18px;}
+  .poster-bg-deco{width:120px;height:68px;}
+  .poster-title{padding:6px 7px 9px 7px;font-size:1.08em;}
+  .poster-sticker{font-size:1em;}
+  .no-tocar-letra{font-size:1.2em;}
+  #no-tocar-wasaaa img{width:130px;}
 }
 </style>
 </head>
 <body>
-<header>
-  <div class="logo shadow" id="tituloLogo">
-    <span class="emoji color3">🚀</span>
-    <span class="color1">Z</span><span class="color2">O</span><span class="color3">E</span><span class="color4">V</span><span class="color5">A</span><span class="color1">L</span><span class="color2">O</span><span class="color3">P</span><span class="color4">R</span><span class="color5">U</span><span class="color1">E</span><span class="color4">B</span><span class="color2">A</span>
-    <span class="emoji color4">💎</span>
-    <span class="emoji color2">🔥</span>
-    <span class="emoji color5">🥳</span>
+
+<!-- TÍTULO POSTER MEME -->
+<div class="epic-title-poster">
+  <div class="poster-bg-deco"></div>
+  <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
+  <span class="poster-sticker" style="left:87%;top:12%;">🧠</span>
+  <span class="poster-sticker" style="left:17%;top:7%;">🤣</span>
+  <span class="poster-sticker" style="left:91%;top:49%;">😺</span>
+  <span class="poster-sticker" style="left:81%;top:79%;">🍟</span>
+  <span class="poster-sticker" style="left:6%;top:60%;">🥑</span>
+  <span class="poster-sticker" style="left:51%;top:16%;">👑</span>
+  <span class="poster-sticker" style="left:41%;top:77%;">😂</span>
+  <span class="poster-sticker" style="left:92%;top:64%;">👍</span>
+  <span class="poster-sticker" style="left:19%;top:87%;font-size:2.3em;">😎</span>
+  <span class="poster-sticker" style="left:61%;top:21%;">🔍</span>
+  <div class="poster-title">
+    <span>Z</span><span>O</span><span>E</span><span>V</span><span>A</span><span>L</span><span>O</span><span>P</span><span>R</span><span>U</span><span>E</span><span>B</span><span>A</span>
   </div>
-  <nav>
-    <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
-    <button onclick="navAnim('memes',this)">😂 Memes</button>
-    <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
-    <button onclick="navAnim('contacto',this)">📧 Contacto</button>
-    <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
-  </nav>
-</header>
+</div>
+
+<nav>
+  <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
+  <button onclick="navAnim('memes',this)">😂 Memes</button>
+  <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
+  <button onclick="navAnim('contacto',this)">📧 Contacto</button>
+  <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
+</nav>
+
 <div id="pantalla-inicio" class="fade-in">
   <div class="pantalla-teclado">Selecciona tu favorito</div>
   <div class="num-teclado">
@@ -372,8 +431,9 @@ form button {
 </div>
 <div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
 <div id="comentarios" class="fade-in" style="display:none"></div>
-<!-- Sección "No tocar" especial -->
+<!-- No tocar jumpscare -->
 <div id="no-tocar-oscuro"></div>
+
 <footer>
   <div class="social-icons">
     <a href="#">🌈</a>
@@ -428,7 +488,6 @@ const MEMES = [
     emoji:"💹"
   }
 ];
-
 const FRASES_XD = [
   "Mi cara cuando veo pizza gratis... 🤤🍕",
   "Quise madrugar... mi cama dijo NO. 😴",
@@ -440,13 +499,12 @@ const FRASES_XD = [
   "¿Quién dejó el modo flojera encendido? 🛋️💤",
   "Hoy no hay tarea, ¿verdad profe? 😶✏️"
 ];
-
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
 function muestraFraseXD(num) {
   document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.12em";
+  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
 }
 function btnClickSound() {
   let a = document.getElementById('audio-burbujas');
@@ -507,14 +565,14 @@ function renderContacto() {
   document.getElementById('no-tocar-oscuro').style.display="none";
   document.getElementById('memesGrid').style.display = "block";
   document.getElementById('memesGrid').innerHTML = `
-    <div style="padding:22px 10px 33px 10px;text-align:center;">
-    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.36em">Contacto &amp; Newsletter 💌</h2>
+    <div style="padding:22px 10px 29px 10px;text-align:center;">
+    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.21em">Contacto &amp; Newsletter 💌</h2>
     <p>¿Ideas, memes o saludos? <br> Escribe a: <b>zoevaloprueba@gmail.com</b> 📧</p>
     <form style="margin:14px auto;max-width:315px;">
       <input type="email" placeholder="Tu email para memes 🔥" style="padding:10px 12px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:7px;">
-      <button type="submit" style="padding:9px 16px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
+      <button type="submit" style="padding:9px 17px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
     </form>
-    <div style="font-size:1.65em">💚🦄🎉🤣😂🍀</div>
+    <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
     </div>`;
 }
 function renderComentarios() {
@@ -528,7 +586,7 @@ function renderComentarios() {
         <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
         <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
-      <div id="comentariosList" style="margin-top:14px"></div>
+      <div id="comentariosList" style="margin-top:10px"></div>
     </div>`;
   mostrarComentarios(array);
 }
@@ -557,34 +615,30 @@ function mostrarComentarios(array) {
 function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
 window.addEventListener('resize',()=>{
   let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.12em";
+  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.10em";
 });
 
-// SECCIÓN "NO TOCAR", AUTOMATICO Y JUMPSCARE PERSONALIZADO
+// SECCIÓN "NO TOCAR", jumpscare automático + vibración y letra más grande
 function mostrarNoTocar() {
   const container = document.getElementById("no-tocar-oscuro");
   container.style.display = "flex";
-  container.innerHTML = `<div id="no-tocar-mensaje">Acércate</div>`;
-  let pasos = [
-    "Acércate",
-    "Acércate más",
-    "Un poco más...",
-    "¡Sigue acercándote!",
-    "Ya casi...",
-    "¿Preparado?",
-    "¡WASAAAA!"
+  const pasos = [
+    {txt:"Acércate",               size:"2.5em"},
+    {txt:"Acércate más",           size:"3.6em"},
+    {txt:"Un poco más...",         size:"2.65em"}
   ];
+  container.innerHTML = `<div id="no-tocar-mensaje" class="no-tocar-letra">${pasos[0].txt}</div>`;
   let idx = 0;
-  let nextStep = ()=>{
+  function nextStep() {
     idx++;
-    if(idx < pasos.length-1) {
-      document.getElementById("no-tocar-mensaje").innerText = pasos[idx];
-      setTimeout(nextStep, 1700);
-    } else {
-      setTimeout(asustarWasaaa, 1200);
-    }
-  };
-  setTimeout(nextStep, 1700);
+    if(idx < pasos.length) {
+      const msg = document.getElementById("no-tocar-mensaje");
+      msg.innerText = pasos[idx].txt;
+      msg.style.fontSize = pasos[idx].size;
+      setTimeout(nextStep, 1800);
+    } else setTimeout(asustarWasaaa, 1200);
+  }
+  setTimeout(nextStep,1800);
 }
 function asustarWasaaa() {
   const container = document.getElementById("no-tocar-oscuro");
@@ -599,11 +653,30 @@ function asustarWasaaa() {
   `;
   let audio = document.getElementById("audio-wasaaa");
   if(audio){ audio.currentTime=0; audio.play(); }
+  // Efecto vibración
+  document.body.style.animation = "shake 0.16s 10";
+  setTimeout(()=>{document.body.style.animation="";},1600);
 }
 function cerrarNoTocar() {
   document.getElementById("no-tocar-oscuro").style.display = "none";
   navAnim("home",document.querySelectorAll('nav button')[0]);
 }
 </script>
+<!-- Vibración jumpscare -->
+<style>
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-8px, 0); }
+  20% { transform: translate(8px, 0); }
+  30% { transform: translate(-8px, 0); }
+  40% { transform: translate(8px, 0); }
+  50% { transform: translate(-6px, 0); }
+  60% { transform: translate(6px, 0); }
+  70% { transform: translate(-4px, 0); }
+  80% { transform: translate(4px, 0);}
+  90% { transform: translate(-4px, 0);}
+  100% { transform: translate(0, 0);}
+}
+</style>
 </body>
 </html>
