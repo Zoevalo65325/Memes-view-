@@ -1,585 +1,218 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<!-- 🔒 META TAGS DE SEGURIDAD IMPLEMENTADOS -->
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
-               script-src 'self' https://fonts.googleapis.com; 
-               style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; 
-               img-src 'self' https: data:; 
-               font-src 'self' https://fonts.gstatic.com;
-               connect-src 'self';
-               frame-ancestors 'none';">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-
-<title>Zoevaloprueba - Memes épicos</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
-<style>
-body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png'); min-height:100vh; }
-/* CAPTCHA DIVERTIDO */
-#captcha-overlay {
-  position:fixed; top:0; left:0; width:100%; height:100%; background:#0e1221f7; z-index:999999;
-  display:flex; align-items:center; justify-content:center; flex-direction:column;
-}
-.captcha-box {
-  background:linear-gradient(135deg,#29f4ff 10%,#53e083 90%);
-  padding:32px 26px; border-radius:22px; text-align:center; max-width:380px;
-  box-shadow:0 12px 48px #1ff5e933; border:6px solid #1c172e;
-}
-.captcha-box h2 {
-  font-family:'Luckiest Guy',cursive; font-size:2.3em; color:#fff;
-  text-shadow:0 3px 18px #000, 2px 2px 0 #ff31a8; margin-bottom:14px;
-}
-.captcha-box p {
-  font-family:'Baloo 2',cursive; font-size:1.32em; color:#18697d; margin-bottom:19px; font-weight:700;
-}
-.captcha-input {
-  font-size:1.54em; padding:11px 18px; border-radius:14px; border:3px solid #21e75a;
-  font-family:'Baloo 2',cursive; text-align:center; width:78%; margin-bottom:18px;
-}
-.captcha-btn {
-  background:#21e75a; color:#fff; font-family:'Baloo 2',cursive; font-size:1.27em; font-weight:bold;
-  border:none; border-radius:16px; padding:13px 35px; cursor:pointer; box-shadow:0 6px 18px #21e75a55;
-  transition:0.14s;
-}
-.captcha-btn:hover { background:#ff48c4; transform:scale(1.07); }
-/* CABECERA PÓSTER */
-.epic-title-poster { position:relative;width:100vw;max-width:900px;margin:0 auto 0 auto;min-height:315px;padding-top:90px;text-align:center;overflow:visible;}
-.poster-bg-deco{position:absolute;left:50%;top:66px;width:460px;height:230px;transform:translateX(-50%);z-index:1;background-image:repeating-conic-gradient(from 0deg,#ffd553 0 14%,#ff70d3 14% 32%,#25e0f2 34% 50%,#fff 50% 65%,#21ffb3 65% 74%,#303bbf 74% 100%);background-size:180% 180%;filter:blur(8px) brightness(1.16) opacity(.65) saturate(1.8);border-radius:50%;animation:bgAuraSpin 7.5s linear infinite alternate;box-shadow:0 0 70px 22px #09c7f722;}
-@keyframes bgAuraSpin {100%{background-position:180% 0;}}
-.poster-title{position:relative;z-index:3;font-family:'Luckiest Guy','Bangers',Impact,sans-serif;font-size:clamp(2.3em,9vw,5.8em);color:#ff31a8;letter-spacing:.06em;font-weight:900;text-transform:uppercase;background:rgba(0,0,0,0.19);border-radius:28px;border:7px solid #1c172e;padding:18px 33px 22px 33px;display:inline-block;box-shadow:0 7px 38px #1ff5e929,0 0px 14px #303bbf50;margin:0 auto 10px auto;text-shadow:0 3px 0 #fff373,0 8px 28px #1ff6b3a9,3px 3px 12px #ff31a892;animation:breatheTitle 4.2s alternate ease-in-out infinite;}
-@keyframes breatheTitle{50%{transform:scale(1.036);}}
-.poster-title span{display:inline-block;font-size:1em;animation:popTitle .6s cubic-bezier(.6,-1.0,.3,2.1) alternate infinite;margin:0 1.9px;}
-.poster-title span:nth-child(1){color:#ff48c4;animation-delay:.04s;} .poster-title span:nth-child(2){color:#21e75a;animation-delay:.11s;}
-.poster-title span:nth-child(3){color:#fff373;animation-delay:.16s;} .poster-title span:nth-child(4){color:#21ffb3;animation-delay:.18s;}
-.poster-title span:nth-child(5){color:#25e0f2;animation-delay:.24s;} .poster-title span:nth-child(6){color:#ff31a8;animation-delay:.29s;}
-.poster-title span:nth-child(7){color:#fff373;animation-delay:.34s;} .poster-title span:nth-child(8){color:#21e75a;animation-delay:.38s;}
-.poster-title span:nth-child(9){color:#21ffb3;animation-delay:.44s;} .poster-title span:nth-child(10){color:#25e0f2;animation-delay:.52s;}
-.poster-title span:nth-child(11){color:#ff48c4;animation-delay:.59s;} .poster-title span:nth-child(12){color:#21e75a;animation-delay:.07s;}
-.poster-title span:nth-child(13){color:#ff31a8;animation-delay:.14s;}
-@keyframes popTitle{45%{transform:scale(1.14) rotate(-2deg);}100%{transform:scale(0.97) rotate(2deg);}}
-.poster-sticker{position:absolute;font-size:2em;z-index:3;pointer-events:none;user-select:none;filter:drop-shadow(0 5px 22px #fff3) brightness(1.14);animation:flotarSticker 8s ease-in-out infinite alternate;}
-@keyframes flotarSticker{60%{transform:translateY(-18px) scale(1.13);}100%{transform:translateY(2px) scale(0.99);}}
-@media (max-width:700px){.epic-title-poster{min-height:100px;padding-top:30px;}.poster-bg-deco{width:160px;height:81px;}.poster-title{padding:5px 6px 6px 8px;font-size:1.22em;}.poster-sticker{font-size:1.09em;}}
-nav{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;background:rgba(13,16,35,0.03);margin-bottom:18px;margin-top:0px;position:relative;}
-nav button{background:#fff;color:#29F4FF;font-family:'Baloo 2',cursive;font-size:1.07em;font-weight:600;border:none;border-radius:14px;padding:9px 20px;cursor:pointer;margin-bottom:2px;margin-top:3px;transition:0.13s;}
-nav button.active,nav button:hover{background:#21e75a;color:#fff;transform:scale(1.052);}
-nav button:focus{outline:none;}
-nav button#notocar-btn{background:#fc8181;color:#fff;font-weight:bold;box-shadow:0 2px 11px #fa6a49ab;}
-#pantalla-inicio{padding:26px 7px 17px 7px;max-width:430px;margin:18px auto 0 auto;background:var(--main-grad,#1f59be19);border-radius:20px;box-shadow:0 7px 23px #53e0832c;}
-.pantalla-teclado{font-family:'Baloo 2',cursive;font-size:2em;color:#2cd0ba;margin-bottom:16px;text-align:center;}
-.num-teclado{display:grid;grid-template-columns:repeat(3,78px);gap:23px;justify-content:center;margin:18px 0 9px 0;}
-.num-teclado button{font-size:2em;font-family:'Baloo 2',cursive;background:#fff;color:#2ae97e;border:2.5px solid #34b4ff;border-radius:20px;box-shadow:0 3px 24px #51fcc322;cursor:pointer;transition:0.13s;width:78px;height:78px;font-weight:900;}
-.num-teclado button:active,.num-teclado button:hover{background:#25e0f3;color:#fff;border:2.5px solid #23e2bb;transform:scale(1.09);}
-.xd-frase{min-height:37px;margin-top:13px;font-family:'Baloo 2',cursive;font-size:1.11em;text-align:center;color:#18697d;font-weight:bold;background:#cbfdeec9;border-radius:10px;padding:12px 15px;box-shadow:0 2px 7px #aafde415;animation:fraseXDfade 0.5s;}
-@keyframes fraseXDfade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-.memes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:19px;max-width:900px;margin:0 auto 23px auto;padding:0 11px;}
-.meme-card{background:linear-gradient(129deg,#dbfff7 50%,#e5f2fc 90%);border-radius:28px;box-shadow:0 7px 30px 0 #2beed81a;animation:fadeIn 0.7s;cursor:pointer;min-height:244px;display:flex;flex-direction:column;border:5px solid #f3fafd;position:relative;transition:box-shadow 0.16s,transform 0.13s;}
-.meme-card:hover{transform:scale(1.042) rotate(-1deg);box-shadow:0 12px 32px 0 #33e0ff71;}
-@keyframes fadeIn{0%{opacity:0;transform:translateY(13px);}100%{opacity:1;transform:none;}}
-.meme-img{width:100%;height:156px;object-fit:cover;border-radius:28px 28px 0 0;border-bottom:5px solid #53E083;background:#e0fff8;display:block;margin-bottom:-8px;}
-.meme-content{flex:1;padding:10px 13px 3px 13px;text-align:left;}
-.meme-title{font-family:'Baloo 2',cursive;font-weight:900;font-size:1.09em;color:#21b7a6;margin-bottom:4px;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
-.meme-desc{font-size:.97em;color:#17875a;font-family:'Baloo 2',cursive;margin-bottom:4px;}
-.emoji-huge{font-size:1.2em;}
-.meme-actions{display:flex;align-items:center;justify-content:flex-end;padding:4px 17px 8px 17px;}
-.btn-rickroll{background:#29F4FF;color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;border:none;border-radius:17px;padding:8px 16px;box-shadow:0 4px 11px #29F4FF33;cursor:pointer;transition:0.12s;}
-.btn-rickroll:hover{background:#53E083;color:#183010;transform:scale(1.06);}
-footer{background:linear-gradient(96deg,#1fe7f1 68%,#53E083 100%);color:#fff;text-align:center;font-size:1.07em;padding:9px 10px 10px 10px;margin-top:18px;border-radius:18px 18px 0 0;font-family:'Baloo 2',cursive;box-shadow:0 -8px 20px #53E08317;}
-footer .social-icons{margin:4px 0 8px 0;}
-footer .social-icons a{display:inline-block;margin:0 7px;font-size:1.05em;color:#fafffd;transition:transform .11s;}
-footer .social-icons a:hover{transform:scale(1.13);color:#53E083;}
-.comentarios-section{max-width:510px;margin:0 auto 17px auto;background:#e5fff2cc;border-radius:17px;padding:16px 11px;box-shadow:0 3px 8px #29f4ff0a;}
-.comentarios-section h2{font-family:'Baloo 2',cursive;color:#21b7a6;}
-form textarea{width:90%;min-height:34px;border-radius:11px;border:2px solid #29F4FF;font-size:1em;font-family:'Baloo 2';margin-bottom:10px;padding:8px;}
-form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;border:none;border-radius:13px;padding:8px 15px;cursor:pointer;margin-bottom:10px;}
-.comentario{color:#24a16c;margin-bottom:4px;border-radius:10px;background:#fff;padding:8px 10px;font-size:.97em;font-family:'Baloo 2';box-shadow:0 1px 3px #53E08310;}
-.com-emoji{font-size:1em;margin-right:4px;}
-.fade-out{animation:fadeOutSection 0.41s;}
-@keyframes fadeOutSection{0%{opacity:1;}100%{opacity:0;transform:scale(0.98);}}
-.fade-in{animation:fadeInSection 0.41s;}
-@keyframes fadeInSection{0%{opacity:0;transform:scale(1.04);}100%{opacity:1;transform:none;}}
-#no-tocar-oscuro{position:fixed;top:0;left:0;width:100%;height:100%;background:#101820f3;z-index:99999;display:none;align-items:center;justify-content:center;flex-direction:column;animation:fadeOscuro 0.5s;}
-@keyframes fadeOscuro{0%{opacity:0;}100%{opacity:1;}}
-.no-tocar-letra{color:#fff;font-family:'Luckiest Guy',cursive;font-size:2.45em;text-align:center;margin-bottom:25px;transition:0.3s;letter-spacing:2px;text-shadow:0 15px 45px #000f,0 2px 0px #fff;animation:popBig .88s infinite alternate ease-in-out;}
-@keyframes popBig{100%{transform:scale(1.05);}}
-#no-tocar-wasaaa{background:black;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-#no-tocar-wasaaa img{width:95vw;max-width:430px;min-width:220px;border-radius:22px;box-shadow:0 12px 60px #111a;animation:scareJump 0.24s 6 alternate;}
-@keyframes scareJump{50%{transform:scale(1.13) rotate(3deg);}100%{filter:brightness(1.33);}}
-#no-tocar-wasaaa .wasa-text{color:#fff;font-size:2.1em;font-family:'Luckiest Guy',cursive;margin-top:13px;text-shadow:0 8px 20px #f00b;animation:wasa-fade 1s;}
-@keyframes wasa-fade{0%{opacity:.1;}100%{opacity:1;}}
-@media (max-width:700px){.epic-title-poster{min-height:80px;padding-top:18px;}.poster-bg-deco{width:120px;height:68px;}.poster-title{padding:6px 7px 9px 7px;font-size:1.08em;}.poster-sticker{font-size:1em;}.no-tocar-letra{font-size:1.2em;}#no-tocar-wasaaa img{width:94vw;max-width:97vw;}}
-@keyframes shake{0%{transform:translate(0, 0);}10%{transform:translate(-8px, 0);}20%{transform:translate(8px, 0);}30%{transform:translate(-8px, 0);}40%{transform:translate(8px, 0);}50%{transform:translate(-6px, 0);}60%{transform:translate(6px, 0);}70%{transform:translate(-4px, 0);}80%{transform:translate(4px, 0);}90%{transform:translate(-4px, 0);}100%{transform:translate(0, 0);}}
-</style>
+    <meta charset="UTF-8">
+    <title>Página de Memes y Diversión</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+        }
+        #captchaOverlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        #captchaOverlay h2 {
+            margin-bottom: 10px;
+            color: #d32f2f;
+        }
+        #captchaOverlay input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            width: 80px;
+        }
+        #captchaOverlay button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #captchaOverlay button:hover {
+            background-color: #45a049;
+        }
+        nav {
+            background-color: #ffeb3b;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 15px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            background-color: #ffee58;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        nav a:hover {
+            background-color: #ffd600;
+            transform: scale(1.1);
+        }
+        .memes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px;
+            padding: 0 20px;
+        }
+        .memes-grid img {
+            width: 100%;
+            height: auto;
+            border: 3px solid #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .memes-grid img:hover {
+            transform: scale(1.05);
+            border-color: #f57c00;
+        }
+        section {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 10px 20px;
+            line-height: 1.5;
+        }
+        form {
+            margin-top: 10px;
+        }
+        form input, form textarea {
+            width: 80%;
+            max-width: 400px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        form button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #1976d2;
+        }
+        audio {
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body ontouchstart="">
-<!-- CAPTCHA DIVERTIDO -->
-<div id="captcha-overlay">
-  <div class="captcha-box">
-    <h2>🤖 Captcha Divertido 🎉</h2>
-    <p id="captcha-pregunta">¿Cuánto es 2 + 2? 🤔</p>
-    <input type="text" id="captcha-input" class="captcha-input" placeholder="Tu respuesta...">
-    <br>
-    <button class="captcha-btn" onclick="verificarCaptcha()">Entrar 🚀</button>
-  </div>
-</div>
-
-<div class="epic-title-poster">
-  <div class="poster-bg-deco"></div>
-  <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
-  <span class="poster-sticker" style="left:87%;top:12%;">🧠</span>
-  <span class="poster-sticker" style="left:17%;top:7%;">🤣</span>
-  <span class="poster-sticker" style="left:91%;top:49%;">😺</span>
-  <span class="poster-sticker" style="left:81%;top:79%;">🍟</span>
-  <span class="poster-sticker" style="left:6%;top:60%;">🥑</span>
-  <span class="poster-sticker" style="left:51%;top:16%;">👑</span>
-  <span class="poster-sticker" style="left:41%;top:77%;">😂</span>
-  <span class="poster-sticker" style="left:92%;top:64%;">👍</span>
-  <span class="poster-sticker" style="left:19%;top:87%;font-size:2.3em;">😎</span>
-  <span class="poster-sticker" style="left:61%;top:21%;">🔍</span>
-  <div class="poster-title">
-    <span>Z</span><span>O</span><span>E</span><span>V</span><span>A</span><span>L</span><span>O</span><span>P</span><span>R</span><span>U</span><span>E</span><span>B</span><span>A</span>
-  </div>
-</div>
-
-<nav>
-  <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
-  <button onclick="navAnim('memes',this)">😂 Memes</button>
-  <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
-  <button onclick="navAnim('contacto',this)">📧 Contacto</button>
-  <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
-</nav>
-
-<div id="pantalla-inicio" class="fade-in">
-  <div class="pantalla-teclado">Selecciona tu favorito</div>
-  <div class="num-teclado">
-    <button onclick="audioBoot();muestraFraseXD(1);btnClickSound()">1</button>
-    <button onclick="audioBoot();muestraFraseXD(2);btnClickSound()">2</button>
-    <button onclick="audioBoot();muestraFraseXD(3);btnClickSound()">3</button>
-    <button onclick="audioBoot();muestraFraseXD(4);btnClickSound()">4</button>
-    <button onclick="audioBoot();muestraFraseXD(5);btnClickSound()">5</button>
-    <button onclick="audioBoot();muestraFraseXD(6);btnClickSound()">6</button>
-    <button onclick="audioBoot();muestraFraseXD(7);btnClickSound()">7</button>
-    <button onclick="audioBoot();muestraFraseXD(8);btnClickSound()">8</button>
-    <button onclick="audioBoot();muestraFraseXD(9);btnClickSound()">9</button>
-  </div>
-  <div id="frase-xd" class="xd-frase"></div>
-</div>
-<div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
-<div id="comentarios" class="fade-in" style="display:none"></div>
-<div id="no-tocar-oscuro"></div>
-
-<footer>
-  <div class="social-icons">
-    <a href="#">🌈</a>
-    <a href="#">🤣</a>
-    <a href="#">🌟</a>
-    <a href="#">🍀</a>
-  </div>
-  <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
-</footer>
-<!-- AUDIOS -->
-<audio id="audio-burbujas" preload="auto">
-  <source src="1qngpb0ez1z-bubbles-sfx-1 (1).mp3" type="audio/mpeg">
-</audio>
-<audio id="audio-ahh" preload="auto">
-  <source src="ahh.mp3" type="audio/mpeg">
-</audio>
-<audio id="audio-wasaaa" preload="auto">
-  <source src="five-nights-at-freddys-full-scream-sound_2.mp3" type="audio/mpeg">
-</audio>
-<script>
-// 🔒 PROTECCIÓN CONTRA CLICKJACKING
-if (self !== top) {
-  top.location = self.location;
-}
-
-// 🔒 CONSTANTES Y DATOS SEGUROS
-const MEMES = [
-  { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
-  { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
-  { titulo:"Pikachu Sorprendido 😱", descripcion:"¡No me lo esperaba! ⚡", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/pikachu.jpeg", emoji:"⚡"},
-  { titulo:"Gato Meme 🐱", descripcion:"¿Miau dices? 😺", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/gato%20meme.jpeg", emoji:"😺"},
-  { titulo:"Patrick Malvado 😏", descripcion:"Risa traviesa 🦑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/patricio.jpg", emoji:"😏"},
-  { titulo:"Stonks 💹", descripcion:"Dinero para todos 🤑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/stonks.jpeg", emoji:"💹"}
-];
-
-const FRASES_XD = [
-  "Mi cara cuando veo pizza gratis... 🤤🍕",
-  "Quise madrugar... mi cama dijo NO. 😴",
-  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦",
-  "Desayuné y ya tengo hambre otra vez. 🥞😂",
-  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️",
-  "Me reí tan fuerte que desperté al perro. 🐶🤣",
-  "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
-  "¿Quién dejó el modo flojera encendido? 🛋️💤",
-  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
-];
-
-const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
-
-let audioAllowed = false;
-
-// 🔒 CAPTCHA SUPER SIMPLE Y FUNCIONAL
-let captchaActual = { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" };
-
-function verificarCaptcha() {
-  let respuestaUsuario = document.getElementById('captcha-input').value.trim();
-  let respuestaCorrecta = captchaActual.respuesta;
-  
-  console.log('Usuario:', respuestaUsuario, 'Correcta:', respuestaCorrecta);
-  
-  if (respuestaUsuario === respuestaCorrecta) {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    audioBoot();
-    console.log('CAPTCHA CORRECTO - Acceso permitido');
-  } else {
-    alert('¡Respuesta incorrecta! La respuesta era: ' + respuestaCorrecta);
-    document.getElementById('captcha-input').value = "";
-    console.log('CAPTCHA INCORRECTO');
-  }
-}
-
-// 🔒 FUNCIONES DE SEGURIDAD MEJORADAS
-function escapeHtml(str) {
-  if (typeof str !== 'string') return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;')
-    .replace(/`/g, '&#96;');
-}
-
-function contienePalabrasProhibidas(texto) {
-  const forbiddenPatterns = [
-    /\b(p[úu]t[ao]s?)\b/gi,
-    /\b(mierda|mierd[ao])\b/gi,
-    /\b(verga|verg[ao])\b/gi,
-    /\b(joder|jod[aeio])\b/gi,
-    /\b(c[oó]ñ[ao]s?)\b/gi,
-    /\b(est[úu]pido|estupid[ao])\b/gi,
-    /\b(gilipollas|gilipoll[ae])\b/gi,
-    /\b(maric[ao]s?)\b/gi,
-    /\b(pendej[ao]s?)\b/gi,
-    /\b(culer[ao]s?)\b/gi,
-    /\b(idiot[ao]s?)\b/gi,
-    /\b(fuck|shit|bitch|asshole)\b/gi
-  ];
-  return forbiddenPatterns.some(pattern => pattern.test(texto));
-}
-
-function contieneCodigoMalicioso(texto) {
-  const patronesMaliciosos = [
-    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-    /javascript:/gi,
-    /on\w+\s*=/gi,
-    /<iframe/gi,
-    /<object/gi,
-    /<embed/gi,
-    /data:/gi,
-    /vbscript:/gi
-  ];
-  return patronesMaliciosos.some(pattern => pattern.test(texto));
-}
-
-function sanitizarInput(input) {
-  if (typeof input !== 'string') return '';
-  return input
-    .trim()
-    .substring(0, 500)
-    .replace(/\s+/g, ' ')
-    .replace(/[^\w\s@.-áéíóúñÁÉÍÓÚÑ¿?¡!.,]/gi, '');
-}
-
-function validarComentarios(comentarios) {
-  if (!Array.isArray(comentarios)) return [];
-  return comentarios.filter(comentario => {
-    return comentario && 
-           typeof comentario.mensaje === 'string' &&
-           typeof comentario.emoji === 'string' &&
-           comentario.mensaje.length <= 500 &&
-           !contienePalabrasProhibidas(comentario.mensaje) &&
-           !contieneCodigoMalicioso(comentario.mensaje);
-  }).slice(0, 50);
-}
-
-function limpiarLocalStorage() {
-  const keysPermitidos = ['zoeva_coments'];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (!keysPermitidos.includes(key)) {
-      localStorage.removeItem(key);
-    }
-  }
-}
-
-function validarEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-// 🔒 FUNCIONES EXISTENTES MEJORADAS
-function audioBoot() {
-  if (!audioAllowed) {
-    let a1 = document.getElementById('audio-burbujas');
-    let a2 = document.getElementById('audio-wasaaa');
-    let a3 = document.getElementById('audio-ahh');
-    try {
-      if(a1) { a1.muted = false; a1.volume=1.0; a1.currentTime=0; a1.play().catch(()=>{}); }
-      if(a2) { a2.muted = false; a2.volume=1.0; a2.currentTime=0; a2.play().catch(()=>{}); }
-      if(a3) { a3.muted = false; a3.volume=1.0; a3.currentTime=0; a3.play().catch(()=>{}); }
-      audioAllowed = true;
-      setTimeout(()=>{if(a1)a1.pause();if(a2)a2.pause();if(a3)a3.pause();},70);
-    } catch(e){}
-  }
-}
-
-function muestraFraseXD(num) {
-  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
-}
-
-function btnClickSound() {
-  audioBoot();
-  let a = document.getElementById('audio-burbujas');
-  if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
-}
-
-function playSoundAhh() {
-  audioBoot();
-  let a = document.getElementById('audio-ahh');
-  if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
-}
-
-function navAnim(seccion, el) {
-  audioBoot();
-  btnClickSound();
-  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
-  pantallas.forEach(id=>{
-    let el2 = document.getElementById(id);
-    if(el2 && el2.style.display!="none") {
-      el2.classList.remove('fade-in');
-      el2.classList.add('fade-out');
-    }
-  });
-  setTimeout(()=>{
-    pantallas.forEach(id=>{
-      let el2 = document.getElementById(id);
-      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
-    });
-    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
-    if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
-    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
-    if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
-    if(seccion=="notocar"){mostrarNoTocar();}
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    let idx = ["home","memes","comentarios","contacto","notocar"].indexOf(seccion);
-    if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
-  },410);
-}
-
-function renderMemes() {
-  document.getElementById('comentarios').style.display="none";
-  document.getElementById('pantalla-inicio').style.display="none";
-  document.getElementById('no-tocar-oscuro').style.display = "none";
-  const grid = document.getElementById('memesGrid');
-  grid.style.display="grid";
-  grid.innerHTML = '';
-  MEMES.forEach(meme => {
-    const card = document.createElement('div');
-    card.className = 'meme-card';
-    card.onclick = ()=>{ audioBoot(); window.open(RICKROLL_URL,'_blank'); };
-    card.innerHTML = `
-      <img class="meme-img" src="${escapeHtml(meme.img)}" alt="${escapeHtml(meme.titulo)}" onerror="this.src='${MEME_BACKUP}'" />
-      <div class="meme-content">
-        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${escapeHtml(meme.emoji)}</span>`:""} ${escapeHtml(meme.titulo)}</div>
-        <div class="meme-desc">${escapeHtml(meme.descripcion)}</div>
-      </div>
-      <div class="meme-actions">
-        <button class="btn-rickroll" onclick="audioBoot();btnClickSound();window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
-      </div>`;
-    grid.appendChild(card);
-  });
-}
-
-function renderContacto() {
-  document.getElementById('comentarios').style.display = "none";
-  document.getElementById('pantalla-inicio').style.display = "none";
-  document.getElementById('no-tocar-oscuro').style.display="none";
-  document.getElementById('memesGrid').style.display = "block";
-  document.getElementById('memesGrid').innerHTML = `
-    <div style="padding:22px 10px 29px 10px;text-align:center;background:#e5fff2cc;border-radius:17px;max-width:420px;margin:0 auto;">
-    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.21em">Contacto &amp; Newsletter 💌</h2>
-    <p style="color:#18697d;font-weight:700;">¿Ideas, memes o saludos? <br> Escribe a: <b style="color:#21b7a6;">zoevaloprueba@gmail.com</b> 📧</p>
-    <form id="contactoForm" style="margin:14px auto;max-width:315px;">
-      <input type="email" id="contactoEmail" placeholder="Tu email para memes 🔥" style="padding:10px 12px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:7px;">
-      <button type="submit" style="padding:9px 17px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
-    </form>
-    <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
-    </div>`;
-    
-  document.getElementById('contactoForm').onsubmit = function(e) {
-    e.preventDefault();
-    const email = document.getElementById('contactoEmail').value;
-    
-    if (!validarEmail(email)) {
-      alert('❌ Por favor ingresa un email válido');
-      return false;
-    }
-    
-    playSoundAhh();
-    alert('✅ ¡Gracias por suscribirte! (Esto es una demo)');
-    this.reset();
-    return false;
-  };
-}
-
-function renderComentarios() {
-  let array = [];
-  if (localStorage.zoeva_coments) {
-    try {
-      array = JSON.parse(localStorage.zoeva_coments);
-    } catch(e) {
-      console.error('Error parsing comments:', e);
-      array = [];
-    }
-  }
-  
-  const comDiv = document.getElementById('comentarios');
-  comDiv.innerHTML = `
-    <div class="comentarios-section">
-      <h2>💬 Comentarios públicos de usuarios</h2>
-      <form id="comentarioForm">
-        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
-        <button type="submit">¡Enviar comentario! 🚀</button>
-      </form>
-      <div id="comentariosList" style="margin-top:10px"></div>
-    </div>`;
-    
-  document.getElementById('comentarioForm').onsubmit = guardarComentario;
-  mostrarComentarios(array);
-}
-
-function guardarComentario(e) {
-  e.preventDefault();
-  playSoundAhh();
-  
-  let array = [];
-  if (localStorage.zoeva_coments) {
-    try {
-      array = JSON.parse(localStorage.zoeva_coments);
-    } catch(e) {
-      array = [];
-    }
-  }
-  
-  let texto = sanitizarInput(document.getElementById('comentarioText').value);
-  
-  if (texto.length < 1) {
-    alert("Coloca tu comentario 😎");
-    return false;
-  }
-  
-  if (contienePalabrasProhibidas(texto)) {
-    alert('❌ El comentario contiene lenguaje inapropiado');
-    return false;
-  }
-  
-  if (contieneCodigoMalicioso(texto)) {
-    alert('❌ El comentario contiene código potencialmente peligroso');
-    return false;
-  }
-  
-  const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
-  let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-  
-  array.unshift({mensaje:texto,emoji});
-  localStorage.zoeva_coments = JSON.stringify(validarComentarios(array));
-  document.getElementById('comentarioText').value = "";
-  mostrarComentarios(array);
-  return false;
-}
-
-function mostrarComentarios(array) {
-  const comentariosValidados = validarComentarios(array);
-  const list = document.getElementById('comentariosList');
-  
-  if (!comentariosValidados || comentariosValidados.length === 0) {
-    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
-    return;
-  }
-  
-  list.innerHTML = comentariosValidados.map(c => 
-    `<div class="comentario"><span class="com-emoji">${escapeHtml(c.emoji)}</span> ${escapeHtml(c.mensaje)}</div>`
-  ).join("");
-}
-
-function mostrarNoTocar() {
-  audioBoot();
-  const container = document.getElementById("no-tocar-oscuro");
-  container.style.display = "flex";
-  const pasos = [
-    {txt:"Acércate",       size:"2.6em"},
-    {txt:"Acércate más",   size:"3.8em"},
-    {txt:"Un poco más...", size:"2.7em"}
-  ];
-  container.innerHTML = `<div id="no-tocar-mensaje" class="no-tocar-letra">${escapeHtml(pasos[0].txt)}</div>`;
-  let idx = 0;
-  function nextStep() {
-    idx++;
-    if(idx < pasos.length) {
-      const msg = document.getElementById("no-tocar-mensaje");
-      msg.innerText = pasos[idx].txt;
-      msg.style.fontSize = pasos[idx].size;
-      audioBoot();
-      setTimeout(nextStep, 1800);
-    } else setTimeout(asustarWasaaa, 1200);
-  }
-  setTimeout(nextStep,1800);
-}
-
-function asustarWasaaa() {
-  audioBoot();
-  const container = document.getElementById("no-tocar-oscuro");
-  container.innerHTML = `
-    <div id="no-tocar-wasaaa">
-      <img src="https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/wasaa.jpg" alt="wasaaa" />
-      <div class="wasa-text">¡WASAAAA! 😱</div>
-      <button onclick="cerrarNoTocar();audioBoot();" style="font-size:1.13em;background:#23e2bb;color:#101;border:none;border-radius:13px;padding:7px 15px;margin-top:18px;cursor:pointer;box-shadow:0 3px 21px #f33a;">
-        Volver a la web
-      </button>
+<body>
+    <!-- CAPTCHA Overlay -->
+    <div id="captchaOverlay">
+        <h2>Verificación de Seguridad 🤖</h2>
+        <p>¿Cuánto es 2 + 2?</p>
+        <input type="text" id="captchaAnswer" placeholder="Escribe aquí" />
+        <button onclick="verificarCaptcha()">Entrar</button>
     </div>
-  `;
-  let audio = document.getElementById("audio-wasaaa");
-  if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); }
-  document.body.style.animation = "shake 0.12s 12";
-  setTimeout(()=>{document.body.style.animation="";},1000);
-}
 
-function cerrarNoTocar() {
-  document.getElementById("no-tocar-oscuro").style.display = "none";
-  navAnim("home",document.querySelectorAll('nav button')[0]);
-}
+    <!-- Contenido Principal -->
+    <div id="mainContent" style="display: none;">
+        <!-- Navegación -->
+        <nav>
+            <ul>
+                <li><a href="#inicio">🏠 Inicio</a></li>
+                <li><a href="#memes">🤣 Memes</a></li>
+                <li><a href="#comentarios">💬 Comentarios</a></li>
+                <li><a href="#no-tocar">🛑 No Tocar</a></li>
+            </ul>
+        </nav>
 
-// 🔒 INICIALIZACIÓN SEGURA
-document.addEventListener('DOMContentLoaded', function() {
-  limpiarLocalStorage();
-  console.log('Página cargada - CAPTCHA listo');
-});
+        <!-- Sección Inicio -->
+        <section id="inicio">
+            <h1>¡Bienvenido a la Página de Memes! 🎉</h1>
+            <p>Has resuelto el CAPTCHA y ahora puedes disfrutar del contenido completo.</p>
+            <p>Explora los memes, escucha música divertida y diviértete. 🥳</p>
+            <p>🎵 Música de fondo:</p>
+            <audio controls>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Tu navegador no soporta audio.
+            </audio>
+        </section>
 
-window.addEventListener('resize',()=>{
-  let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.10em";
-});
-</script>
+        <!-- Sección Memes -->
+        <section id="memes">
+            <h2>Memes 📸</h2>
+            <p>Disfruta de estas imágenes divertidas:</p>
+            <div class="memes-grid">
+                <img src="https://cdn.pixabay.com/photo/2023/01/28/12/30/emoticons-7750835_1280.png" alt="Emoticonos divertidos">
+                <img src="https://cdn.pixabay.com/photo/2023/09/27/19/07/dragon-ball-8280091_640.jpg" alt="Pepe con Dragón">
+                <img src="https://cdn.pixabay.com/photo/2025/10/19/08/02/angry-cat-9903375_640.png" alt="Gato enfadado en llamas">
+                <img src="https://cdn.pixabay.com/photo/2019/08/31/11/09/meme-4443243_640.jpg" alt="Hombre meme con pulgar arriba">
+                <img src="https://cdn.pixabay.com/photo/2025/06/24/00/13/ai-generated-9676840_640.png" alt="Rana alienígena triste">
+                <img src="https://cdn.pixabay.com/photo/2020/06/20/01/24/frog-5319326_1280.jpg" alt="Rana bajo la lluvia">
+            </div>
+        </section>
+
+        <!-- Sección Comentarios -->
+        <section id="comentarios">
+            <h2>Comentarios 💬</h2>
+            <p>Deja tu comentario aquí:</p>
+            <form onsubmit="enviarComentario(); return false;">
+                <input type="text" id="nombre" placeholder="Tu nombre" required /><br/>
+                <textarea id="comentario" rows="4" placeholder="Tu comentario" required></textarea><br/>
+                <button type="submit">Enviar comentario</button>
+            </form>
+        </section>
+
+        <!-- Sección No Tocar -->
+        <section id="no-tocar">
+            <h2>No Tocar 🛑</h2>
+            <p>¡Ups! ¿Quién se atrevió a hacer clic aquí? 🤭</p>
+            <p>Te lo advertimos, este es el rincón prohibido. ¡Bienvenido!</p>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        function verificarCaptcha() {
+            var respuesta = parseInt(document.getElementById('captchaAnswer').value);
+            if (respuesta === 4) {
+                document.getElementById('captchaOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                alert('Respuesta incorrecta. Por favor, intenta de nuevo.');
+            }
+        }
+        function enviarComentario() {
+            alert('¡Gracias por tu comentario!');
+        }
+    </script>
 </body>
 </html>
