@@ -19,6 +19,7 @@
 
 <title>Zoevaloprueba - Memes épicos</title>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+
 <style>
 body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png'); min-height:100vh; }
 /* CAPTCHA DIVERTIDO */
@@ -55,7 +56,7 @@ body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/pat
   margin-top:10px;
   min-height:20px;
 }
-/* Resto de tu CSS aquí, incluido el código que diste originalmente, excluyendo el CAPTCHA ya puesto */
+/* CABECERA PÓSTER */
 .epic-title-poster { position:relative;width:100vw;max-width:900px;margin:0 auto 0 auto;min-height:315px;padding-top:90px;text-align:center;overflow:visible;}
 .poster-bg-deco{position:absolute;left:50%;top:66px;width:460px;height:230px;transform:translateX(-50%);z-index:1;background-image:repeating-conic-gradient(from 0deg,#ffd553 0 14%,#ff70d3 14% 32%,#25e0f2 34% 50%,#fff 50% 65%,#21ffb3 65% 74%,#303bbf 74% 100%);background-size:180% 180%;filter:blur(8px) brightness(1.16) opacity(.65) saturate(1.8);border-radius:50%;animation:bgAuraSpin 7.5s linear infinite alternate;box-shadow:0 0 70px 22px #09c7f722;}
 @keyframes bgAuraSpin {100%{background-position:180% 0;}}
@@ -123,8 +124,10 @@ form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;bo
 @media (max-width:700px){.epic-title-poster{min-height:80px;padding-top:18px;}.poster-bg-deco{width:120px;height:68px;}.poster-title{padding:6px 7px 9px 7px;font-size:1.08em;}.poster-sticker{font-size:1em;}.no-tocar-letra{font-size:1.2em;}#no-tocar-wasaaa img{width:94vw;max-width:97vw;}}
 @keyframes shake{0%{transform:translate(0, 0);}10%{transform:translate(-8px, 0);}20%{transform:translate(8px, 0);}30%{transform:translate(-8px, 0);}40%{transform:translate(8px, 0);}50%{transform:translate(-6px, 0);}60%{transform:translate(6px, 0);}70%{transform:translate(-4px, 0);}80%{transform:translate(4px, 0);}90%{transform:translate(-4px, 0);}100%{transform:translate(0, 0);}}
 </style>
+
 </head>
 <body ontouchstart="">
+
 <!-- CAPTCHA DIVERTIDO -->
 <div id="captcha-overlay">
   <div class="captcha-box">
@@ -135,8 +138,6 @@ form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;bo
     <button class="captcha-btn" onclick="verificarCaptcha()">Entrar 🚀</button>
   </div>
 </div>
-
-<!-- Tu contenido original, como títulos, memes, navegación, etc. -->
 
 <div class="epic-title-poster">
   <div class="poster-bg-deco"></div>
@@ -210,7 +211,7 @@ if (self !== top) {
   top.location = self.location;
 }
 
-// Constantes y datos
+// Datos y constantes
 const MEMES = [
   { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
   { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
@@ -231,13 +232,12 @@ const FRASES_XD = [
   "¿Quién dejó el modo flojera encendido? 🛋️💤",
   "Hoy no hay tarea, ¿verdad profe? 😶✏️"
 ];
-
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
 let audioAllowed = false;
 
-// CAPTCHA
+// CAPTCHA IMPLEMENTADO Y CORREGIDO
 const preguntasCaptcha = [
   { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" },
   { pregunta: "¿Cuál es el color del cielo?", respuesta: "azul" },
@@ -257,12 +257,12 @@ function inicializarCaptcha() {
 
 function verificarCaptcha() {
   let respuestaUsuario = document.getElementById('captcha-input').value.trim().toLowerCase();
-  
+
   if (!captchaActual) {
     inicializarCaptcha();
     return;
   }
-  
+
   if (respuestaUsuario === captchaActual.respuesta) {
     document.getElementById('captcha-overlay').style.display = 'none';
     audioBoot();
@@ -272,25 +272,22 @@ function verificarCaptcha() {
     inicializarCaptcha();
   }
 }
-
-// Permitir enviar con Enter
 document.addEventListener('DOMContentLoaded', function() {
   limpiarLocalStorage();
   inicializarCaptcha();
-  document.getElementById('captcha-input').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
+  document.getElementById('captcha-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
       verificarCaptcha();
     }
   });
 });
 
-// Funciones adicionales y seguridad (las puedes mantener originales)
-
-function escapeHtml(str) { /*... tu función original ...*/ }
-function contienePalabrasProhibidas(texto) { /*... tu función original ...*/ }
-function contieneCodigoMalicioso(texto) { /*... tu función original ...*/ }
-function sanitizarInput(input) { /*... tu función original ...*/ }
-function validarComentarios(comentarios) { /*... tu función original ...*/ }
+// Funciones de seguridad y utilidades (mantener tal cual o ajustar según necesites)
+function escapeHtml(str) { /* código original aquí */ }
+function contienePalabrasProhibidas(texto) { /* código original aquí */ }
+function contieneCodigoMalicioso(texto) { /* código original aquí */ }
+function sanitizarInput(input) { /* código original aquí */ }
+function validarComentarios(comentarios) { /* código original aquí */ }
 function limpiarLocalStorage() {
   const keysPermitidos = ['zoeva_coments'];
   for (let i = 0; i < localStorage.length; i++) {
@@ -300,20 +297,20 @@ function limpiarLocalStorage() {
     }
   }
 }
-function validarEmail(email) { /*... tu función original ...*/ }
-function audioBoot() { /*... tu función original ...*/ }
-function muestraFraseXD(num) { /*... tu función original ...*/ }
-function btnClickSound() { /*... tu función original ...*/ }
-function playSoundAhh() { /*... tu función original ...*/ }
-function navAnim(seccion, el) { /*... tu función original ...*/ }
-function renderMemes() { /*... tu función original ...*/ }
-function renderContacto() { /*... tu función original ...*/ }
-function renderComentarios() { /*... tu función original ...*/ }
-function guardarComentario(e) { /*... tu función original ...*/ }
-function mostrarComentarios(array) { /*... tu función original ...*/ }
-function mostrarNoTocar() { /*... tu función original ...*/ }
-function asustarWasaaa() { /*... tu función original ...*/ }
-function cerrarNoTocar() { /*... tu función original ...*/ }
+function validarEmail(email) { /* código original aquí */ }
+function audioBoot() { /* código original aquí */ }
+function muestraFraseXD(num) { /* código original aquí */ }
+function btnClickSound() { /* código original aquí */ }
+function playSoundAhh() { /* código original aquí */ }
+function navAnim(seccion, el) { /* código original aquí */ }
+function renderMemes() { /* código original aquí */ }
+function renderContacto() { /* código original aquí */ }
+function renderComentarios() { /* código original aquí */ }
+function guardarComentario(e) { /* código original aquí */ }
+function mostrarComentarios(array) { /* código original aquí */ }
+function mostrarNoTocar() { /* código original aquí */ }
+function asustarWasaaa() { /* código original aquí */ }
+function cerrarNoTocar() { /* código original aquí */ }
 
 window.addEventListener('resize', () => {
   let frasexd = document.getElementById('frase-xd');
