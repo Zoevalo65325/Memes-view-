@@ -1,609 +1,341 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>zoevaloprueba - Página de Memes 😎✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
-<style>
-:root {
-  --main-grad: linear-gradient(135deg, #29F4FF 10%, #53E083 60%, #67A2FF 100%);
-}
-body {
-  margin: 0;
-  background: var(--main-grad);
-  min-height: 100vh;
-}
-header {
-  text-align: center;
-  background: var(--main-grad);
-  box-shadow: 0 8px 28px rgba(60, 205, 212, 0.07);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding-bottom: 0;
-}
-.logo {
-  font-family: 'Bangers', Impact, sans-serif;
-  font-size: clamp(2.7em, 8vw, 5em);
-  font-weight: 900;
-  margin-bottom: 3px;
-  margin-top: 1.2em;
-  letter-spacing: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logo span {
-  display:inline-block;
-}
-.logo .color1 { color: #25e0f3; }
-.logo .color2 { color: #17ed9e; }
-.logo .color3 { color: #ffd553; }
-.logo .color4 { color: #fa6a49; }
-.logo .color5 { color: #f557cb; }
-.logo .shadow {
-  text-shadow:
-    0 3px 16px #183b4a,
-    0 1px 2px #fff,
-    1px 3px 0px #242a4380;
-}
-.logo .emoji { margin: 0 0.17em; font-size:0.6em;}
-@media (max-width:650px) {
-  .logo{font-size:2em;}
-}
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 13px;
-  flex-wrap: wrap;
-  margin-bottom: 11px;
-  margin-top: 8px;
-  position: relative;
-}
-nav button {
-  background: #fff;
-  color: #29F4FF;
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.13em;
-  font-weight: 600;
-  border: none;
-  border-radius: 14px;
-  padding: 9px 24px;
-  cursor: pointer;
-  box-shadow: 0 2px 7px #53e08311;
-  margin-bottom: 3px;
-  margin-top: 3px;
-  transition: 0.15s;
-  position: relative;
-}
-nav button.active,
-nav button:hover {
-  background: #23e2bb;
-  color: #FFF;
-  transform: scale(1.08);
-}
-nav button:focus { outline: none;}
-nav button#notocar-btn {
-  background: #fc8181;
-  color: #fff;
-  font-weight: bold;
-  box-shadow: 0 2px 11px #fa6a49ab;
-  border: none;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoevaloprueba - Tu Dosis de Diversión!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb; /* Morado vibrante */
+            --secondary-color: #2575fc; /* Azul eléctrico */
+            --accent-color: #ff007f; /* Rosa chicle */
+            --text-color: #e0e0e0;
+            --background-dark: #1a0033; /* Morado muy oscuro */
+            --card-background: #2b0a4d; /* Morado oscuro para tarjetas */
+            --header-background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
 
-.fade-out { animation: fadeOutSection 0.45s;}
-@keyframes fadeOutSection { 0% {opacity:1;} 100% {opacity:0; transform:scale(0.98);} }
-.fade-in { animation: fadeInSection 0.45s;}
-@keyframes fadeInSection { 0% {opacity:0; transform:scale(1.04);} 100% {opacity:1; transform:none;} }
-#pantalla-inicio {
-  padding: 30px 9px 22px 9px;
-  max-width: 430px;
-  margin: 30px auto 0 auto;
-  background: var(--main-grad);
-  border-radius: 20px;
-  box-shadow: 0 7px 23px #53e0831c;
-  transition: 0.4s;
-}
-.pantalla-teclado {
-  font-family:'Baloo 2',cursive;
-  font-size:2.05em;
-  color:#2cd0ba;
-  margin-bottom:18px;
-  text-align:center;
-}
-.num-teclado {
-  display: grid;
-  grid-template-columns: repeat(3,78px);
-  gap: 26px;
-  justify-content: center;
-  margin: 28px 0 9px 0;
-}
-.num-teclado button {
-  font-size:2.1em;
-  font-family:'Baloo 2',cursive;
-  background:#fff;
-  color:#2ae97e;
-  border:2.5px solid #34b4ff;
-  border-radius:20px;
-  box-shadow:0 3px 24px #51fcc322;
-  cursor:pointer;
-  transition:0.13s;
-  width:78px;
-  height:78px;
-  font-weight:900;
-}
-.num-teclado button:active, .num-teclado button:hover {
-  background: #25e0f3;
-  color: #fff;
-  border: 2.5px solid #23e2bb;
-  transform: scale(1.11);
-}
-.xd-frase {
-  min-height: 42px;
-  margin-top: 17px;
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.1em;
-  text-align: center;
-  color: #18697d;
-  font-weight: bold;
-  background: #cbfdeec9;
-  border-radius: 13px;
-  padding: 12px 16px;
-  box-shadow: 0 2px 8px #aafde415;
-  animation: fraseXDfade 0.5s;
-}
-@keyframes fraseXDfade {from {opacity:0; transform:translateY(14px);}to{opacity:1;transform:none;}}
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.memes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 19px;
-  max-width: 900px;
-  margin: 0 auto 23px auto;
-  padding: 0 11px;
-}
-.meme-card {
-  background: var(--main-grad);
-  border-radius: 30px;
-  box-shadow: 0 7px 30px 0 #2beed844;
-  animation: fadeIn 0.7s;
-  cursor: pointer;
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-  border:5px solid #f3fff7c9;
-  position:relative;
-  transition: box-shadow 0.16s, transform 0.13s;
-}
-.meme-card:hover {
-  transform: scale(1.045) rotate(-2deg);
-  box-shadow: 0 22px 54px 0 #33e0ff71;
-}
-@keyframes fadeIn { 0% {opacity:0; transform: translateY(18px);} 100% {opacity:1;transform:none;} }
-.meme-img {
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 30px 30px 0 0;
-  border-bottom: 6px solid #53E083;
-  background: #e0fff8;
-  display:block;
-  margin-bottom: -8px;
-}
-.meme-content {
-  flex: 1;
-  padding: 12px 15px 4px 15px;
-  text-align:left;
-}
-.meme-title {
-  font-family: 'Baloo 2', cursive;
-  font-weight: 900;
-  font-size: 1.14em;
-  color: #21b7a6;
-  margin-bottom: 4px;
-  letter-spacing: 1px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.meme-desc {
-  font-size: 1em;
-  color: #17b16b;
-  font-family: 'Baloo 2', cursive;
-  margin-bottom:6px;
-}
-.emoji-huge { font-size:1.29em; }
-.meme-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 7px 19px 13px 19px;
-}
-.btn-rickroll {
-  background: #29F4FF;
-  color: #fff;
-  font-family: 'Baloo 2', cursive;
-  font-size:1em;
-  font-weight:700;
-  border:none;
-  border-radius:20px;
-  padding:8px 22px;
-  box-shadow:0 4px 11px #29F4FF33;
-  cursor:pointer;
-  transition:0.12s;
-}
-.btn-rickroll:hover {
-  background: #53E083;
-  color: #183010;
-  transform:scale(1.10);
-}
-footer {
-  background: linear-gradient(90deg,#1fe7f1 30%, #53E083 100%);
-  color: #fff;
-  text-align: center;
-  font-size: 1.09em;
-  padding: 15px 10px 12px 10px;
-  margin-top: 23px;
-  border-radius: 23px 23px 0 0;
-  font-family: 'Baloo 2', cursive;
-  box-shadow:0 -11px 23px #53E08322;
-}
-footer .social-icons {
-  margin: 9px 0;
-}
-footer .social-icons a {
-  display: inline-block;
-  margin: 0 9px;
-  font-size: 1.13em;
-  color: #fafffd;
-  transition: transform .11s;
-}
-footer .social-icons a:hover {
-  transform:scale(1.14);
-  color:#53E083;
-}
-.comentarios-section {
-  max-width:520px; margin:0 auto 20px auto; background:#e5fff2cc; border-radius:22px; padding:19px 15px;
-  box-shadow:0 3px 11px #29f4ff17;
-}
-.comentarios-section h2 {
-  font-family:'Baloo 2',cursive; color:#21b7a6;
-}
-form textarea {
-  width:90%; min-height:44px; border-radius:13px; border:2px solid #29F4FF; font-size:1.03em; font-family:'Baloo 2';
-  margin-bottom:13px; padding:8px;
-}
-form button {
-  background: #29F4FF;
-  color:#fff; font-family:'Baloo 2';font-size:1em;border:none;border-radius:15px;padding:9px 25px;cursor:pointer;
-  margin-bottom:13px;
-}
-.comentario {
-  color:#24a16c; margin-bottom:8px; border-radius:12px; background:#fff; padding:10px 13px;
-  font-size:1em; font-family:'Baloo 2';
-  box-shadow:0 1px 4px #53E08313;
-}
-.com-emoji { font-size:1.17em; margin-right:4px; }
+        .header {
+            background: var(--header-background);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
 
-/* Pantalla especial "No tocar" */
-#no-tocar-oscuro {
-  position:fixed; top:0;left:0;width:100%;height:100%;
-  background:#101820ee;
-  z-index:99999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  animation:fadeOscuro 0.5s;
-}
-@keyframes fadeOscuro {0%{opacity:0;}100%{opacity:1;}}
-#no-tocar-mensaje {
-  color:#fff;
-  font-family:'Bangers',cursive;
-  font-size:2.7em;
-  text-align:center;
-  margin-bottom:17px;
-  transition:0.4s;
-  letter-spacing:2px;
-  text-shadow:0 15px 45px #000f,0 1px 0px #fff;
-}
-#no-tocar-wasaaa {
-  background:black;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-#no-tocar-wasaaa img {
-  width:320px; max-width:94vw; border-radius:22px; box-shadow:0 12px 60px #111a;
-}
-#no-tocar-wasaaa .wasa-text {
-  color:#fff; font-size:2em; font-family:'Bangers',cursive; margin-top:9px;
-  text-shadow:0 8px 20px #f00b;
-  animation:wasa-fade 1s;
-}
-@keyframes wasa-fade {0%{opacity:.1;}100%{opacity:1;}}
+        .logo-container {
+            width: 280px; /* Tamaño del logo un poco más grande */
+            height: 280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            animation: bounceIn 1s ease-out; /* Animación de entrada para el logo */
+        }
 
-@media (max-width:650px){
-  .logo{font-size:1.7em;}
-  .pantalla-teclado{font-size:1em;}
-  .xd-frase{font-size:0.9em;}
-  nav {gap:6px;}
-  #pantalla-inicio {padding:11px 2px 11px 2px;}
-  .num-teclado{grid-template-columns:repeat(3,44px);gap:8px;}
-  .num-teclado button {font-size:1em;width:44px;height:44px;}
-  #no-tocar-mensaje{font-size:1em;}
-  #no-tocar-wasaaa img{width:140px;}
-}
-</style>
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); /* Sombra suave para que resalte */
+        }
+
+        .main-title {
+            font-family: 'Bangers', cursive;
+            font-size: 4.5em; /* Título más grande y con estilo */
+            color: #ffffff;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7), 
+                         -3px -3px 0px var(--accent-color); /* Sombra doble para efecto 3D */
+            margin-top: 15px;
+            position: relative;
+            z-index: 5;
+            letter-spacing: 2px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffffff;
+            opacity: 0.9;
+            margin-top: 10px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .content {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 30px auto;
+            background-color: var(--card-background);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .section-title {
+            font-family: 'Bangers', cursive;
+            font-size: 3em;
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .meme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .meme-card {
+            background-color: #3f196a; /* Fondo más oscuro para tarjetas individuales */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meme-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .meme-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .meme-card p {
+            font-size: 1.1em;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        /* Estilos para el área de susto */
+        .scare-area {
+            background: linear-gradient(135deg, #cc0000 0%, #ff5500 100%); /* Degradado de rojo a naranja */
+            padding: 40px;
+            margin-top: 60px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); /* Sombra roja intensa */
+            transition: transform 0.2s ease;
+            border: 3px dashed #fff; /* Borde intermitente para llamar la atención */
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        .scare-area:hover {
+            transform: scale(1.03); /* Ligeramente más grande al pasar el ratón */
+        }
+
+        .scare-text {
+            font-family: 'Bangers', cursive;
+            font-size: 3.5em;
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+            position: relative;
+            z-index: 2;
+            letter-spacing: 3px;
+        }
+
+        .scare-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0); /* Empieza oculto */
+            width: 100%; /* Ajusta el tamaño de la imagen de susto */
+            max-width: 500px;
+            height: auto;
+            object-fit: contain;
+            opacity: 0;
+            transition: all 0.1s ease-out; /* Transición rápida para que sea un susto */
+            z-index: 1;
+        }
+
+        .scare-area.active .scare-image {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1); /* Aparece y crece */
+        }
+
+        /* Animación de temblor */
+        @keyframes shake {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            10% { transform: translate(-48%, -52%) rotate(-1deg); }
+            20% { transform: translate(-52%, -48%) rotate(1deg); }
+            30% { transform: translate(-49%, -51%) rotate(0deg); }
+            40% { transform: translate(-51%, -49%) rotate(-1deg); }
+            50% { transform: translate(-48%, -52%) rotate(1deg); }
+            60% { transform: translate(-52%, -48%) rotate(-1deg); }
+            70% { transform: translate(-49%, -51%) rotate(0deg); }
+            80% { transform: translate(-51%, -49%) rotate(1deg); }
+            90% { transform: translate(-48%, -52%) rotate(-1deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        }
+
+        .scare-area.active {
+            animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        /* Animación de pulso para el borde de susto */
+        @keyframes pulse {
+            0% { border-color: #fff; box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+            50% { border-color: #ffcc00; box-shadow: 0 0 40px rgba(255, 165, 0, 0.9); }
+            100% { border-color: #fff; box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+        }
+
+        /* Animaciones de entrada para elementos */
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            background: var(--header-background);
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 5px solid var(--accent-color);
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
+            font-size: 0.9em;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Media Queries para responsividad */
+        @media (max-width: 900px) {
+            .main-title { font-size: 3.5em; }
+            .subtitle { font-size: 1.2em; }
+            .section-title { font-size: 2.5em; }
+            .scare-text { font-size: 2.8em; }
+            .logo-container { width: 220px; height: 220px; }
+            .meme-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .main-title { font-size: 2.5em; letter-spacing: 1px;}
+            .subtitle { font-size: 1em; }
+            .section-title { font-size: 2em; }
+            .scare-text { font-size: 2em; letter-spacing: 1px;}
+            .logo-container { width: 180px; height: 180px; }
+            .scare-area { padding: 30px; }
+        }
+
+        @media (max-width: 400px) {
+            .main-title { font-size: 2em; }
+            .section-title { font-size: 1.8em; }
+            .scare-text { font-size: 1.5em; }
+            .logo-container { width: 150px; height: 150px; }
+            .content { padding: 30px 15px; }
+            .meme-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div class="logo shadow" id="tituloLogo">
-    <span class="emoji color3">🚀</span>
-    <span class="color1">Z</span><span class="color2">O</span><span class="color3">E</span><span class="color4">V</span><span class="color5">A</span><span class="color1">L</span><span class="color2">O</span><span class="color3">P</span><span class="color4">R</span><span class="color5">U</span><span class="color1">E</span><span class="color4">B</span><span class="color2">A</span>
-    <span class="emoji color4">💎</span>
-    <span class="emoji color2">🔥</span>
-    <span class="emoji color5">🥳</span>
-  </div>
-  <nav>
-    <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
-    <button onclick="navAnim('memes',this)">😂 Memes</button>
-    <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
-    <button onclick="navAnim('contacto',this)">📧 Contacto</button>
-    <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
-  </nav>
-</header>
-<div id="pantalla-inicio" class="fade-in">
-  <div class="pantalla-teclado">Selecciona tu favorito</div>
-  <div class="num-teclado">
-    <button onclick="muestraFraseXD(1);btnClickSound()">1</button>
-    <button onclick="muestraFraseXD(2);btnClickSound()">2</button>
-    <button onclick="muestraFraseXD(3);btnClickSound()">3</button>
-    <button onclick="muestraFraseXD(4);btnClickSound()">4</button>
-    <button onclick="muestraFraseXD(5);btnClickSound()">5</button>
-    <button onclick="muestraFraseXD(6);btnClickSound()">6</button>
-    <button onclick="muestraFraseXD(7);btnClickSound()">7</button>
-    <button onclick="muestraFraseXD(8);btnClickSound()">8</button>
-    <button onclick="muestraFraseXD(9);btnClickSound()">9</button>
-  </div>
-  <div id="frase-xd" class="xd-frase"></div>
-</div>
-<div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
-<div id="comentarios" class="fade-in" style="display:none"></div>
-<!-- Sección "No tocar" especial -->
-<div id="no-tocar-oscuro"></div>
-<footer>
-  <div class="social-icons">
-    <a href="#">🌈</a>
-    <a href="#">🤣</a>
-    <a href="#">🌟</a>
-    <a href="#">🍀</a>
-  </div>
-  <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
-</footer>
-<audio id="audio-burbujas" preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/10/16/audio_113d3e8247.mp3" type="audio/mpeg">
-</audio>
-<audio id="audio-wasaaa" preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/07/27/audio_121bfa4d2c.mp3" type="audio/mpeg">
-</audio>
-<script>
-const MEMES = [
-  {
-    titulo:"Chill de cojones 😌",
-    descripcion:"Relajación máxima 💆‍♂️",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg",
-    emoji:"😌"
-  },
-  {
-    titulo:"Bob Esponja 🤪",
-    descripcion:"¡Burla asegurada! 🍍",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg",
-    emoji:"🤪"
-  },
-  {
-    titulo:"Pikachu Sorprendido 😱",
-    descripcion:"¡No me lo esperaba! ⚡",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/pikachu.jpeg",
-    emoji:"⚡"
-  },
-  {
-    titulo:"Gato Meme 🐱",
-    descripcion:"¿Miau dices? 😺",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/gato%20meme.jpeg",
-    emoji:"😺"
-  },
-  {
-    titulo:"Patrick Malvado 😏",
-    descripcion:"Risa traviesa 🦑",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/patricio.jpg",
-    emoji:"😏"
-  },
-  {
-    titulo:"Stonks 💹",
-    descripcion:"Dinero para todos 🤑",
-    img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/stonks.jpeg",
-    emoji:"💹"
-  }
-];
 
-const FRASES_XD = [
-  "Mi cara cuando veo pizza gratis... 🤤🍕",
-  "Quise madrugar... mi cama dijo NO. 😴",
-  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦",
-  "Desayuné y ya tengo hambre otra vez. 🥞😂",
-  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️",
-  "Me reí tan fuerte que desperté al perro. 🐶🤣",
-  "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
-  "¿Quién dejó el modo flojera encendido? 🛋️💤",
-  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
-];
+    <audio id="scareSound" src="https://www.myinstants.com/media/sounds/scream-wazzza-2.mp3" preload="auto"></audio>
 
-const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
-
-function muestraFraseXD(num) {
-  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.12em";
-}
-function btnClickSound() {
-  let a = document.getElementById('audio-burbujas');
-  if(a && typeof a.play ==='function') { a.currentTime=0; a.play(); }
-}
-function navAnim(seccion, el) {
-  btnClickSound();
-  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
-  pantallas.forEach(id=>{
-    let el2 = document.getElementById(id);
-    if(el2 && el2.style.display!="none") {
-      el2.classList.remove('fade-in');
-      el2.classList.add('fade-out');
-    }
-  });
-  setTimeout(()=>{
-    pantallas.forEach(id=>{
-      let el2 = document.getElementById(id);
-      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
-    });
-    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
-    if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
-    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
-    if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
-    if(seccion=="notocar"){mostrarNoTocar();}
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    let idx = ["home","memes","comentarios","contacto","notocar"].indexOf(seccion);
-    if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
-  },410);
-}
-
-function renderMemes() {
-  document.getElementById('comentarios').style.display="none";
-  document.getElementById('pantalla-inicio').style.display="none";
-  document.getElementById('no-tocar-oscuro').style.display = "none";
-  const grid = document.getElementById('memesGrid');
-  grid.style.display="grid";
-  grid.innerHTML = '';
-  MEMES.forEach(meme => {
-    const card = document.createElement('div');
-    card.className = 'meme-card';
-    card.onclick = ()=>window.open(RICKROLL_URL,'_blank');
-    card.innerHTML = `
-      <img class="meme-img" src="${meme.img}" alt="${meme.titulo}" onerror="this.src='${MEME_BACKUP}'" />
-      <div class="meme-content">
-        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${meme.titulo}</div>
-        <div class="meme-desc">${meme.descripcion}</div>
-      </div>
-      <div class="meme-actions">
-        <button class="btn-rickroll" onclick="btnClickSound();window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
-      </div>`;
-    grid.appendChild(card);
-  });
-}
-function renderContacto() {
-  document.getElementById('comentarios').style.display = "none";
-  document.getElementById('pantalla-inicio').style.display = "none";
-  document.getElementById('no-tocar-oscuro').style.display="none";
-  document.getElementById('memesGrid').style.display = "block";
-  document.getElementById('memesGrid').innerHTML = `
-    <div style="padding:22px 10px 33px 10px;text-align:center;">
-    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.36em">Contacto &amp; Newsletter 💌</h2>
-    <p>¿Ideas, memes o saludos? <br> Escribe a: <b>zoevaloprueba@gmail.com</b> 📧</p>
-    <form style="margin:14px auto;max-width:315px;">
-      <input type="email" placeholder="Tu email para memes 🔥" style="padding:10px 12px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:7px;">
-      <button type="submit" style="padding:9px 16px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
-    </form>
-    <div style="font-size:1.65em">💚🦄🎉🤣😂🍀</div>
-    </div>`;
-}
-function renderComentarios() {
-  let array = [];
-  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
-  const comDiv = document.getElementById('comentarios');
-  comDiv.innerHTML = `
-    <div class="comentarios-section">
-      <h2>💬 Comentarios públicos de usuarios</h2>
-      <form id="comentarioForm" onsubmit="guardarComentario(event)">
-        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
-        <button type="submit">¡Enviar comentario! 🚀</button>
-      </form>
-      <div id="comentariosList" style="margin-top:14px"></div>
-    </div>`;
-  mostrarComentarios(array);
-}
-function guardarComentario(e) {
-  e.preventDefault();
-  let array = [];
-  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
-  let texto = document.getElementById('comentarioText').value.trim();
-  if (texto.length<1) alert("Coloca tu comentario 😎"); else {
-    const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
-    let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-    array.unshift({mensaje:texto,emoji});
-    localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
-    document.getElementById('comentarioText').value = "";
-    mostrarComentarios(array);
-  }
-}
-function mostrarComentarios(array) {
-  const list = document.getElementById('comentariosList');
-  if (!array || array.length == 0) {
-    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
-    return;
-  }
-  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
-}
-function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
-window.addEventListener('resize',()=>{
-  let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.12em";
-});
-
-// SECCIÓN "NO TOCAR", AUTOMATICO Y JUMPSCARE PERSONALIZADO
-function mostrarNoTocar() {
-  const container = document.getElementById("no-tocar-oscuro");
-  container.style.display = "flex";
-  container.innerHTML = `<div id="no-tocar-mensaje">Acércate</div>`;
-  let pasos = [
-    "Acércate",
-    "Acércate más",
-    "Un poco más...",
-    "¡Sigue acercándote!",
-    "Ya casi...",
-    "¿Preparado?",
-    "¡WASAAAA!"
-  ];
-  let idx = 0;
-  let nextStep = ()=>{
-    idx++;
-    if(idx < pasos.length-1) {
-      document.getElementById("no-tocar-mensaje").innerText = pasos[idx];
-      setTimeout(nextStep, 1700);
-    } else {
-      setTimeout(asustarWasaaa, 1200);
-    }
-  };
-  setTimeout(nextStep, 1700);
-}
-function asustarWasaaa() {
-  const container = document.getElementById("no-tocar-oscuro");
-  container.innerHTML = `
-    <div id="no-tocar-wasaaa">
-      <img src="1000010909.jpg" alt="wasaaa" />
-      <div class="wasa-text">¡WASAAAA! 😱</div>
-      <button onclick="cerrarNoTocar()" style="font-size:1.13em;background:#23e2bb;color:#101;border:none;border-radius:13px;padding:7px 15px;margin-top:18px;cursor:pointer;box-shadow:0 3px 21px #f33a;">
-        Volver a la web
-      </button>
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://i.imgur.com/gK2xX74.png" alt="Zoevaloprueba Logo"> </div>
+        <h1 class="main-title">BIENVENIDO A ZOEVALOPRUEBA</h1>
+        <p class="subtitle">¡Tu portal definitivo para memes épicos y risas garantizadas!</p>
     </div>
-  `;
-  let audio = document.getElementById("audio-wasaaa");
-  if(audio){ audio.currentTime=0; audio.play(); }
-}
-function cerrarNoTocar() {
-  document.getElementById("no-tocar-oscuro").style.display = "none";
-  navAnim("home",document.querySelectorAll('nav button')[0]);
-}
-</script>
+
+    <div class="content">
+        <h2 class="section-title">✨ Nuestros Memes Más Virales ✨</h2>
+        <p style="text-align: center; font-size: 1.1em; margin-bottom: 40px;">Prepárate para una sobredosis de diversión. ¡Estos memes están listos para conquistar tus redes!</p>
+        
+        <div class="meme-grid">
+            <div class="meme-card">
+                <img src="https://i.imgur.com/V7H1j6y.jpeg" alt="Meme del Perro Disfrazado"> <p>"Cuando intentas ser discreto pero todos saben lo que haces."</p>
+            </div>
+            <div class="meme-card">
+                <img src="https://i.imgur.com/Q2gG9Yv.jpeg" alt="Meme del Gato Pensando"> <p>"Yo tratando de entender la vida después de un lunes."</p>
+            </div>
+            <div class="meme-card">
+                <img src="https://i.imgur.com/D4s3kY0.jpeg" alt="Meme del Hombre Asustado"> <p>"Mi cara cuando el WiFi se cae en medio de una serie."</p>
+            </div>
+            <div class="meme-card">
+                <img src="https://i.imgur.com/yF9W0xY.jpeg" alt="Meme del Bebé Malvado"> <p>"Cuando te dicen 'solo un episodio más'..."</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 80px;">⚠️ ¡ADVERTENCIA! NO TOCAR AQUÍ ⚠️</h2>
+        <div class="scare-area" id="scareArea">
+            <span class="scare-text">¡REALMENTE NO DEBES TOCAR ESTE BOTÓN!</span>
+            <img class="scare-image" src="https://i.imgur.com/Gj8xJ25.png" alt="Wazaaaa Susto"> </div>
+
+        <h2 class="section-title" style="margin-top: 80px;">🚀 Sobre Nuestra Misión 🚀</h2>
+        <p style="text-align: center; font-size: 1.1em;">En Zoevaloprueba, nuestra misión es simple: ¡hacerte sonreír! Navegamos por los océanos de internet para traerte solo lo mejor de lo mejor en memes, chistes y contenido que te alegrará el día. ¡La diversión está garantizada!</p>
+        <p style="text-align: center; font-size: 1.1em;">Únete a nuestra comunidad y prepárate para compartir las risas. ¡No te quedes atrás!</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Zoevaloprueba. Hecho con ❤️ y muchos memes.</p>
+        <p>Síguenos en nuestras redes sociales (¡próximamente!)</p>
+    </div>
+
+    <script>
+        const scareArea = document.getElementById('scareArea');
+        const scareImage = scareArea.querySelector('.scare-image');
+        const scareSound = document.getElementById('scareSound');
+        let scareActive = false; // Bandera para evitar múltiples activaciones rápidas
+
+        scareArea.addEventListener('mouseenter', () => {
+            if (!scareActive) {
+                scareActive = true;
+                scareArea.classList.add('active'); // Activa la clase para el susto y la animación
+                
+                // Reinicia y reproduce el sonido
+                scareSound.currentTime = 0; 
+                scareSound.play().catch(e => console.log("Error al reproducir el sonido:", e)); 
+                
+                // Desactiva el susto después de un breve tiempo
+                setTimeout(() => {
+                    scareArea.classList.remove('active');
+                    scareActive = false;
+                }, 800); // La duración del temblor y la aparición de la imagen
+            }
+        });
+    </script>
+
 </body>
 </html>
