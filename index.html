@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<!-- 🔒 Seguridad -->
+<!-- META TAGS DE SEGURIDAD -->
 <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self'; 
                script-src 'self' https://fonts.googleapis.com; 
@@ -21,285 +21,192 @@
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
 
 <style>
-/* 🎨 Estilo general */
-body {
-  margin: 0;
-  background: #0d1023 url('https://www.transparenttextures.com/patterns/stardust.png');
-  min-height: 100vh;
-  color: #fff;
-  font-family: 'Baloo 2', cursive;
-  overflow-x: hidden;
-}
-header {
-  text-align: center;
-  padding: 30px 10px 20px 10px;
-  background: linear-gradient(180deg, #2b2e57, #17193a);
-  border-bottom: 3px solid #ff00ff;
-  box-shadow: 0 0 25px #ff00ff88;
-}
-h1 {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 3em;
-  color: #ff00ff;
-  text-shadow: 3px 3px 0 #00ffff, 0 0 20px #ff00ff;
-  letter-spacing: 2px;
-}
-nav {
-  text-align: center;
-  margin-top: 10px;
-}
-nav button {
-  background: #00ffff;
-  border: 3px solid #ff00ff;
-  color: #0d1023;
-  font-family: 'Bangers', cursive;
-  font-size: 1.2em;
-  padding: 10px 18px;
-  margin: 5px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 15px #00ffff88;
-}
-nav button:hover {
-  transform: scale(1.1);
-  background: #ff00ff;
-  color: #fff;
-  box-shadow: 0 0 20px #ff00ff;
-}
+body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png'); min-height:100vh; }
 
-/* 🌌 Secciones */
-section {
-  padding: 20px;
-  text-align: center;
-}
-.meme-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-.meme-grid img {
-  width: 100%;
-  border-radius: 20px;
-  border: 4px solid #00ffff;
-  box-shadow: 0 0 25px #00ffff88;
-  transition: transform 0.3s ease;
-}
-.meme-grid img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 40px #ff00ffaa;
-}
-
-/* 🧩 CAPTCHA */
+/* CAPTCHA DIVERTIDO */
 #captcha-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(13, 16, 35, 0.97);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+  position:fixed; top:0; left:0; width:100%; height:100%; background:#0e1221f7; z-index:999999;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
 }
 .captcha-box {
-  background: linear-gradient(145deg, #1b1f3a, #2d2f50);
-  border: 3px solid #ff00ff;
-  border-radius: 20px;
-  box-shadow: 0 0 30px #00ffff99;
-  padding: 30px;
-  text-align: center;
-  max-width: 300px;
+  background:linear-gradient(135deg,#29f4ff 10%,#53e083 90%);
+  padding:32px 26px; border-radius:22px; text-align:center; max-width:380px;
+  box-shadow:0 12px 48px #1ff5e933; border:6px solid #1c172e;
 }
 .captcha-box h2 {
-  color: #00ffff;
-  font-family: 'Luckiest Guy';
-  text-shadow: 0 0 10px #ff00ff;
+  font-family:'Luckiest Guy',cursive; font-size:2.3em; color:#fff;
+  text-shadow:0 3px 18px #000, 2px 2px 0 #ff31a8; margin-bottom:14px;
+}
+.captcha-box p {
+  font-family:'Baloo 2',cursive; font-size:1.32em; color:#18697d; margin-bottom:19px; font-weight:700;
 }
 .captcha-input {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  width: 80%;
-  text-align: center;
-  font-size: 1em;
+  font-size:1.54em; padding:11px 18px; border-radius:14px; border:3px solid #21e75a;
+  font-family:'Baloo 2',cursive; text-align:center; width:78%; margin-bottom:18px;
 }
 .captcha-btn {
-  margin-top: 15px;
-  background: #ff00ff;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 1.1em;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+  background:#21e75a; color:#fff; font-family:'Baloo 2',cursive; font-size:1.27em; font-weight:bold;
+  border:none; border-radius:16px; padding:13px 35px; cursor:pointer; box-shadow:0 6px 18px #21e75a55;
+  transition:0.14s;
 }
-.captcha-btn:hover {
-  background: #00ffff;
-  color: #000;
-}
+.captcha-btn:hover { background:#ff48c4; transform:scale(1.07); }
 .captcha-error {
-  color: #ff5555;
-  font-weight: bold;
-  margin-top: 8px;
+  color: #ff0000;
+  font-family:'Baloo 2',cursive;
+  font-size:0.9em;
+  margin-top:10px;
+  min-height:20px;
 }
 
-/* 🧠 Extra */
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #17193a;
-  border-top: 3px solid #00ffff;
-  box-shadow: 0 -5px 15px #00ffff88;
-}
-footer p {
-  font-family: 'Baloo 2', cursive;
-  color: #fff;
-  font-size: 1em;
-}
-
-/* Botón secreto */
-#btn-secreto {
-  background: #ff0000;
-  color: #fff;
-  font-family: 'Bangers', cursive;
-  border-radius: 20px;
-  border: 3px solid #ff00ff;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  box-shadow: 0 0 20px #ff0000aa;
-}
-#btn-secreto:hover {
-  background: #ff00ff;
-}
+/* El resto de estilos que tienes, incluyendo memes y navegación */
+.epic-title-poster { position:relative;width:100vw;max-width:900px;margin:0 auto 0 auto;min-height:315px;padding-top:90px;text-align:center;overflow:visible;}
+.poster-bg-deco{position:absolute;left:50%;top:66px;width:460px;height:230px;transform:translateX(-50%);z-index:1;background-image:repeating-conic-gradient(from 0deg,#ffd553 0 14%,#ff70d3 14% 32%,#25e0f2 34% 50%,#fff 50% 65%,#21ffb3 65% 74%,#303bbf 74% 100%);background-size:180% 180%;filter:blur(8px) brightness(1.16) opacity(.65) saturate(1.8);border-radius:50%;animation:bgAuraSpin 7.5s linear infinite alternate;box-shadow:0 0 70px 22px #09c7f722;}
+@keyframes bgAuraSpin {100%{background-position:180% 0;}}
+.poster-title{position:relative;z-index:3;font-family:'Luckiest Guy','Bangers',Impact,sans-serif;font-size:clamp(2.3em,9vw,5.8em);color:#ff31a8;letter-spacing:.06em;font-weight:900;text-transform:uppercase;background:rgba(0,0,0,0.19);border-radius:28px;border:7px solid #1c172e;padding:18px 33px 22px 33px;display:inline-block;box-shadow:0 7px 38px #1ff5e929,0 0px 14px #303bbf50;margin:0 auto 10px auto;text-shadow:0 3px 0 #fff373,0 8px 28px #1ff6b3a9,3px 3px 12px #ff31a892;animation:breatheTitle 4.2s alternate ease-in-out infinite;}
+@keyframes breatheTitle{50%{transform:scale(1.036);}}
+.poster-title span{display:inline-block;font-size:1em;animation:popTitle .6s cubic-bezier(.6,-1.0,.3,2.1) alternate infinite;margin:0 1.9px;}
+.poster-title span:nth-child(1){color:#ff48c4;animation-delay:.04s;} .poster-title span:nth-child(2){color:#21e75a;animation-delay:.11s;}
+.poster-title span:nth-child(3){color:#fff373;animation-delay:.16s;} .poster-title span:nth-child(4){color:#21ffb3;animation-delay:.18s;}
+.poster-title span:nth-child(5){color:#25e0f2;animation-delay:.24s;} .poster-title span:nth-child(6){color:#ff31a8;animation-delay:.29s;}
+.poster-title span:nth-child(7){color:#fff373;animation-delay:.34s;} .poster-title span:nth-child(8){color:#21e75a;animation-delay:.38s;}
+.poster-title span:nth-child(9){color:#21ffb3;animation-delay:.44s;} .poster-title span:nth-child(10){color:#25e0f2;animation-delay:.52s;}
+.poster-title span:nth-child(11){color:#ff48c4;animation-delay:.59s;} .poster-title span:nth-child(12){color:#21e75a;animation-delay:.07s;}
+.poster-title span:nth-child(13){color:#ff31a8;animation-delay:.14s;}
+@keyframes popTitle{45%{transform:scale(1.14) rotate(-2deg);}100%{transform:scale(0.97) rotate(2deg);}}
+.poster-sticker{position:absolute;font-size:2em;z-index:3;pointer-events:none;user-select:none;filter:drop-shadow(0 5px 22px #fff3) brightness(1.14);animation:flotarSticker 8s ease-in-out infinite alternate;}
+@keyframes flotarSticker{60%{transform:translateY(-18px) scale(1.13);}100%{transform:translateY(2px) scale(0.99);}}
+@media (max-width:700px){.epic-title-poster{min-height:100px;padding-top:30px;}.poster-bg-deco{width:160px;height:81px;}.poster-title{padding:5px 6px 6px 8px;font-size:1.22em;}.poster-sticker{font-size:1.09em;}}
+nav{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;background:rgba(13,16,35,0.03);margin-bottom:18px;margin-top:0px;position:relative;}
+nav button{background:#fff;color:#29F4FF;font-family:'Baloo 2',cursive;font-size:1.07em;font-weight:600;border:none;border-radius:14px;padding:9px 20px;cursor:pointer;margin-bottom:2px;margin-top:3px;transition:0.13s;}
+nav button.active,nav button:hover{background:#21e75a;color:#fff;transform:scale(1.052);}
+nav button:focus{outline:none;}
+nav button#notocar-btn{background:#fc8181;color:#fff;font-weight:bold;box-shadow:0 2px 11px #fa6a49ab;}
+#pantalla-inicio{padding:26px 7px 17px 7px;max-width:430px;margin:18px auto 0 auto;background:var(--main-grad,#1f59be19);border-radius:20px;box-shadow:0 7px 23px #53e0832c;}
+.pantalla-teclado{font-family:'Baloo 2',cursive;font-size:2em;color:#2cd0ba;margin-bottom:16px;text-align:center;}
+.num-teclado{display:grid;grid-template-columns:repeat(3,78px);gap:23px;justify-content:center;margin:18px 0 9px 0;}
+.num-teclado button{font-size:2em;font-family:'Baloo 2',cursive;background:#fff;color:#2ae97e;border:2.5px solid #34b4ff;border-radius:20px;box-shadow:0 3px 24px #51fcc322;cursor:pointer;transition:0.13s;width:78px;height:78px;font-weight:900;}
+.num-teclado button:active,.num-teclado button:hover{background:#25e0f3;color:#fff;border:2.5px solid #23e2bb;transform:scale(1.09);}
+.xd-frase{min-height:37px;margin-top:13px;font-family:'Baloo 2',cursive;font-size:1.11em;text-align:center;color:#18697d;font-weight:bold;background:#cbfdeec9;border-radius:10px;padding:12px 15px;box-shadow:0 2px 7px #aafde415;animation:fraseXDfade 0.5s;}
+@keyframes fraseXDfade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.memes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:19px;max-width:900px;margin:0 auto 23px auto;padding:0 11px;}
+.meme-card{background:linear-gradient(129deg,#dbfff7 50%,#e5f2fc 90%);border-radius:28px;box-shadow:0 7px 30px 0 #2beed81a;animation:fadeIn 0.7s;cursor:pointer;min-height:244px;display:flex;flex-direction:column;border:5px solid #f3fafd;position:relative;transition:box-shadow 0.16s,transform 0.13s;}
+.meme-card:hover{transform:scale(1.042) rotate(-1deg);box-shadow:0 12px 32px 0 #33e0ff71;}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(13px);}100%{opacity:1;transform:none;}}
+.meme-img{width:100%;height:156px;object-fit:cover;border-radius:28px 28px 0 0;border-bottom:5px solid #53E083;background:#e0fff8;display:block;margin-bottom:-8px;}
+.meme-content{flex:1;padding:10px 13px 3px 13px;text-align:left;}
+.meme-title{font-family:'Baloo 2',cursive;font-weight:900;font-size:1.09em;color:#21b7a6;margin-bottom:4px;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.meme-desc{font-size:.97em;color:#17875a;font-family:'Baloo 2',cursive;margin-bottom:4px;}
+.emoji-huge{font-size:1.2em;}
+.meme-actions{display:flex;align-items:center;justify-content:flex-end;padding:4px 17px 8px 17px;}
+.btn-rickroll{background:#29F4FF;color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;border:none;border-radius:17px;padding:8px 16px;box-shadow:0 4px 11px #29F4FF33;cursor:pointer;transition:0.12s;}
+.btn-rickroll:hover{background:#53E083;color:#183010;transform:scale(1.06);}
+footer{background:linear-gradient(96deg,#1fe7f1 68%,#53E083 100%);color:#fff;text-align:center;font-size:1.07em;padding:9px 10px 10px 10px;margin-top:18px;border-radius:18px 18px 0 0;font-family:'Baloo 2',cursive;box-shadow:0 -8px 20px #53E08317;}
+footer .social-icons{margin:4px 0 8px 0;}
+footer .social-icons a{display:inline-block;margin:0 7px;font-size:1.05em;color:#fafffd;transition:transform .11s;}
+footer .social-icons a:hover{transform:scale(1.13);color:#53E083;}
+.comentarios-section{max-width:510px;margin:0 auto 17px auto;background:#e5fff2cc;border-radius:17px;padding:16px 11px;box-shadow:0 3px 8px #29f4ff0a;}
+.comentarios-section h2{font-family:'Baloo 2',cursive;color:#21b7a6;}
+form textarea{width:90%;min-height:34px;border-radius:11px;border:2px solid #29F4FF;font-size:1em;font-family:'Baloo 2';margin-bottom:10px;padding:8px;}
+form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;border:none;border-radius:13px;padding:8px 15px;cursor:pointer;margin-bottom:10px;}
+.comentario{color:#24a16c;margin-bottom:4px;border-radius:10px;background:#fff;padding:8px 10px;font-size:.97em;font-family:'Baloo 2';box-shadow:0 1px 3px #53E08310;}
+.com-emoji{font-size:1em;margin-right:4px;}
+.fade-out{animation:fadeOutSection 0.41s;}
+@keyframes fadeOutSection{0%{opacity:1;}100%{opacity:0;transform:scale(0.98);}}
+.fade-in{animation:fadeInSection 0.41s;}
+@keyframes fadeInSection{0%{opacity:0;transform:scale(1.04);}100%{opacity:1;transform:none;}}
+#no-tocar-oscuro{position:fixed;top:0;left:0;width:100%;height:100%;background:#101820f3;z-index:99999;display:none;align-items:center;justify-content:center;flex-direction:column;animation:fadeOscuro 0.5s;}
+@keyframes fadeOscuro{0%{opacity:0;}100%{opacity:1;}}
+.no-tocar-letra{color:#fff;font-family:'Luckiest Guy',cursive;font-size:2.45em;text-align:center;margin-bottom:25px;transition:0.3s;letter-spacing:2px;text-shadow:0 15px 45px #000f,0 2px 0px #fff;animation:popBig .88s infinite alternate ease-in-out;}
+@keyframes popBig{100%{transform:scale(1.05);}}
+#no-tocar-wasaaa{background:black;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#no-tocar-wasaaa img{width:95vw;max-width:430px;min-width:220px;border-radius:22px;box-shadow:0 12px 60px #111a;animation:scareJump 0.24s 6 alternate;}
+@keyframes scareJump{50%{transform:scale(1.13) rotate(3deg);}100%{filter:brightness(1.33);}}
+#no-tocar-wasaaa .wasa-text{color:#fff;font-size:2.1em;font-family:'Luckiest Guy',cursive;margin-top:13px;text-shadow:0 8px 20px #f00b;animation:wasa-fade 1s;}
+@keyframes wasa-fade{0%{opacity:.1;}100%{opacity:1;}}
+@media (max-width:700px){.epic-title-poster{min-height:80px;padding-top:18px;}.poster-bg-deco{width:120px;height:68px;}.poster-title{padding:6px 7px 9px 7px;font-size:1.08em;}.poster-sticker{font-size:1em;}.no-tocar-letra{font-size:1.2em;}#no-tocar-wasaaa img{width:94vw;max-width:97vw;}}
+@keyframes shake{0%{transform:translate(0, 0);}10%{transform:translate(-8px, 0);}20%{transform:translate(8px, 0);}30%{transform:translate(-8px, 0);}40%{transform:translate(8px, 0);}50%{transform:translate(-6px, 0);}60%{transform:translate(6px, 0);}70%{transform:translate(-4px, 0);}80%{transform:translate(4px, 0);}90%{transform:translate(-4px, 0);}100%{transform:translate(0, 0);}}
 </style>
-</head>
 
+</head>
 <body ontouchstart="">
 
-<!-- 🧩 CAPTCHA -->
+<!-- CAPTCHA DIVERTIDO -->
 <div id="captcha-overlay">
   <div class="captcha-box">
     <h2>🤖 Captcha Divertido 🎉</h2>
     <p id="captcha-pregunta">¿Cuánto es 2 + 2? 🤔</p>
     <input type="text" id="captcha-input" class="captcha-input" placeholder="Tu respuesta...">
     <div class="captcha-error" id="captcha-error"></div>
-    <button class="captcha-btn" id="captcha-btn">Entrar 🚀</button>
+    <button class="captcha-btn">Entrar 🚀</button>
   </div>
 </div>
 
-<!-- 🚀 Encabezado -->
-<header>
-  <h1>🔥 Zoevaloprueba 🔥</h1>
-  <nav>
-    <button onclick="mostrarSeccion('inicio')">Inicio</button>
-    <button onclick="mostrarSeccion('memes')">Memes</button>
-    <button onclick="mostrarSeccion('comentarios')">Comentarios</button>
-    <button id="btn-secreto" onclick="botonSecreto()">No Tocar 😈</button>
-  </nav>
-</header>
-
-<!-- 🌈 Secciones -->
-<section id="inicio">
-  <h2>Bienvenido a la locura 🎉</h2>
-  <p>Prepárate para ver los memes más épicos y un poco de caos 💥</p>
-</section>
-
-<section id="memes" style="display:none;">
-  <h2>😂 Memes Épicos</h2>
-  <div class="meme-grid">
-    <img src="https://i.imgflip.com/30zz5g.jpg" alt="Meme 1">
-    <img src="https://i.imgflip.com/1bij.jpg" alt="Meme 2">
-    <img src="https://i.imgflip.com/2wifvo.jpg" alt="Meme 3">
-    <img src="https://i.imgflip.com/4/1otk96.jpg" alt="Meme 4">
+<div class="epic-title-poster">
+  <div class="poster-bg-deco"></div>
+  <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
+  <span class="poster-sticker" style="left:87%;top:12%;">🧠</span>
+  <span class="poster-sticker" style="left:17%;top:7%;">🤣</span>
+  <span class="poster-sticker" style="left:91%;top:49%;">😺</span>
+  <span class="poster-sticker" style="left:81%;top:79%;">🍟</span>
+  <span class="poster-sticker" style="left:6%;top:60%;">🥑</span>
+  <span class="poster-sticker" style="left:51%;top:16%;">👑</span>
+  <span class="poster-sticker" style="left:41%;top:77%;">😂</span>
+  <span class="poster-sticker" style="left:92%;top:64%;">👍</span>
+  <span class="poster-sticker" style="left:19%;top:87%;font-size:2.3em;">😎</span>
+  <span class="poster-sticker" style="left:61%;top:21%;">🔍</span>
+  <div class="poster-title">
+    <span>Z</span><span>O</span><span>E</span><span>V</span><span>A</span><span>L</span><span>O</span><span>P</span><span>R</span><span>U</span><span>E</span><span>B</span><span>A</span>
   </div>
-</section>
+</div>
 
-<section id="comentarios" style="display:none;">
-  <h2>💬 Comentarios</h2>
-  <p>Deja tu huella aquí abajo 👇 (ficticio por ahora)</p>
-</section>
+<nav>
+  <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
+  <button onclick="navAnim('memes',this)">😂 Memes</button>
+  <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
+  <button onclick="navAnim('contacto',this)">📧 Contacto</button>
+  <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
+</nav>
+
+<div id="pantalla-inicio" class="fade-in">
+  <div class="pantalla-teclado">Selecciona tu favorito</div>
+  <div class="num-teclado">
+    <button onclick="audioBoot();muestraFraseXD(1);btnClickSound()">1</button>
+    <button onclick="audioBoot();muestraFraseXD(2);btnClickSound()">2</button>
+    <button onclick="audioBoot();muestraFraseXD(3);btnClickSound()">3</button>
+    <button onclick="audioBoot();muestraFraseXD(4);btnClickSound()">4</button>
+    <button onclick="audioBoot();muestraFraseXD(5);btnClickSound()">5</button>
+    <button onclick="audioBoot();muestraFraseXD(6);btnClickSound()">6</button>
+    <button onclick="audioBoot();muestraFraseXD(7);btnClickSound()">7</button>
+    <button onclick="audioBoot();muestraFraseXD(8);btnClickSound()">8</button>
+    <button onclick="audioBoot();muestraFraseXD(9);btnClickSound()">9</button>
+  </div>
+  <div id="frase-xd" class="xd-frase"></div>
+</div>
+<div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
+<div id="comentarios" class="fade-in" style="display:none"></div>
+<div id="no-tocar-oscuro"></div>
 
 <footer>
-  <p>© 2025 Zoevaloprueba | Todos los derechos reservados 🌌</p>
+  <div class="social-icons">
+    <a href="#">🌈</a>
+    <a href="#">🤣</a>
+    <a href="#">🌟</a>
+    <a href="#">🍀</a>
+  </div>
+  <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
 </footer>
 
-<!-- 🎵 Sonido divertido -->
-<audio id="audio-boot" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
-<audio id="audio-secret" src="https://www.soundjay.com/button/button-10.wav" preload="auto"></audio>
+<audio id="audio-burbujas" preload="auto">
+  <source src="1qngpb0ez1z-bubbles-sfx-1 (1).mp3" type="audio/mpeg">
+</audio>
+<audio id="audio-ahh" preload="auto">
+  <source src="ahh.mp3" type="audio/mpeg">
+</audio>
+<audio id="audio-wasaaa" preload="auto">
+  <source src="five-nights-at-freddys-full-scream-sound_2.mp3" type="audio/mpeg">
+</audio>
 
-<script>
-// Bloqueo de iframes (anti clickjacking)
-if (self !== top) { top.location = self.location; }
+<script src="main.js"></script>
 
-// 🎵 Funciones de sonido
-function audioBoot() { document.getElementById('audio-boot').play().catch(()=>{}); }
-function audioSecret() { document.getElementById('audio-secret').play().catch(()=>{}); }
-
-// 📦 LocalStorage
-function limpiarLocalStorage() {
-  try { localStorage.clear(); } catch(e) {}
-}
-
-// 🌐 Secciones
-function mostrarSeccion(id) {
-  document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
-// 😈 Botón secreto
-function botonSecreto() {
-  audioSecret();
-  alert("¡Te dije que no lo tocaras! 💥");
-  document.body.style.background = "radial-gradient(circle, red, black)";
-  setTimeout(() => location.reload(), 2500);
-}
-
-// 🤖 CAPTCHA funcional
-const preguntasCaptcha = [
-  { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" },
-  { pregunta: "¿Cuál es el color del cielo?", respuesta: "azul" },
-  { pregunta: "¿Cuántos lados tiene un triángulo?", respuesta: "3" },
-  { pregunta: "¿Capital de Francia?", respuesta: "parís" }
-];
-let captchaActual = null;
-
-function inicializarCaptcha() {
-  const randomIndex = Math.floor(Math.random() * preguntasCaptcha.length);
-  captchaActual = preguntasCaptcha[randomIndex];
-  document.getElementById('captcha-pregunta').textContent = captchaActual.pregunta + " 🤔";
-  document.getElementById('captcha-input').value = "";
-  document.getElementById('captcha-error').textContent = "";
-}
-
-function verificarCaptcha() {
-  const input = document.getElementById('captcha-input');
-  const error = document.getElementById('captcha-error');
-  let respuestaUsuario = input.value.trim().toLowerCase();
-
-  if (!captchaActual) inicializarCaptcha();
-
-  if (respuestaUsuario === captchaActual.respuesta) {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    audioBoot();
-  } else {
-    error.textContent = '❌ Respuesta incorrecta. Intenta de nuevo.';
-    input.value = "";
-    inicializarCaptcha();
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  limpiarLocalStorage();
-  inicializarCaptcha();
-
-  // ✅ Sin onclick inline (compatible con GitHub Pages)
-  document.getElementById('captcha-btn').addEventListener('click', verificarCaptcha);
-  document.getElementById('captcha-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') verificarCaptcha();
-  });
-});
-</script>
 </body>
 </html>
