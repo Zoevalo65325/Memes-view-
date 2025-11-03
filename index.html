@@ -25,24 +25,33 @@ header {
 }
 .logo {
   font-family: 'Luckiest Guy', cursive;
-  font-size: clamp(2.4em, 7vw, 7em);
+  font-size: clamp(2.7em, 7vw, 7em);
   font-weight: 900;
-  margin-bottom: 7px;
-  color: #16e6e3;
-  letter-spacing: 8px;
+  margin-bottom: 8px;
+  color: #36f4ff;
+  letter-spacing: 9px;
   text-shadow:
-    0 4px 24px #0acdde8c,
-    0 1px 0px #fff,
+    0 5px 44px #0c5397,
+    0 2px 2px #fff,
     2px 4px 0px #242a4380;
-  margin-top: 1.09em;
-  line-height: 1.1;
-  animation: show-logo 1.3s cubic-bezier(.25,2,.52,1.01);
-  filter: brightness(1.1);
+  margin-top: 1.13em;
+  line-height: 1.11;
+  animation: show-logo 1.1s cubic-bezier(.25,2,.5,1.1);
+  position: relative;
+}
+.logo .emoji {font-size: .7em; margin: 0 .03em;}
+.logo .emoji-bounce {animation:bounceEmoji 1.44s infinite;}
+@keyframes bounceEmoji {
+  0%{transform:translateY(0);}
+  20%{transform:translateY(-6px);}
+  45%{transform:translateY(-15px);}
+  80%{transform:translateY(2px);}
+  100%{transform:translateY(0);}
 }
 @keyframes show-logo {
-  0% { opacity:0; transform:translateY(-75px) scale(2); }
-  50% { opacity:.6; }
-  90% { transform:scale(1.09); }
+  0% { opacity:0; transform:translateY(-89px) scale(2.2);}
+  60% { opacity:.5; }
+  90% { transform:scale(1.075);}
   100% { opacity:1; transform:none;}
 }
 nav {
@@ -68,8 +77,8 @@ nav button {
   font-weight: 500;
   border: none;
   border-radius: 18px;
-  font-size: 1.26em;
-  padding: 13px 37px;
+  font-size: 1.28em;
+  padding: 17px 42px;
   cursor: pointer;
   margin-bottom: 8px;
   margin-top: 8px;
@@ -80,22 +89,21 @@ nav button {
 }
 nav button.active,
 nav button:hover {
-  background: #0cedae;
+  background: #08e0b2;
   color: #FFF;
   transform: scale(1.14);
   outline: none !important;
 }
 nav button:focus {outline: none;}
-
 .bubble-anim {
   display:block !important;
   animation: bubbleUp 0.85s forwards;
 }
 @keyframes bubbleUp {
   0% { opacity:0;transform:scale(.7) translateY(0);}
-  20% { opacity:.8;transform:scale(1.06) translateY(-13px);}
-  82% { opacity:.7;transform:scale(0.93) translateY(-28px);}
-  100% {opacity:0;transform:scale(0.8) translateY(-48px);}
+  20% { opacity:.85;transform:scale(1.09) translateY(-14px);}
+  82% { opacity:.6;transform:scale(0.92) translateY(-32px);}
+  100% {opacity:0;transform:scale(0.8) translateY(-52px);}
 }
 
 .fade-out { animation: fadeOutSection 0.5s;}
@@ -120,13 +128,13 @@ nav button:focus {outline: none;}
 }
 .num-teclado {
   display: grid;
-  grid-template-columns: repeat(3,70px);
-  gap: 26px;
+  grid-template-columns: repeat(3,80px);
+  gap: 29px;
   justify-content: center;
   margin: 33px 0 10px 0;
 }
 .num-teclado button {
-  font-size:2.1em;
+  font-size:2.12em;
   font-family:'Fredoka One',cursive;
   background:#fff;
   color:#2ae97e;
@@ -135,8 +143,8 @@ nav button:focus {outline: none;}
   box-shadow:0 4px 24px #51ffa344;
   cursor:pointer;
   transition:0.17s;
-  width:70px;
-  height:70px;
+  width:80px;
+  height:80px;
   font-weight:bold;
 }
 .num-teclado button:active, .num-teclado button:hover {
@@ -149,7 +157,7 @@ nav button:focus {outline: none;}
   min-height: 44px;
   margin-top: 31px;
   font-family: 'Fredoka One', cursive;
-  font-size: 1.25em;
+  font-size: 1.28em;
   text-align: center;
   color: #18697d;
   font-weight: bold;
@@ -291,26 +299,74 @@ form button {
   box-shadow:0 1px 4px #53E08323;
 }
 .com-emoji { font-size:1.2em; margin-right:5px; }
+#no-tocar-oscuro {
+  position:fixed; top:0;left:0;width:100%;height:100%;
+  background:#101820ea;
+  z-index:99999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  animation:fadeOscuro 0.5s;
+}
+@keyframes fadeOscuro {0%{opacity:0;}100%{opacity:1;}}
+#no-tocar-mensaje {
+  color:#fff;
+  font-family:'Luckiest Guy',cursive;
+  font-size:2.8em;
+  text-align:center;
+  margin-bottom:19px;
+  transition:0.4s;
+  letter-spacing:2px;
+  text-shadow:0 15px 45px #000f,0 1px 0px #fff;
+}
+#no-tocar-wasaaa {
+  background:black;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+#no-tocar-wasaaa img {
+  width:320px; max-width:90vw; border-radius:22px; box-shadow:0 12px 60px #111a;
+}
+#no-tocar-wasaaa .wasa-text {
+  color:#fff; font-size:2.1em; font-family:'Luckiest Guy',cursive; margin-top:9px;
+  text-shadow:0 8px 20px #f00b;
+  animation:wasa-fade 1s;
+}
+@keyframes wasa-fade {0%{opacity:.1;}100%{opacity:1;}}
+
 @media (max-width:650px){
-  .logo{font-size:2.3em;}
-  .pantalla-teclado{font-size:1.4em;}
+  .logo{font-size:2.7em;}
+  .pantalla-teclado{font-size:1.3em;}
   .xd-frase{font-size:1em;}
   nav {gap:8px;}
   #pantalla-inicio {padding:18px 2px 18px 2px;}
-  .num-teclado{grid-template-columns:repeat(3,44px);gap:8px;}
-  .num-teclado button {font-size:1em;width:44px;height:44px;}
+  .num-teclado{grid-template-columns:repeat(3,52px);gap:12px;}
+  .num-teclado button {font-size:1.22em;width:52px;height:52px;}
+  #no-tocar-mensaje{font-size:1.59em;}
+  #no-tocar-wasaaa img{width:190px;}
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo" id="tituloLogo">zoevaloprueba</div>
+  <div class="logo" id="tituloLogo">
+    <span class="emoji emoji-bounce">🚀</span>
+    ZOEVALOPRUEBA
+    <span class="emoji emoji-bounce">🤣</span>
+    <span class="emoji emoji-bounce">💎</span>
+    <span class="emoji emoji-bounce">🔥</span>
+    <span class="emoji emoji-bounce">🥳</span>
+  </div>
   <nav>
     <span class="navbubble" id="bubble"></span>
     <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
     <button onclick="navAnim('memes',this)">😂 Memes</button>
     <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
     <button onclick="navAnim('contacto',this)">📧 Contacto</button>
+    <button onclick="navAnim('notocar',this)" style="background: #fc8181; color: #fff"><b>🚫 No tocar</b></button>
   </nav>
 </header>
 <div id="pantalla-inicio" class="fade-in">
@@ -330,6 +386,8 @@ form button {
 </div>
 <div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
 <div id="comentarios" class="fade-in" style="display:none"></div>
+<!-- Sección "No tocar" especial -->
+<div id="no-tocar-oscuro"></div>
 <footer>
   <div class="social-icons">
     <a href="#">🌈</a>
@@ -341,6 +399,9 @@ form button {
 </footer>
 <audio id="audio-burbujas" preload="auto">
   <source src="https://cdn.pixabay.com/audio/2022/10/16/audio_113d3e8247.mp3" type="audio/mpeg">
+</audio>
+<audio id="audio-wasaaa" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/07/27/audio_121bfa4d2c.mp3" type="audio/mpeg">
 </audio>
 <script>
 const MEMES = [
@@ -382,7 +443,6 @@ const MEMES = [
   }
 ];
 
-// Frases más simples y con humor "universal"
 const FRASES_XD = [
   "Mi cara cuando veo pizza gratis... 🤤🍕",
   "Quise madrugar... mi cama dijo NO. 😴",
@@ -392,7 +452,7 @@ const FRASES_XD = [
   "Me reí tan fuerte que desperté al perro. 🐶🤣",
   "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
   "¿Quién dejó el modo flojera encendido? 🛋️💤",
-  "Dicen que lo importante está por dentro, ¡por eso quiero pastel! 🎂🎉"
+  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
 ];
 
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
@@ -400,7 +460,7 @@ const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_imag
 
 function muestraFraseXD(num) {
   document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.25em";
+  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.35em";
 }
 function btnClickSound() {
   let a = document.getElementById('audio-burbujas');
@@ -409,7 +469,7 @@ function btnClickSound() {
 function navAnim(seccion, el) {
   btnClickSound();
   showBubbleAroundButton(el);
-  let pantallas = ["pantalla-inicio","memesGrid","comentarios"];
+  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
   pantallas.forEach(id=>{
     let el2 = document.getElementById(id);
     if(el2 && el2.style.display!="none") {
@@ -425,9 +485,10 @@ function navAnim(seccion, el) {
     if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
     if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
     if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
-    if(seccion=="contacto"){renderContacto();}
+    if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
+    if(seccion=="notocar"){mostrarNoTocar();}
     document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    let idx = ["home","memes","comentarios","contacto"].indexOf(seccion);
+    let idx = ["home","memes","comentarios","contacto","notocar"].indexOf(seccion);
     if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
   },410);
 }
@@ -445,10 +506,10 @@ function showBubbleAroundButton(btn) {
   setTimeout(()=>{bubble.className="navbubble";},840);
 }
 
-// === Pantalla Memes ===
 function renderMemes() {
   document.getElementById('comentarios').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
+  document.getElementById('no-tocar-oscuro').style.display = "none";
   const grid = document.getElementById('memesGrid');
   grid.style.display="grid";
   grid.innerHTML = '';
@@ -468,14 +529,14 @@ function renderMemes() {
     grid.appendChild(card);
   });
 }
-// === CONTACTO ===
 function renderContacto() {
   document.getElementById('comentarios').style.display = "none";
   document.getElementById('pantalla-inicio').style.display = "none";
+  document.getElementById('no-tocar-oscuro').style.display="none";
   document.getElementById('memesGrid').style.display = "block";
   document.getElementById('memesGrid').innerHTML = `
     <div style="padding:27px 16px 36px 16px;text-align:center;">
-    <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.58em">Contacto &amp; Newsletter 💌</h2>
+    <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.6em">Contacto &amp; Newsletter 💌</h2>
     <p>¿Ideas, memes o saludos? <br> Escribe a: <b>zoevaloprueba@gmail.com</b> 📧</p>
     <form style="margin:18px auto;max-width:315px;">
       <input type="email" placeholder="Tu email para memes 🔥" style="padding:11px 14px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:9px;">
@@ -484,7 +545,6 @@ function renderContacto() {
     <div style="font-size:2em">💚🦄🎉🤣😂🍀</div>
     </div>`;
 }
-// ==== Comentarios ====
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
@@ -525,8 +585,53 @@ function mostrarComentarios(array) {
 function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
 window.addEventListener('resize',()=>{
   let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.25em";
+  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.35em";
 });
+
+// SECCIÓN "NO TOCAR"
+function mostrarNoTocar() {
+  const container = document.getElementById("no-tocar-oscuro");
+  container.style.display = "flex";
+  container.innerHTML = `<div id="no-tocar-mensaje">Acércate</div>`;
+  let pasos = [
+    "Acércate",
+    "Acércate más",
+    "Un poco más...",
+    "¡Sigue acercándote!",
+    "Ya casi...",
+    "¿Preparado?",
+    "¡WASAAAA!"
+  ];
+  let idx = 0;
+  function siguientePaso() {
+    idx++;
+    if(idx < pasos.length-1) {
+      document.getElementById("no-tocar-mensaje").innerText = pasos[idx];
+    } else {
+      asustarWasaaa();
+    }
+  }
+  container.onclick = siguientePaso;
+}
+function asustarWasaaa() {
+  const container = document.getElementById("no-tocar-oscuro");
+  container.innerHTML = `
+    <div id="no-tocar-wasaaa">
+      <img src="https://media.tenor.com/_IytDBWrgeIAAAAC/wasaaa.gif" alt="wasaaa" />
+      <div class="wasa-text">¡WASAAAA! 😱</div>
+      <button onclick="cerrarNoTocar()" style="font-size:1.25em;background:#36f4ff;color:#111;border:none;border-radius:18px;padding:9px 21px;margin-top:23px;cursor:pointer;box-shadow:0 3px 21px #f33a;">
+        Volver a la web
+      </button>
+    </div>
+  `;
+  let audio = document.getElementById("audio-wasaaa");
+  if(audio){ audio.currentTime=0; audio.play(); }
+  container.onclick = null;
+}
+function cerrarNoTocar() {
+  document.getElementById("no-tocar-oscuro").style.display = "none";
+  navAnim("home",document.querySelectorAll('nav button')[0]);
+}
 </script>
 </body>
 </html>
