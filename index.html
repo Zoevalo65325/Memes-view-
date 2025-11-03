@@ -8,8 +8,6 @@
 <style>
 :root {
   --main-grad: linear-gradient(135deg, #29F4FF 10%, #53E083 60%, #67A2FF 100%);
-  --card-grad: linear-gradient(135deg,#c5ffe2ee 40%,#82ffde 100%);
-  --btn-grad: linear-gradient(90deg,#29F4FF,#53E083);
 }
 body {
   margin: 0;
@@ -26,29 +24,42 @@ header {
   padding-bottom: 7px;
 }
 .logo {
-  font-family: 'Luckiest Guy', 'Fredoka One', cursive;
-  font-size: 4em;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: clamp(2.4em, 7vw, 7em);
   font-weight: 900;
-  margin-bottom: 10px;
-  color: #fff;
-  letter-spacing: 7px;
-  text-shadow: 0 8px 36px #29F4FF60, 0 1px 1px #4cbdfa6c;
-  background: linear-gradient(-45deg,#ffef5f,#65eaed,#68ff99,#ffccee,#207fdc,#ffd1ac,#95f0c6 83%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbowTitle 3.5s infinite linear;
+  margin-bottom: 7px;
+  color: #16e6e3;
+  letter-spacing: 8px;
+  text-shadow:
+    0 4px 24px #0acdde8c,
+    0 1px 0px #fff,
+    2px 4px 0px #242a4380;
+  margin-top: 1.09em;
+  line-height: 1.1;
+  animation: show-logo 1.3s cubic-bezier(.25,2,.52,1.01);
+  filter: brightness(1.1);
 }
-@keyframes rainbowTitle {
-  0% {background-position:0% 50%;}
-  100% {background-position:100% 50%;}
+@keyframes show-logo {
+  0% { opacity:0; transform:translateY(-75px) scale(2); }
+  50% { opacity:.6; }
+  90% { transform:scale(1.09); }
+  100% { opacity:1; transform:none;}
 }
 nav {
   display: flex;
   justify-content: center;
-  gap: 33px;
+  gap: 38px;
   flex-wrap: wrap;
   margin-bottom: 23px;
   margin-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+nav .navbubble {
+  position: absolute;
+  pointer-events: none;
+  z-index:10;
+  display:none;
 }
 nav button {
   background: #fff;
@@ -57,28 +68,39 @@ nav button {
   font-weight: 500;
   border: none;
   border-radius: 18px;
-  font-size: 1.22em;
-  padding: 12px 35px;
+  font-size: 1.26em;
+  padding: 13px 37px;
   cursor: pointer;
   margin-bottom: 8px;
   margin-top: 8px;
   box-shadow: 0 2px 13px #53e08318;
-  transition: 0.2s;
+  transition: 0.24s;
   position: relative;
+  overflow: visible;
 }
 nav button.active,
 nav button:hover {
-  background: var(--btn-grad);
+  background: #0cedae;
   color: #FFF;
   transform: scale(1.14);
+  outline: none !important;
 }
-.fade-out {
-  animation: fadeOutSection 0.5s;
+nav button:focus {outline: none;}
+
+.bubble-anim {
+  display:block !important;
+  animation: bubbleUp 0.85s forwards;
 }
+@keyframes bubbleUp {
+  0% { opacity:0;transform:scale(.7) translateY(0);}
+  20% { opacity:.8;transform:scale(1.06) translateY(-13px);}
+  82% { opacity:.7;transform:scale(0.93) translateY(-28px);}
+  100% {opacity:0;transform:scale(0.8) translateY(-48px);}
+}
+
+.fade-out { animation: fadeOutSection 0.5s;}
 @keyframes fadeOutSection { 0% {opacity:1;} 100% {opacity:0; transform:scale(0.98);} }
-.fade-in {
-  animation: fadeInSection 0.5s;
-}
+.fade-in { animation: fadeInSection 0.5s;}
 @keyframes fadeInSection { 0% {opacity:0; transform:scale(1.04);} 100% {opacity:1; transform:none;} }
 #pantalla-inicio {
   padding: 35px 13px 30px 13px;
@@ -127,7 +149,7 @@ nav button:hover {
   min-height: 44px;
   margin-top: 31px;
   font-family: 'Fredoka One', cursive;
-  font-size: 1.35em;
+  font-size: 1.25em;
   text-align: center;
   color: #18697d;
   font-weight: bold;
@@ -148,7 +170,7 @@ nav button:hover {
   padding: 0 11px;
 }
 .meme-card {
-  background: var(--card-grad);
+  background: var(--main-grad);
   border-radius: 30px;
   box-shadow: 0 7px 30px 0 #2beed844;
   animation: fadeIn 0.8s;
@@ -270,24 +292,25 @@ form button {
 }
 .com-emoji { font-size:1.2em; margin-right:5px; }
 @media (max-width:650px){
-  .logo{font-size:2em;}
-  .pantalla-teclado{font-size:1.5em;}
-  .xd-frase{font-size:1.11em;}
-  nav {gap:10px;}
+  .logo{font-size:2.3em;}
+  .pantalla-teclado{font-size:1.4em;}
+  .xd-frase{font-size:1em;}
+  nav {gap:8px;}
   #pantalla-inicio {padding:18px 2px 18px 2px;}
-  .num-teclado{grid-template-columns:repeat(3,50px);gap:12px;}
-  .num-teclado button {font-size:1.3em;width:50px;height:50px;}
+  .num-teclado{grid-template-columns:repeat(3,44px);gap:8px;}
+  .num-teclado button {font-size:1em;width:44px;height:44px;}
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo" id="tituloLogo">✨🤩 zoevaloprueba 🎉🤣</div>
+  <div class="logo" id="tituloLogo">zoevaloprueba</div>
   <nav>
-    <button onclick="navAnim('home')" class="active">🏠 Inicio</button>
-    <button onclick="navAnim('memes')">😂 Memes</button>
-    <button onclick="navAnim('comentarios')">💬 Comentarios</button>
-    <button onclick="navAnim('contacto')">📧 Contacto</button>
+    <span class="navbubble" id="bubble"></span>
+    <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
+    <button onclick="navAnim('memes',this)">😂 Memes</button>
+    <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
+    <button onclick="navAnim('contacto',this)">📧 Contacto</button>
   </nav>
 </header>
 <div id="pantalla-inicio" class="fade-in">
@@ -358,55 +381,71 @@ const MEMES = [
     emoji:"💹"
   }
 ];
+
+// Frases más simples y con humor "universal"
+const FRASES_XD = [
+  "Mi cara cuando veo pizza gratis... 🤤🍕",
+  "Quise madrugar... mi cama dijo NO. 😴",
+  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦",
+  "Desayuné y ya tengo hambre otra vez. 🥞😂",
+  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️",
+  "Me reí tan fuerte que desperté al perro. 🐶🤣",
+  "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
+  "¿Quién dejó el modo flojera encendido? 🛋️💤",
+  "Dicen que lo importante está por dentro, ¡por eso quiero pastel! 🎂🎉"
+];
+
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
-const FRASES_XD = [
-  "Hoy tengo la velocidad de una tortuga ninja... ¡sin la pizza! 🐢",
-  "Acabo de descubrir que mi sombra tiene vida propia 💥🤹‍♂️",
-  "¿Quién necesita gravedad cuando tienes ganas de flotar? 🎈✨",
-  "Si alguien pregunta, estoy en modo invisible 🌚🦶",
-  "¿Qué miras? ¡Estoy entrenando para la próxima olimpiada de siestas! 😴🏅",
-  "Hoy le cambié el idioma al microondas. Habla coreano 🔥🎛️",
-  "Cuando me aburro hago carrera con los caracoles 🐌🏁",
-  "Si hago click muchas veces, ¿aparezco en otro universo? 🚪🌀",
-  "Ayer intenté hackear mi cepillo de dientes... ahora es wifi 🦷📡"
-];
+
 function muestraFraseXD(num) {
   document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1.15em" : "1.32em";
+  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.25em";
 }
 function btnClickSound() {
   let a = document.getElementById('audio-burbujas');
   if(a && typeof a.play ==='function') { a.currentTime=0; a.play(); }
 }
-function navAnim(seccion) {
+function navAnim(seccion, el) {
   btnClickSound();
-  // Fade-out animación al cambiar pantallas
+  showBubbleAroundButton(el);
   let pantallas = ["pantalla-inicio","memesGrid","comentarios"];
   pantallas.forEach(id=>{
-    let el = document.getElementById(id);
-    if(el && el.style.display!="none") {
-      el.classList.remove('fade-in');
-      el.classList.add('fade-out');
+    let el2 = document.getElementById(id);
+    if(el2 && el2.style.display!="none") {
+      el2.classList.remove('fade-in');
+      el2.classList.add('fade-out');
     }
   });
   setTimeout(()=>{
-    // Oculta todo
     pantallas.forEach(id=>{
-      let el = document.getElementById(id);
-      if(el) { el.style.display="none"; el.classList.remove('fade-out'); }
+      let el2 = document.getElementById(id);
+      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
     });
-    // Muestra solo la pantalla elegida
     if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
     if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
     if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
-    if(seccion=="contacto"){showContacto();}
-    // Marca activo el nav
+    if(seccion=="contacto"){renderContacto();}
     document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
     let idx = ["home","memes","comentarios","contacto"].indexOf(seccion);
     if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
-  },420);
+  },410);
 }
+
+function showBubbleAroundButton(btn) {
+  if (!btn) return;
+  let bubble = document.getElementById('bubble');
+  let rect = btn.getBoundingClientRect();
+  let navrect = btn.parentElement.getBoundingClientRect();
+  bubble.style.left = (rect.left-navrect.left + rect.width/2 -25) + "px";
+  bubble.style.top = (rect.top-navrect.top + rect.height/2 -25) + "px";
+  bubble.style.width = "50px";
+  bubble.style.height = "50px";
+  bubble.className = "navbubble bubble-anim";
+  setTimeout(()=>{bubble.className="navbubble";},840);
+}
+
+// === Pantalla Memes ===
 function renderMemes() {
   document.getElementById('comentarios').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
@@ -429,13 +468,14 @@ function renderMemes() {
     grid.appendChild(card);
   });
 }
-function showContacto() {
-  navAnim("contacto");
-  setTimeout(()=>{
-    document.getElementById('memesGrid').style.display = "block";
-    document.getElementById('memesGrid').innerHTML = `
+// === CONTACTO ===
+function renderContacto() {
+  document.getElementById('comentarios').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
+  document.getElementById('memesGrid').style.display = "block";
+  document.getElementById('memesGrid').innerHTML = `
     <div style="padding:27px 16px 36px 16px;text-align:center;">
-    <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.33em">Contacto &amp; Newsletter 💌</h2>
+    <h2 style="font-family:Fredoka One,cursive;color:#1ca87e;font-size:1.58em">Contacto &amp; Newsletter 💌</h2>
     <p>¿Ideas, memes o saludos? <br> Escribe a: <b>zoevaloprueba@gmail.com</b> 📧</p>
     <form style="margin:18px auto;max-width:315px;">
       <input type="email" placeholder="Tu email para memes 🔥" style="padding:11px 14px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:9px;">
@@ -443,8 +483,8 @@ function showContacto() {
     </form>
     <div style="font-size:2em">💚🦄🎉🤣😂🍀</div>
     </div>`;
-  },420);
 }
+// ==== Comentarios ====
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
@@ -485,7 +525,7 @@ function mostrarComentarios(array) {
 function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
 window.addEventListener('resize',()=>{
   let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1.15em":"1.32em";
+  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.25em";
 });
 </script>
 </body>
