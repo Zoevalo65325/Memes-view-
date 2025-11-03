@@ -2,27 +2,24 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Zoevaloprueba - Memes épicos</title>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
 <style>
-/*--- ESTILOS GENERALES, CABECERA, EMOJIS, MENÚ, ETC ---*/
-/* Pon aquí todo el CSS previamente proporcionado, incluyendo:
-   - body, poster, nav, teclado, memes-grid, comentarios-section, no-tocar-oscuro, etc.
-   - Puedes usar el último CSS detallado de antes, está optimizado para móvil y PC.
-   ¡No olvides pegarlo todo aquí para efectos y presentación completa! */
+/* Aquí va todo el CSS, copia el último completo de los ejemplos previos:
+   body, .epic-title-poster, .poster-title, nav, botones, .num-teclado, .xd-frase,
+   .memes-grid, .meme-card, .comentarios-section, .no-tocar-oscuro,
+   animaciones y media queries; también incluye el CSS de captcha */
 body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png'); min-height:100vh; }
-/* CAPTCHA DIVERTIDO */
-#captcha-overlay {
-  position:fixed; top:0; left:0; width:100%; height:100%; background:#0e1221f7; z-index:999999; display:flex; align-items:center; justify-content:center; flex-direction:column;
-}
-.captcha-box { background:linear-gradient(135deg,#29f4ff 10%,#53e083 90%); padding:32px 26px; border-radius:22px; text-align:center; max-width:380px; box-shadow:0 12px 48px #1ff5e933; border:6px solid #1c172e;}
-.captcha-box h2 { font-family:'Luckiest Guy',cursive; font-size:2.3em; color:#fff; text-shadow:0 3px 18px #000, 2px 2px 0 #ff31a8; margin-bottom:14px; }
-.captcha-box p { font-family:'Baloo 2',cursive; font-size:1.32em; color:#18697d; margin-bottom:19px; font-weight:700; }
-.captcha-input { font-size:1.54em; padding:11px 18px; border-radius:14px; border:3px solid #21e75a; font-family:'Baloo 2',cursive; text-align:center; width:78%; margin-bottom:18px; }
-.captcha-btn { background:#21e75a; color:#fff; font-family:'Baloo 2',cursive; font-size:1.27em; font-weight:bold; border:none; border-radius:16px; padding:13px 35px; cursor:pointer; box-shadow:0 6px 18px #21e75a55; transition:0.14s; }
-.captcha-btn:hover { background:#ff48c4; transform:scale(1.07); }
-/* ...El resto de tu CSS aquí exactamente igual como ya estaba, por espacio no se repite todo aquí... */
+/* Captcha */
+#captcha-overlay {position:fixed;top:0;left:0;width:100%;height:100%;background:#0e1221f7;z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.captcha-box {background:linear-gradient(135deg,#29f4ff 10%,#53e083 90%);padding:32px 26px;border-radius:22px;text-align:center;max-width:380px;box-shadow:0 12px 48px #1ff5e933;border:6px solid #1c172e;}
+.captcha-box h2 {font-family:'Luckiest Guy',cursive;font-size:2.3em;color:#fff;text-shadow:0 3px 18px #000,2px 2px 0 #ff31a8;margin-bottom:14px;}
+.captcha-box p {font-family:'Baloo 2',cursive;font-size:1.32em;color:#18697d;margin-bottom:19px;font-weight:700;}
+.captcha-input {font-size:1.54em;padding:11px 18px;border-radius:14px;border:3px solid #21e75a;font-family:'Baloo 2',cursive;text-align:center;width:78%;margin-bottom:18px;}
+.captcha-btn {background:#21e75a;color:#fff;font-family:'Baloo 2',cursive;font-size:1.27em;font-weight:bold;border:none;border-radius:16px;padding:13px 35px;cursor:pointer;box-shadow:0 6px 18px #21e75a55;transition:0.14s;}
+.captcha-btn:hover {background:#ff48c4;transform:scale(1.07);}
+/* ...El resto del CSS idéntico a mis mensajes anteriores (poster, nav, teclado, memes, jumpscare, media queries, etc.)... */
 </style>
 </head>
 <body ontouchstart="">
@@ -37,7 +34,7 @@ body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/pat
   </div>
 </div>
 
-<!-- CABECERA POSTER Y MENÚ EMOJIS -->
+<!-- CABECERA + MENÚ-->
 <div class="epic-title-poster">
   <div class="poster-bg-deco"></div>
   <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
@@ -62,7 +59,8 @@ body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/pat
   <button onclick="navAnim('contacto',this)">📧 Contacto</button>
   <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
 </nav>
-<!-- SECCIONES PRINCIPALES -->
+
+<!-- INICIO -->
 <div id="pantalla-inicio" class="fade-in">
   <div class="pantalla-teclado">Selecciona tu favorito</div>
   <div class="num-teclado">
@@ -82,6 +80,7 @@ body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/pat
 <div id="comentarios" class="fade-in" style="display:none"></div>
 <div id="no-tocar-oscuro"></div>
 
+<!-- FOOTER -->
 <footer>
   <div class="social-icons">
     <a href="#">🌈</a>
@@ -92,22 +91,185 @@ body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/pat
   <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
 </footer>
 
+<!-- AUDIOS -->
 <audio id="audio-burbujas" preload="auto"><source src="1qngpb0ez1z-bubbles-sfx-1 (1).mp3" type="audio/mpeg"></audio>
 <audio id="audio-ahh" preload="auto"><source src="ahh.mp3" type="audio/mpeg"></audio>
 <audio id="audio-wasaaa" preload="auto"><source src="five-nights-at-freddys-full-scream-sound_2.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* --- LÓGICA PRINCIPAL Y EFECTOS --- */
-/* Captcha divertido */
-function verificarCaptcha() {
-  let respuesta = document.getElementById('captcha-input').value.trim();
-  if(respuesta === '4' || respuesta === 'cuatro') {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    audioBoot();
-  } else { alert('¡Intenta de nuevo! 🤔 Pista: 2 + 2 = ?'); }
+// --- LO MISMO DEL JS DE MENSAJES ANTERIORES: animación, lógica, filtro groserías, renderizado, jumpscare, naveación, etc. ---
+// Filtro de groserías, frases, memes, etc.
+const forbiddenWords = [
+  'puta','puto','mierda','verga','joder','coño','idiota','estúpido','gilipollas',
+  'marica','pendejo','culero','fuck','shit','bitch','asshole','faggot','bastard',
+  'dick','cunt','motherfucker','slut','dumb','stupid','jerk','moron','idiot',
+  'gay','homo','retard','fool','foolish','suck','sucker','bollocks','bollock',
+  'cabron','imbecil','zorra','lame','huevon','perra','culiao','pelotudo','mongol','polla'
+];
+const MEMES = [
+  { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
+  { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
+  { titulo:"Pikachu Sorprendido 😱", descripcion:"¡No me lo esperaba! ⚡", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/pikachu.jpeg", emoji:"⚡"},
+  { titulo:"Gato Meme 🐱", descripcion:"¿Miau dices? 😺", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/gato%20meme.jpeg", emoji:"😺"},
+  { titulo:"Patrick Malvado 😏", descripcion:"Risa traviesa 🦑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/patricio.jpg", emoji:"😏"},
+  { titulo:"Stonks 💹", descripcion:"Dinero para todos 🤑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/stonks.jpeg", emoji:"💹"}
+];
+const FRASES_XD = [
+  "Mi cara cuando veo pizza gratis... 🤤🍕",
+  "Quise madrugar... mi cama dijo NO. 😴",
+  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦",
+  "Desayuné y ya tengo hambre otra vez. 🥞😂",
+  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️",
+  "Me reí tan fuerte que desperté al perro. 🐶🤣",
+  "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
+  "¿Quién dejó el modo flojera encendido? 🛋️💤",
+  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
+];
+const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+
+let audioAllowed = false;
+function audioBoot() {
+  if (!audioAllowed) {
+    let a1 = document.getElementById('audio-burbujas');
+    let a2 = document.getElementById('audio-wasaaa');
+    let a3 = document.getElementById('audio-ahh');
+    try {
+      if(a1) { a1.muted = false; a1.volume=1.0; a1.currentTime=0; a1.play().catch(()=>{}); }
+      if(a2) { a2.muted = false; a2.volume=1.0; a2.currentTime=0; a2.play().catch(()=>{}); }
+      if(a3) { a3.muted = false; a3.volume=1.0; a3.currentTime=0; a3.play().catch(()=>{}); }
+      audioAllowed = true;
+      setTimeout(()=>{if(a1)a1.pause();if(a2)a2.pause();if(a3)a3.pause();},70);
+    } catch(e){}
+  }
+}
+function muestraFraseXD(num) {
+  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
+  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
+}
+function btnClickSound() {
+  audioBoot();
+  let a = document.getElementById('audio-burbujas');
+  if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
+}
+function playSoundAhh() {
+  audioBoot();
+  let a = document.getElementById('audio-ahh');
+  if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
+}
+function navAnim(seccion, el) {
+  audioBoot();
+  btnClickSound();
+  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
+  pantallas.forEach(id=>{
+    let el2 = document.getElementById(id);
+    if(el2 && el2.style.display!="none") {
+      el2.classList.remove('fade-in');
+      el2.classList.add('fade-out');
+    }
+  });
+  setTimeout(()=>{
+    pantallas.forEach(id=>{
+      let el2 = document.getElementById(id);
+      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
+    });
+    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
+    if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
+    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
+    if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
+    if(seccion=="notocar"){mostrarNoTocar();}
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    let idx = ["home","memes","comentarios","contacto","notocar"].indexOf(seccion);
+    if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
+  },410);
 }
 
-/* Jumpscare con botón Estoy listx */
+function renderMemes() {
+  document.getElementById('comentarios').style.display="none";
+  document.getElementById('pantalla-inicio').style.display="none";
+  document.getElementById('no-tocar-oscuro').style.display = "none";
+  const grid = document.getElementById('memesGrid');
+  grid.style.display="grid";
+  grid.innerHTML = '';
+  MEMES.forEach(meme => {
+    const card = document.createElement('div');
+    card.className = 'meme-card';
+    card.onclick = ()=>{ audioBoot(); window.open(RICKROLL_URL,'_blank'); };
+    card.innerHTML = `
+      <img class="meme-img" src="${meme.img}" alt="${meme.titulo}" onerror="this.src='${MEME_BACKUP}'" />
+      <div class="meme-content">
+        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${meme.titulo}</div>
+        <div class="meme-desc">${meme.descripcion}</div>
+      </div>
+      <div class="meme-actions">
+        <button class="btn-rickroll" onclick="audioBoot();btnClickSound();window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+function renderContacto() {
+  document.getElementById('comentarios').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
+  document.getElementById('no-tocar-oscuro').style.display="none";
+  document.getElementById('memesGrid').style.display = "block";
+  document.getElementById('memesGrid').innerHTML = `
+    <div style="padding:22px 10px 29px 10px;text-align:center;background:#e5fff2cc;border-radius:17px;max-width:420px;margin:0 auto;">
+    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.21em">Contacto &amp; Newsletter 💌</h2>
+    <p style="color:#18697d;font-weight:700;">¿Ideas, memes o saludos? <br> Escribe a: <b style="color:#21b7a6;">zoevaloprueba@gmail.com</b> 📧</p>
+    <form style="margin:14px auto;max-width:315px;" onsubmit="playSoundAhh();return false;">
+      <input type="email" placeholder="Tu email para memes 🔥" style="padding:10px 12px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:7px;">
+      <button type="submit" style="padding:9px 17px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
+    </form>
+    <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
+    </div>`;
+}
+function renderComentarios() {
+  let array = [];
+  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
+  const comDiv = document.getElementById('comentarios');
+  comDiv.innerHTML = `
+    <div class="comentarios-section">
+      <h2>💬 Comentarios públicos de usuarios</h2>
+      <form id="comentarioForm" onsubmit="guardarComentario(event)">
+        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
+        <button type="submit">¡Enviar comentario! 🚀</button>
+      </form>
+      <div id="comentariosList" style="margin-top:10px"></div>
+    </div>`;
+  mostrarComentarios(array);
+}
+function guardarComentario(e) {
+  e.preventDefault();
+  playSoundAhh();
+  let array = [];
+  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
+  let texto = document.getElementById('comentarioText').value.trim();
+  let lower = texto.toLowerCase();
+  let found = forbiddenWords.some(word=> lower.includes(word));
+  if (found) {
+    alert('¡No se permiten palabras ofensivas ni groserías! 😬');
+    return false;
+  }
+  if (texto.length<1) alert("Coloca tu comentario 😎");
+  else {
+    const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
+    let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
+    array.unshift({mensaje:texto,emoji});
+    localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
+    document.getElementById('comentarioText').value = "";
+    mostrarComentarios(array);
+  }
+}
+function mostrarComentarios(array) {
+  const list = document.getElementById('comentariosList');
+  if (!array || array.length == 0) {
+    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
+    return;
+  }
+  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
+}
+function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
+// Jumpscare, "Estoy listx":
 function mostrarNoTocar() {
   audioBoot();
   const container = document.getElementById("no-tocar-oscuro");
@@ -127,11 +289,12 @@ function mostrarNoTocar() {
       msg.style.fontSize = pasos[idx].size;
       audioBoot();
       setTimeout(nextStep, 1800);
-    } else { setTimeout(()=>mostrarBotonSusto(), 1200); }
+    } else {
+      setTimeout(()=>mostrarBotonSusto(), 1200);
+    }
   }
   setTimeout(nextStep,1800);
 }
-
 function mostrarBotonSusto() {
   const container = document.getElementById("no-tocar-oscuro");
   container.innerHTML = `<div class="no-tocar-letra">¿Listx?<br>
@@ -159,11 +322,11 @@ function cerrarNoTocar() {
   document.getElementById("no-tocar-oscuro").style.display = "none";
   navAnim("home",document.querySelectorAll('nav button')[0]);
 }
-
-/* ... RESTO DEL JS: memes, frases, contacto, comentarios, audioBoot, filtro de groserías ... */
-/* Usa el bloque de JS igual al que ya tenías para esas funciones (de mis mensajes anteriores).
-   Si quieres te lo envío también todo seguido, solo dilo.
-*/
+// Resizing
+window.addEventListener('resize',()=>{
+  let frasexd = document.getElementById('frase-xd');
+  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.10em";
+});
 </script>
 </body>
 </html>
