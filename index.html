@@ -226,6 +226,39 @@ const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_imag
 
 let audioAllowed = false;
 
+// 🔒 CAPTCHA MEJORADO Y FUNCIONAL
+const preguntasCaptcha = [
+  { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" },
+  { pregunta: "¿Cuál es el color del cielo?", respuesta: "azul" },
+  { pregunta: "¿Cuántos lados tiene un triángulo?", respuesta: "3" },
+  { pregunta: "¿Capital de Francia?", respuesta: "parís" }
+];
+
+let captchaActual = null;
+
+function inicializarCaptcha() {
+  const randomIndex = Math.floor(Math.random() * preguntasCaptcha.length);
+  captchaActual = preguntasCaptcha[randomIndex];
+  document.getElementById('captcha-pregunta').textContent = captchaActual.pregunta + " 🤔";
+  document.getElementById('captcha-input').value = "";
+}
+
+function verificarCaptcha() {
+  let respuestaUsuario = document.getElementById('captcha-input').value.trim().toLowerCase();
+  
+  if (!captchaActual) {
+    inicializarCaptcha();
+  }
+  
+  if (respuestaUsuario === captchaActual.respuesta) {
+    document.getElementById('captcha-overlay').style.display = 'none';
+    audioBoot();
+  } else {
+    alert('¡Respuesta incorrecta! Intenta de nuevo.');
+    inicializarCaptcha();
+  }
+}
+
 // 🔒 FUNCIONES DE SEGURIDAD MEJORADAS
 function escapeHtml(str) {
   if (typeof str !== 'string') return '';
@@ -305,36 +338,6 @@ function limpiarLocalStorage() {
 function validarEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
-}
-
-// 🔒 CAPTCHA MEJORADO
-const preguntasCaptcha = [
-  { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" },
-  { pregunta: "¿Cuál es el color del cielo?", respuesta: "azul" },
-  { pregunta: "¿Cuántos lados tiene un triángulo?", respuesta: "3" },
-  { pregunta: "¿Capital de Francia?", respuesta: "parís" }
-];
-
-function inicializarCaptcha() {
-  const randomIndex = Math.floor(Math.random() * preguntasCaptcha.length);
-  const preguntaActual = preguntasCaptcha[randomIndex];
-  sessionStorage.setItem('captchaCorrecto', preguntaActual.respuesta);
-  document.getElementById('captcha-pregunta').textContent = preguntaActual.pregunta + " 🤔";
-}
-
-function verificarCaptcha() {
-  let respuestaUsuario = document.getElementById('captcha-input').value.trim().toLowerCase();
-  let respuestaCorrecta = sessionStorage.getItem('captchaCorrecto');
-  
-  if (respuestaUsuario === respuestaCorrecta) {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    sessionStorage.removeItem('captchaCorrecto');
-    audioBoot();
-  } else {
-    alert('¡Respuesta incorrecta! Intenta de nuevo.');
-    inicializarCaptcha();
-    document.getElementById('captcha-input').value = '';
-  }
 }
 
 // 🔒 FUNCIONES EXISTENTES MEJORADAS
