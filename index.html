@@ -1,91 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; audio-src 'self'">
-<title>Zoevaloprueba - Memes épicos</title>
-<link rel="stylesheet" href="styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memes Epic Comments</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+  <!-- CONTENT SECURITY POLICY -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self' https://unpkg.com https://*.supabase.co;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src https://fonts.gstatic.com;
+    script-src 'self' https://unpkg.com https://*.supabase.co;
+    img-src 'self' data: https://*;
+    connect-src 'self' https://*.supabase.co;
+  ">
 </head>
-<body ontouchstart="">
-<!-- CAPTCHA ENTRADA -->
-<div id="captcha-overlay">
-  <div class="captcha-box">
-    <h2>🤖 Captcha Divertido 🎉</h2>
-    <p id="captcha-pregunta">¿Cuánto es 2 + 2? 🤔</p>
-    <input type="text" id="captcha-input" class="captcha-input" placeholder="Tu respuesta...">
-    <br>
-    <button class="captcha-btn" onclick="verificarCaptcha()">Entrar 🚀</button>
-  </div>
-</div>
+<body>
+  <!-- CABECERA O MENÚ AQUÍ -->
 
-<!-- CABECERA + MENÚ -->
-<div class="epic-title-poster">
-  <div class="poster-bg-deco"></div>
-  <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
-  <span class="poster-sticker" style="left:87%;top:12%;">🧠</span>
-  <span class="poster-sticker" style="left:17%;top:7%;">🤣</span>
-  <span class="poster-sticker" style="left:91%;top:49%;">😺</span>
-  <span class="poster-sticker" style="left:81%;top:79%;">🍟</span>
-  <span class="poster-sticker" style="left:6%;top:60%;">🥑</span>
-  <span class="poster-sticker" style="left:51%;top:16%;">👑</span>
-  <span class="poster-sticker" style="left:41%;top:77%;">😂</span>
-  <span class="poster-sticker" style="left:92%;top:64%;">👍</span>
-  <span class="poster-sticker" style="left:19%;top:87%;font-size:2.3em;">😎</span>
-  <span class="poster-sticker" style="left:61%;top:21%;">🔍</span>
-  <div class="poster-title">
-    <span>Z</span><span>O</span><span>E</span><span>V</span><span>A</span><span>L</span><span>O</span><span>P</span><span>R</span><span>U</span><span>E</span><span>B</span><span>A</span>
-  </div>
-</div>
+  <main>
+    <section>
+      <h1>Memes y comentarios épicos</h1>
+      <!-- Puedes mostrar memes con imágenes aquí -->
+    </section>
+    <section>
+      <h2>Comentarios públicos</h2>
+      <form id="comentarioForm" onsubmit="guardarComentario(); return false;">
+        <textarea id="comentarioText" maxlength="120" placeholder="Escribe tu comentario"></textarea><br>
+        <button type="submit">Enviar comentario</button>
+      </form>
+      <div id="comentariosList"></div>
+    </section>
+  </main>
 
-<nav>
-  <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
-  <button onclick="navAnim('memes',this)">😂 Memes</button>
-  <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
-  <button onclick="navAnim('contacto',this)">📧 Contacto</button>
-  <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
-</nav>
-
-<!-- INICIO -->
-<div id="pantalla-inicio" class="fade-in">
-  <div class="pantalla-teclado">Selecciona tu favorito</div>
-  <div class="num-teclado">
-    <button onclick="audioBoot();muestraFraseXD(1);btnClickSound()">1</button>
-    <button onclick="audioBoot();muestraFraseXD(2);btnClickSound()">2</button>
-    <button onclick="audioBoot();muestraFraseXD(3);btnClickSound()">3</button>
-    <button onclick="audioBoot();muestraFraseXD(4);btnClickSound()">4</button>
-    <button onclick="audioBoot();muestraFraseXD(5);btnClickSound()">5</button>
-    <button onclick="audioBoot();muestraFraseXD(6);btnClickSound()">6</button>
-    <button onclick="audioBoot();muestraFraseXD(7);btnClickSound()">7</button>
-    <button onclick="audioBoot();muestraFraseXD(8);btnClickSound()">8</button>
-    <button onclick="audioBoot();muestraFraseXD(9);btnClickSound()">9</button>
-  </div>
-  <div id="frase-xd" class="xd-frase"></div>
-</div>
-<div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
-<div id="comentarios" class="fade-in" style="display:none"></div>
-<div id="no-tocar-oscuro"></div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="social-icons">
-    <a href="#">🌈</a>
-    <a href="#">🤣</a>
-    <a href="#">🌟</a>
-    <a href="#">🍀</a>
-  </div>
-  <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
-</footer>
-
-<!-- AUDIOS -->
-<audio id="audio-burbujas" preload="auto"><source src="1qngpb0ez1z-bubbles-sfx-1 (1).mp3" type="audio/mpeg"></audio>
-<audio id="audio-ahh" preload="auto"><source src="ahh.mp3" type="audio/mpeg"></audio>
-<audio id="audio-wasaaa" preload="auto"><source src="five-nights-at-freddys-full-scream-sound_2.mp3" type="audio/mpeg"></audio>
-
-<!-- SCRIPT EXTERNO -->
-<script src="main.js"></script>
-<script src="https://unpkg.com/@supabase/supabase-js"></script>
-<script src="main.js"></script>
+  <!-- SEGURIDAD Y LÓGICA (EL ORDEN IMPORTA) -->
+  <script src="seguridad.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
