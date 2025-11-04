@@ -1,13 +1,8 @@
-// ============================================
-// CONFIGURACIÓN SEGURA Y DATA
-// ============================================
-const forbiddenWords = [
-  'puta','puto','mierda','verga','joder','coño','idiota','estúpido','gilipollas',
-  'marica','pendejo','culero','fuck','shit','bitch','asshole','faggot','bastard',
-  'dick','cunt','motherfucker','slut','dumb','stupid','jerk','moron','idiot',
-  'gay','homo','retard','fool','foolish','suck','sucker','bollocks','bollock',
-  'cabron','imbecil','zorra','lame','huevon','perra','culiao','pelotudo','mongol','polla'
-];
+// main.js
+
+// ========================
+// CONFIGURACIÓN DE DATOS
+// ========================
 const MEMES = [
   { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
   { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
@@ -33,37 +28,9 @@ const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_imag
 let audioAllowed = false;
 let debounceTimer = 0;
 
-// ============================================
-// FUNCIONES SEGURAS DE SANITIZACIÓN
-// ============================================
-// SOLO TEXTO PLANO - Sin HTML
-function soloTextoPlano(str) {
-  if (typeof str !== 'string') return '';
-  let div = document.createElement('div');
-  div.innerText = str;
-  return div.innerText;
-}
-
-// NORMALIZAR TEXTO PARA FILTRO (sin espacios, acentos, minúsculas)
-function normalizaTexto(t) {
-  if (typeof t !== 'string') return '';
-  return t.toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-záéíóúñ0-9]/g, '');
-}
-
-// ESCAPE HTML MEJORADO (por si acaso)
-function escapeHtml(str) {
-  if (typeof str !== 'string') return '';
-  return str.replace(/[<>"']/g, function(m) {
-    return {'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
-  });
-}
-
-// ============================================
+// ========================
 // AUDIO Y CAPTCHA
-// ============================================
+// ========================
 function audioBoot() {
   if (!audioAllowed) {
     let a1 = document.getElementById('audio-burbujas');
@@ -78,19 +45,16 @@ function audioBoot() {
     } catch(e){}
   }
 }
-
 function btnClickSound() {
   audioBoot();
   let a = document.getElementById('audio-burbujas');
   if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
 }
-
 function playSoundAhh() {
   audioBoot();
   let a = document.getElementById('audio-ahh');
   if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
 }
-
 function verificarCaptcha() {
   let respuesta = document.getElementById('captcha-input').value.trim().toLowerCase();
   if(respuesta === '4' || respuesta === 'cuatro') {
@@ -101,15 +65,14 @@ function verificarCaptcha() {
   }
 }
 
-// ============================================
+// ========================
 // FRASES Y MEMES
-// ============================================
+// ========================
 function muestraFraseXD(num) {
   let frase = FRASES_XD[num-1] || FRASES_XD[0];
   document.getElementById("frase-xd").innerText = frase;
   document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
 }
-
 function renderMemes() {
   document.getElementById('comentarios').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
@@ -134,9 +97,9 @@ function renderMemes() {
   });
 }
 
-// ============================================
-// COMENTARIOS CON SEGURIDAD
-// ============================================
+// ========================
+// COMENTARIOS (usa seguridad.js)
+// ========================
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) {
@@ -159,80 +122,53 @@ function renderComentarios() {
     </div>`;
   mostrarComentarios(array);
 }
-
 function guardarComentario(e) {
   e.preventDefault();
-  
-  // DEBOUNCE: evita spam rápido
-  if(Date.now() - debounceTimer < 1000) {
-    alert('¡Espera un segundo antes de enviar otro! 😅');
+  let texto = document.getElementById('comentarioText').value.trim();
+  // Seguridad.js: debounce, escape, groserías
+  if(typeof antispamDebounce === 'function' && antispamDebounce()) {
+    alert('¡Espera antes de enviar otro!');
     return false;
   }
-  debounceTimer = Date.now();
-
-  playSoundAhh();
+  if (texto.length < 1) {
+    alert("Coloca tu comentario 😎");
+    return false;
+  }
+  if(typeof contieneGroserias === 'function' && contieneGroserias(texto)) {
+    alert('¡No se permiten palabras ofensivas ni groserías! 😬');
+    document.getElementById('comentarioText').value = "";
+    return false;
+  }
   let array = [];
   if (localStorage.zoeva_coments) {
     try {
       array = JSON.parse(localStorage.zoeva_coments);
       if(!Array.isArray(array)) array = [];
-    } catch(e) {
-      array = [];
-    }
+    } catch(e) { array = []; }
   }
-  
-  let texto = document.getElementById('comentarioText').value.trim();
-  
-  // VALIDACIÓN: no vacío
-  if (texto.length < 1) {
-    alert("Coloca tu comentario 😎");
-    return false;
-  }
-  
-  // FILTRO ROBUSTO: normaliza y busca palabras prohibidas
-  let found = forbiddenWords.some(word => normalizaTexto(texto).includes(normalizaTexto(word)));
-  if (found) {
-    alert('¡No se permiten palabras ofensivas ni groserías! 😬');
-    document.getElementById('comentarioText').value = "";
-    return false;
-  }
-  
-  // LIMITA CANTIDAD: máximo 20 comentarios
-  if(array.length >= 20) {
-    array = array.slice(0, 19);
-  }
-  
-  // GUARDA SEGURO
   const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
   let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
   array.unshift({
-    mensaje: soloTextoPlano(texto),
+    mensaje: escapeHtml(texto),
     emoji: emoji
   });
-  
-  try {
-    localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
-  } catch(e) {
-    alert('Error al guardar. Local Storage lleno.');
-    return false;
-  }
-  
+  try { localStorage.zoeva_coments = JSON.stringify(array.slice(0,20)); }
+  catch(e) { alert('Error al guardar. Local Storage lleno.'); return false; }
   document.getElementById('comentarioText').value = "";
   mostrarComentarios(array);
 }
-
 function mostrarComentarios(array) {
   const list = document.getElementById('comentariosList');
   if (!array || array.length == 0) {
     list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
     return;
   }
-  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${soloTextoPlano(c.mensaje)}</div>`).join("");
+  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
 }
 
-// ============================================
+// ========================
 // CONTACTO
-// ============================================
+// ========================
 function renderContacto() {
   document.getElementById('comentarios').style.display = "none";
   document.getElementById('pantalla-inicio').style.display = "none";
@@ -250,9 +186,9 @@ function renderContacto() {
     </div>`;
 }
 
-// ============================================
+// ========================
 // NAVEGACIÓN
-// ============================================
+// ========================
 function navAnim(seccion, el) {
   audioBoot();
   btnClickSound();
@@ -280,9 +216,9 @@ function navAnim(seccion, el) {
   },410);
 }
 
-// ============================================
-// JUMPSCARE CON BOTÓN "ESTOY LISTX"
-// ============================================
+// ========================
+// JUMPSCARE / SUSTO
+// ========================
 function mostrarNoTocar() {
   audioBoot();
   const container = document.getElementById("no-tocar-oscuro");
@@ -339,9 +275,9 @@ function cerrarNoTocar() {
   navAnim("home",document.querySelectorAll('nav button')[0]);
 }
 
-// ============================================
+// ========================
 // RESPONSIVE
-// ============================================
+// ========================
 window.addEventListener('resize',()=>{
   let frasexd = document.getElementById('frase-xd');
   if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.10em";
