@@ -3,8 +3,8 @@
 // ========================
 // CONFIGURACIÓN DE SUPABASE
 // ========================
-const supabaseUrl = "https://TU_PROYECTO.supabase.co";
-const supabaseKey = "TU_PUBLIC_ANON_KEY";
+const supabaseUrl = "https://wpavcocrchcuautnindu.supabase.co";
+const supabaseKey = "process.env.SUPABASE_KEY";
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // ========================
