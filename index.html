@@ -4,10 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Memes Epic Comments</title>
-  <!-- Fonts y stylesheet externos -->
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
-  <!-- Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self' https://unpkg.com https://*.supabase.co;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -15,33 +13,21 @@
     script-src 'self' https://unpkg.com https://*.supabase.co;
     img-src 'self' data: https://*;
     connect-src 'self' https://*.supabase.co;">
-  <!-- Estilos captcha (puedes mover a tu styles.css) -->
+  <!-- Estilos para captcha (puedes mover a styles.css) -->
   <style>
-    #captcha-overlay {
-      display: flex !important; position: fixed; z-index: 99999; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.93); color: white; text-align: center; justify-content: center; align-items: center; min-height: 100vh;
-    }
-    #captcha-box {
-      padding: 28px 22px 34px 22px; background: #202135; color: #eff; border-radius: 20px; max-width: 360px; width: 96vw; margin: 6vh auto;
-      box-shadow: 0 6px 30px #00000070; font-family: 'Baloo 2', Arial, sans-serif; font-size: 1.14em;
-    }
-    #captcha-box h2 {
-      font-family: 'Luckiest Guy', cursive; font-size: 1.25em; margin-bottom: 13px; letter-spacing: 1px; color: #25dcc4;
-    }
+    #captcha-overlay { display: flex !important; position: fixed; z-index: 99999; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.93); color: white; text-align: center; justify-content: center; align-items: center; min-height: 100vh;}
+    #captcha-box { padding: 28px 22px 34px 22px; background: #202135; color: #eff; border-radius: 20px; max-width: 360px; width: 96vw; margin: 6vh auto;
+      box-shadow: 0 6px 30px #00000070; font-family: 'Baloo 2', Arial, sans-serif; font-size: 1.14em;}
+    #captcha-box h2 { font-family: 'Luckiest Guy', cursive; font-size: 1.25em; margin-bottom: 13px; letter-spacing: 1px; color: #25dcc4;}
     #captcha-content img { max-width: 130px; border-radius: 9px; margin: 8px 0 8px 0; box-shadow: 0 0 9px #222b; }
-    #captcha-input {
-      font-size: 1.25em; padding: 6px 12px; border-radius: 11px; width: 72%; border: 1.4px solid #35eceb;
-      background: #fff; color: #191b31; margin-bottom: 9px; box-sizing: border-box;
-    }
-    #captcha-box button {
-      background: #25dcc4; color: #222; font-weight: 700; border: none; border-radius: 10px; font-size: 1.1em;
-      padding: 7px 23px; cursor: pointer; box-shadow: 0 1px 7px #18c09543; transition: background 0.2s;
-    }
+    #captcha-input { font-size: 1.25em; padding: 6px 12px; border-radius: 11px; width: 72%; border: 1.4px solid #35eceb;
+      background: #fff; color: #191b31; margin-bottom: 9px; box-sizing: border-box;}
+    #captcha-box button { background: #25dcc4; color: #222; font-weight: 700; border: none; border-radius: 10px; font-size: 1.1em;
+      padding: 7px 23px; cursor: pointer; box-shadow: 0 1px 7px #18c09543; transition: background 0.2s;}
     #captcha-box button:hover { background: #18c095; color: #fff; }
     #captcha-tips { color: #ff96ba; margin-top: 7px; }
-    @media (max-width:450px){
-      #captcha-box { max-width: 98vw; padding:15px 5vw 19px 5vw; }
-    }
+    @media (max-width:450px){ #captcha-box { max-width: 98vw; padding:15px 5vw 19px 5vw; } }
   </style>
 </head>
 <body>
@@ -81,10 +67,9 @@
   <audio id="audio-wasaaa" src="https://cdn.pixabay.com/audio/2023/02/06/audio_12f06a6525.mp3" preload="auto"></audio>
   <audio id="audio-ahh" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bce1e08.mp3" preload="auto"></audio>
 
-  <!-- Scripts: Seguridad, captura, Supabase, lógica -->
+  <!-- Scripts: Seguridad, CAPTCHAS, Supabase y lógica -->
   <script src="seguridad.js"></script>
   <script>
-    // CAPTCHAS de seguridad aleatorios y verificación
     const PREGUNTAS_CAPTCHA = [
       {
         tipo: "puzzle",
@@ -111,21 +96,22 @@
       document.getElementById('captcha-input').value = '';
       document.getElementById('captcha-tips').textContent = '';
     }
-    window.onload = function() {
-      cargarCaptchaAleatorio();
-      if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
-    };
     function verificarCaptcha() {
       let respuesta = document.getElementById('captcha-input').value;
       if (window.CAPTCHA_VALIDATOR && window.CAPTCHA_VALIDATOR(respuesta)) {
         document.getElementById('captcha-overlay').style.display = "none";
         if(typeof audioBoot==="function") audioBoot();
+        // LLAMA AQUÍ la función que inicia la página principal
+        if(typeof iniciarPaginaPrincipal==="function") iniciarPaginaPrincipal();
       } else {
         document.getElementById('captcha-tips').textContent = "Respuesta incorrecta. Intenta de nuevo.";
       }
     }
+    window.onload = function() {
+      cargarCaptchaAleatorio();
+      if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
+    };
   </script>
-  <!-- Supabase y lógica principal -->
   <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="main.js"></script>
 </body>
