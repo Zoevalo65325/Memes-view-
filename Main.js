@@ -1,7 +1,14 @@
 // main.js
 
 // ========================
-// CONFIGURACIÓN DE DATOS
+// CONFIGURACIÓN DE BASE DE DATOS SUPABASE
+// ========================
+const supabaseUrl = "https://wpavcocrchcuautnindu.supabase.co";
+const supabaseKey = "process.env.SUPABASE_KEY";
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+// ========================
+// CONFIGURACIÓN DE DATOS ESTÁTICOS
 // ========================
 const MEMES = [
   { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
@@ -26,10 +33,9 @@ const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
 let audioAllowed = false;
-let debounceTimer = 0;
 
 // ========================
-// AUDIO Y CAPTCHA
+// AUDIO, EFECTOS, Y CAPTCHAS
 // ========================
 function audioBoot() {
   if (!audioAllowed) {
@@ -54,15 +60,6 @@ function playSoundAhh() {
   audioBoot();
   let a = document.getElementById('audio-ahh');
   if(a && typeof a.play ==='function') { a.currentTime=0; a.play().catch(()=>{}); }
-}
-function verificarCaptcha() {
-  let respuesta = document.getElementById('captcha-input').value.trim().toLowerCase();
-  if(respuesta === '4' || respuesta === 'cuatro') {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    audioBoot();
-  } else {
-    alert('¡Intenta de nuevo! 🤔 Pista: 2 + 2 = ?');
-  }
 }
 
 // ========================
@@ -98,20 +95,16 @@ function renderMemes() {
 }
 
 // ========================
-// COMENTARIOS (usa seguridad.js)
+// COMENTARIOS (SUPABASE + SEGURIDAD)
 // ========================
-function renderComentarios() {
-  let array = [];
-  if (localStorage.zoeva_coments) {
-    try {
-      array = JSON.parse(localStorage.zoeva_coments);
-      if(!Array.isArray(array)) array = [];
-    } catch(e) {
-      array = [];
-    }
-  }
-  const comDiv = document.getElementById('comentarios');
-  comDiv.innerHTML = `
+
+// Carga de comentarios al entrar al sitio o al cambiar de pestaña
+async function renderComentarios() {
+  document.getElementById('memesGrid').style.display="none";
+  document.getElementById('pantalla-inicio').style.display="none";
+  document.getElementById('no-tocar-oscuro').style.display = "none";
+  document.getElementById('comentarios').style.display = "block";
+  document.getElementById('comentarios').innerHTML = `
     <div class="comentarios-section">
       <h2>💬 Comentarios públicos de usuarios</h2>
       <form id="comentarioForm" onsubmit="guardarComentario(event)">
@@ -120,50 +113,53 @@ function renderComentarios() {
       </form>
       <div id="comentariosList" style="margin-top:10px"></div>
     </div>`;
-  mostrarComentarios(array);
+  await cargarComentarios();
 }
-function guardarComentario(e) {
-  e.preventDefault();
-  let texto = document.getElementById('comentarioText').value.trim();
-  // Seguridad.js: debounce, escape, groserías
-  if(typeof antispamDebounce === 'function' && antispamDebounce()) {
-    alert('¡Espera antes de enviar otro!');
+
+async function guardarComentario(e) {
+  if(e) e.preventDefault();
+  let mensaje = document.getElementById('comentarioText').value.trim();
+  let emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺'];
+  let emoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+  let autor = "público";
+  // Seguridad
+  if (typeof antispamDebounce === 'function' && antispamDebounce()) {
+    alert("¡Espera antes de enviar otro comentario!");
     return false;
   }
-  if (texto.length < 1) {
-    alert("Coloca tu comentario 😎");
-    return false;
-  }
-  if(typeof contieneGroserias === 'function' && contieneGroserias(texto)) {
-    alert('¡No se permiten palabras ofensivas ni groserías! 😬');
+  if(mensaje.length < 1) { alert("Escribe un comentario."); return false; }
+  if(mensaje.length > 120) { alert("¡Demasiado largo! Máx 120 caract."); return false; }
+  if(typeof contieneGroserias === 'function' && contieneGroserias(mensaje)) {
+    alert("¡No se permiten groserías ni palabras negativas!");
     document.getElementById('comentarioText').value = "";
     return false;
   }
-  let array = [];
-  if (localStorage.zoeva_coments) {
-    try {
-      array = JSON.parse(localStorage.zoeva_coments);
-      if(!Array.isArray(array)) array = [];
-    } catch(e) { array = []; }
+  // Guardar en Supabase
+  let { data, error } = await supabase
+    .from('comentarios')
+    .insert([{ mensaje, emoji, autor }]);
+  if(error) {
+    alert("Error: " + error.message);
+    return false;
   }
-  const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
-  let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-  array.unshift({
-    mensaje: escapeHtml(texto),
-    emoji: emoji
-  });
-  try { localStorage.zoeva_coments = JSON.stringify(array.slice(0,20)); }
-  catch(e) { alert('Error al guardar. Local Storage lleno.'); return false; }
   document.getElementById('comentarioText').value = "";
-  mostrarComentarios(array);
+  await cargarComentarios();
+  return false;
 }
-function mostrarComentarios(array) {
-  const list = document.getElementById('comentariosList');
-  if (!array || array.length == 0) {
-    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
+
+async function cargarComentarios() {
+  let { data, error } = await supabase
+    .from('comentarios')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if(error) {
+    document.getElementById('comentariosList').innerHTML = 'Error al cargar comentarios: ' + error.message;
     return;
   }
-  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
+  document.getElementById('comentariosList').innerHTML =
+    data.map(c =>
+      `<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`
+    ).join('');
 }
 
 // ========================
@@ -207,7 +203,7 @@ function navAnim(seccion, el) {
     });
     if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
     if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
-    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
+    if(seccion=="comentarios"){renderComentarios();document.getElementById("comentarios").classList.add('fade-in');}
     if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
     if(seccion=="notocar"){mostrarNoTocar();}
     document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
@@ -244,14 +240,12 @@ function mostrarNoTocar() {
   }
   setTimeout(nextStep,1800);
 }
-
 function mostrarBotonSusto() {
   const container = document.getElementById("no-tocar-oscuro");
   container.innerHTML = `<div class="no-tocar-letra">¿Listx?<br>
     <button style="margin-top:20px;font-size:1.4em;background:#fc8181;color:#fff;padding:15px 40px;border-radius:18px;font-family:'Luckiest Guy',cursive;border:none;box-shadow:0 7px 24px #fc818163;cursor:pointer;"
       onclick="asustarWasaaa()">Estoy listx 😱</button></div>`;
 }
-
 function asustarWasaaa() {
   audioBoot();
   const container = document.getElementById("no-tocar-oscuro");
@@ -269,7 +263,6 @@ function asustarWasaaa() {
   document.body.style.animation = "shake 0.12s 12";
   setTimeout(()=>{document.body.style.animation="";},1000);
 }
-
 function cerrarNoTocar() {
   document.getElementById("no-tocar-oscuro").style.display = "none";
   navAnim("home",document.querySelectorAll('nav button')[0]);
@@ -282,3 +275,14 @@ window.addEventListener('resize',()=>{
   let frasexd = document.getElementById('frase-xd');
   if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.10em";
 });
+
+// ========================
+// INICIALIZAR PÁGINA (cuando captcha permita acceso)
+// ========================
+window._mainIniciado = false;
+function iniciarPaginaPrincipal() {
+  if(window._mainIniciado) return;
+  window._mainIniciado = true;
+  if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
+  navAnim('home', document.querySelectorAll('nav button')[0]);
+}
