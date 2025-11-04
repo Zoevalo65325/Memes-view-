@@ -4,7 +4,7 @@
 // CONFIGURACIÓN DE SUPABASE
 // ========================
 const supabaseUrl = "https://wpavcocrchcuautnindu.supabase.co";
-const supabaseKey = "process.env.SUPABASE_KEY";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwYXZjb2NyY2hjdWF1dG5pbmR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyMDA3ODUsImV4cCI6MjA3Nzc3Njc4NX0.bn5EBwEM2JcCr2KmT6LS4qS9fBWtfKs9S48uwtiGLDg";
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // ========================
