@@ -13,7 +13,6 @@
     script-src 'self' https://unpkg.com https://*.supabase.co;
     img-src 'self' data: https://*;
     connect-src 'self' https://*.supabase.co;">
-  <!-- Estilos para captcha (puedes mover a styles.css) -->
   <style>
     #captcha-overlay { display: flex !important; position: fixed; z-index: 99999; top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.93); color: white; text-align: center; justify-content: center; align-items: center; min-height: 100vh;}
@@ -67,8 +66,10 @@
   <audio id="audio-wasaaa" src="https://cdn.pixabay.com/audio/2023/02/06/audio_12f06a6525.mp3" preload="auto"></audio>
   <audio id="audio-ahh" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bce1e08.mp3" preload="auto"></audio>
 
-  <!-- Scripts: Seguridad, CAPTCHAS, Supabase y lógica -->
+  <!-- Carga de scripts: SEGURIDAD -> SUPABASE -> MAIN -> CAPTCHA -->
   <script src="seguridad.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="main.js"></script>
   <script>
     const PREGUNTAS_CAPTCHA = [
       {
@@ -101,7 +102,6 @@
       if (window.CAPTCHA_VALIDATOR && window.CAPTCHA_VALIDATOR(respuesta)) {
         document.getElementById('captcha-overlay').style.display = "none";
         if(typeof audioBoot==="function") audioBoot();
-        // LLAMA AQUÍ la función que inicia la página principal
         if(typeof iniciarPaginaPrincipal==="function") iniciarPaginaPrincipal();
       } else {
         document.getElementById('captcha-tips').textContent = "Respuesta incorrecta. Intenta de nuevo.";
@@ -112,7 +112,5 @@
       if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
     };
   </script>
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script src="main.js"></script>
 </body>
 </html>
