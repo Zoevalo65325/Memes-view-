@@ -1,15 +1,9 @@
-// main.js
-
-// ========================
-// CONFIGURACIÓN DE BASE DE DATOS SUPABASE
-// ========================
+// CONFIGURACIÓN DE SUPABASE
 const supabaseUrl = "https://wpavcocrchcuautnindu.supabase.co";
 const supabaseKey = "process.env.SUPABASE_KEY";
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// ========================
-// CONFIGURACIÓN DE DATOS ESTÁTICOS
-// ========================
+// DATOS ESTÁTICOS
 const MEMES = [
   { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
   { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
@@ -31,11 +25,10 @@ const FRASES_XD = [
 ];
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
-
 let audioAllowed = false;
 
 // ========================
-// AUDIO, EFECTOS, Y CAPTCHAS
+// AUDIO Y EFECTOS
 // ========================
 function audioBoot() {
   if (!audioAllowed) {
@@ -63,7 +56,7 @@ function playSoundAhh() {
 }
 
 // ========================
-// FRASES Y MEMES
+// MEMES Y FRASES
 // ========================
 function muestraFraseXD(num) {
   let frase = FRASES_XD[num-1] || FRASES_XD[0];
@@ -95,10 +88,8 @@ function renderMemes() {
 }
 
 // ========================
-// COMENTARIOS (SUPABASE + SEGURIDAD)
+// COMENTARIOS SUPABASE + SEGURIDAD
 // ========================
-
-// Carga de comentarios al entrar al sitio o al cambiar de pestaña
 async function renderComentarios() {
   document.getElementById('memesGrid').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
@@ -122,7 +113,6 @@ async function guardarComentario(e) {
   let emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺'];
   let emoji = emojiList[Math.floor(Math.random() * emojiList.length)];
   let autor = "público";
-  // Seguridad
   if (typeof antispamDebounce === 'function' && antispamDebounce()) {
     alert("¡Espera antes de enviar otro comentario!");
     return false;
@@ -134,7 +124,6 @@ async function guardarComentario(e) {
     document.getElementById('comentarioText').value = "";
     return false;
   }
-  // Guardar en Supabase
   let { data, error } = await supabase
     .from('comentarios')
     .insert([{ mensaje, emoji, autor }]);
@@ -183,7 +172,7 @@ function renderContacto() {
 }
 
 // ========================
-// NAVEGACIÓN
+// NAVEGACIÓN Y JUMPSCARE
 // ========================
 function navAnim(seccion, el) {
   audioBoot();
@@ -211,10 +200,6 @@ function navAnim(seccion, el) {
     if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
   },410);
 }
-
-// ========================
-// JUMPSCARE / SUSTO
-// ========================
 function mostrarNoTocar() {
   audioBoot();
   const container = document.getElementById("no-tocar-oscuro");
@@ -277,7 +262,7 @@ window.addEventListener('resize',()=>{
 });
 
 // ========================
-// INICIALIZAR PÁGINA (cuando captcha permita acceso)
+// CAPTCHA: INICIO SEGURO (esto es realmente el success universal)
 // ========================
 window._mainIniciado = false;
 function iniciarPaginaPrincipal() {
@@ -286,3 +271,4 @@ function iniciarPaginaPrincipal() {
   if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
   navAnim('home', document.querySelectorAll('nav button')[0]);
 }
+window.iniciarPaginaPrincipal = iniciarPaginaPrincipal; // ¡Asegura globalidad!
