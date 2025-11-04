@@ -37,21 +37,20 @@
       <div id="captcha-content"></div>
       <div style="margin-top:13px">
         <input id="captcha-input" autocomplete="off" placeholder="Respuesta">
-        <button onclick="verificarCaptcha()">Entrar</button>
+        <button id="captcha-entrar-btn">Entrar</button>
       </div>
       <div id="captcha-tips"></div>
     </div>
   </div>
 
-  <!-- NAV BAR -->
+  <!-- NAV BAR CSP-seguro (IDs únicos, nada de onclick) -->
   <nav>
-    <button onclick="navAnim('home', this)">🏠 Inicio</button>
-    <button onclick="navAnim('memes', this)">😹 Memes</button>
-    <button onclick="navAnim('comentarios', this)">💬 Comentarios</button>
-    <button onclick="navAnim('contacto', this)">📫 Contacto</button>
-    <button onclick="navAnim('notocar', this)">😱 No Tocar</button>
+    <button id="nav-home">🏠 Inicio</button>
+    <button id="nav-memes">😹 Memes</button>
+    <button id="nav-comentarios">💬 Comentarios</button>
+    <button id="nav-contacto">📫 Contacto</button>
+    <button id="nav-notocar">😱 No Tocar</button>
   </nav>
-
   <!-- Pantallas principales -->
   <div id="pantalla-inicio" style="display:block;">
     <h1 style="font-family:'Luckiest Guy',cursive;">¡Bienvenido a Memes y Sorpresas!</h1>
@@ -66,26 +65,24 @@
   <audio id="audio-wasaaa" src="https://cdn.pixabay.com/audio/2023/02/06/audio_12f06a6525.mp3" preload="auto"></audio>
   <audio id="audio-ahh" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bce1e08.mp3" preload="auto"></audio>
 
-  <!-- Carga de scripts: SEGURIDAD -> SUPABASE -> MAIN -> CAPTCHA -->
+  <!-- Carga de scripts: SEGURIDAD -> SUPABASE -> MAIN -> EVENTOS (nav y captcha)-->
   <script src="seguridad.js"></script>
   <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="main.js"></script>
   <script>
+    // Preguntas de seguridad tipo captcha
     const PREGUNTAS_CAPTCHA = [
-      {
-        tipo: "puzzle",
+      { tipo: "puzzle",
         html: `<div><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Jigsaw_puzzle_missing_piece.png" alt="puzzle"><br>
         ¿Qué pieza falta en el puzzle? <b>Escribe: A</b></div>`,
         valida: ans => ans.trim().toLowerCase() === "a"
       },
-      {
-        tipo: "diferencias",
+      { tipo: "diferencias",
         html: `<div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Cat_poster_1.jpg/220px-Cat_poster_1.jpg" style="width:90px;border-radius:8px"><br>
         ¿Cuántos gatos hay en la imagen?</div>`,
         valida: ans => ans.trim() === "1" || ans.trim().toLowerCase() === "uno"
       },
-      {
-        tipo: "logico",
+      { tipo: "logico",
         html: `<div>¿Qué sigue en la secuencia? <b>2, 4, 6, ?</b></div>`,
         valida: ans => ans.trim() === "8" || ans.trim().toLowerCase() === "ocho"
       }
@@ -107,10 +104,24 @@
         document.getElementById('captcha-tips').textContent = "Respuesta incorrecta. Intenta de nuevo.";
       }
     }
-    window.onload = function() {
+    // Enlaza TOOOOODOS los botones (nav y captcha) a eventos seguros CSP-friendly
+    function setupSafeEventListeners() {
+      // NAV
+      let navIds = ["home","memes","comentarios","contacto","notocar"];
+      navIds.forEach(function(seccion, idx) {
+        let btn = document.getElementById("nav-"+seccion);
+        if(btn) btn.addEventListener("click", function(){ navAnim(seccion, btn); });
+      });
+      // CAPTCHA
+      var btnCaptcha = document.getElementById("captcha-entrar-btn");
+      if(btnCaptcha) btnCaptcha.addEventListener("click", verificarCaptcha);
+    }
+    // ACTIVA TODO SEGURO cuando el DOM esté listo
+    window.addEventListener("DOMContentLoaded", function() {
       cargarCaptchaAleatorio();
+      setupSafeEventListeners();
       if(typeof muestraFraseXD === "function") muestraFraseXD(Math.floor(Math.random()*9+1));
-    };
+    });
   </script>
 </body>
 </html>
