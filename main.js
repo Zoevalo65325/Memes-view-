@@ -37,11 +37,9 @@ let captchaAttempts = 0;
 const MAX_CAPTCHA_ATTEMPTS = 5;
 let captchaBlockTime = null;
 
-// ===== FUNCIONES DE SEGURIDAD =====
+// ===== FUNCIONES ============
 function escapeHtml(str) {
-  return str.replace(/[<>"']/g, function(m) {
-    return {'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
-  });
+  return str.replace(/[<>"']/g, m => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
 function sanitizeEmail(email) {
@@ -52,33 +50,7 @@ function sanitizeComment(text) {
   return text.trim().substring(0, 120);
 }
 
-function generateHash(str) {
-  let hash = 0;
-  for(let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
-  }
-  return hash.toString();
-}
-
-function checkUserHasCommented() {
-  const userHash = generateHash(navigator.userAgent + navigator.language);
-  const commentedUsers = JSON.parse(localStorage.getItem('zoeva_commented_users') || '[]');
-  return commentedUsers.includes(userHash);
-}
-
-function markUserAsCommented() {
-  const userHash = generateHash(navigator.userAgent + navigator.language);
-  const commentedUsers = JSON.parse(localStorage.getItem('zoeva_commented_users') || '[]');
-  if (!commentedUsers.includes(userHash)) {
-    commentedUsers.push(userHash);
-    localStorage.setItem('zoeva_commented_users', JSON.stringify(commentedUsers));
-    userHasCommented = true;
-  }
-}
-
-// ===== CAPTCHA MEJORADO =====
+// ===== CAPTCHA FUNC =======
 function verificarCaptcha(answer) {
   if(captchaBlockTime && Date.now() < captchaBlockTime) {
     const remainingTime = Math.ceil((captchaBlockTime - Date.now()) / 1000);
@@ -86,20 +58,28 @@ function verificarCaptcha(answer) {
     return;
   }
 
-  if(answer === '4') {
-    document.getElementById('captcha-overlay').style.display = 'none';
-    captchaAttempts = 0;
-    audioBoot();
-  } else {
-    captchaAttempts++;
-    const feedback = document.getElementById('captcha-feedback');
-    if(captchaAttempts >= MAX_CAPTCHA_ATTEMPTS) {
-      captchaBlockTime = Date.now() + 30000;
-      feedback.innerText = '¡Demasiados intentos! Espera 30 segundos 🚫';
+  fetch('http://localhost:3000/api/validar-captcha', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ respuesta: answer })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.ok) {
+      document.getElementById('captcha-overlay').style.display = 'none';
+      captchaAttempts = 0;
+      audioBoot();
     } else {
-      feedback.innerText = `❌ Incorrecto. Intentos: ${captchaAttempts}/${MAX_CAPTCHA_ATTEMPTS}`;
+      captchaAttempts++;
+      if(captchaAttempts >= MAX_CAPTCHA_ATTEMPTS) {
+        captchaBlockTime = Date.now() + 30000;
+        document.getElementById('captcha-feedback').innerText = '¡Demasiados intentos! Espera 30 segundos 🚫';
+      } else {
+        document.getElementById('captcha-feedback').innerText = `❌ Incorrecto. Intentos: ${captchaAttempts}/${MAX_CAPTCHA_ATTEMPTS}`;
+      }
     }
-  }
+  })
+  .catch(() => document.getElementById('captcha-feedback').innerText = 'Error al conectar con el servidor.');
 }
 
 // ===== AUDIO =====
@@ -113,8 +93,8 @@ function audioBoot() {
       if(a2) { a2.muted = false; a2.volume=1.0; a2.currentTime=0; a2.play().catch(()=>{}); }
       if(a3) { a3.muted = false; a3.volume=1.0; a3.currentTime=0; a3.play().catch(()=>{}); }
       audioAllowed = true;
-      setTimeout(()=>{if(a1)a1.pause();if(a2)a2.pause();if(a3)a3.pause();},70);
-    } catch(e){}
+      setTimeout(() => { if(a1) a1.pause(); if(a2) a2.pause(); if(a3) a3.pause(); }, 70);
+    } catch (e) {}
   }
 }
 
@@ -131,61 +111,61 @@ function playSoundAhh() {
 }
 
 function muestraFraseXD(num) {
-  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
-  document.getElementById("frase-xd").style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
+  document.getElementById("frase-xd").innerText = FRASES_XD[num - 1];
+  document.getElementById("frase-xd").style.fontSize = (window.innerWidth < 700) ? "1em" : "1.10em";
 }
 
 // ===== NAVEGACIÓN =====
 function navAnim(seccion, el) {
   audioBoot();
   btnClickSound();
-  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
-  pantallas.forEach(id=>{
+  let pantallas = ["pantalla-inicio", "memesGrid", "comentarios", "no-tocar-oscuro"];
+  pantallas.forEach(id => {
     let el2 = document.getElementById(id);
-    if(el2 && el2.style.display!="none") {
+    if(el2 && el2.style.display !== "none") {
       el2.classList.remove('fade-in');
       el2.classList.add('fade-out');
     }
   });
-  setTimeout(()=>{
-    pantallas.forEach(id=>{
+  setTimeout(() => {
+    pantallas.forEach(id => {
       let el2 = document.getElementById(id);
-      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
+      if(el2) { el2.style.display = "none"; el2.classList.remove('fade-out'); }
     });
-    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
-    if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";document.getElementById("memesGrid").classList.add('fade-in');renderMemes();}
-    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";document.getElementById("comentarios").classList.add('fade-in');renderComentarios();}
-    if(seccion=="contacto"){renderContacto();document.getElementById('memesGrid').classList.add('fade-in');}
-    if(seccion=="notocar"){mostrarNoTocar();}
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    let idx = ["home","memes","comentarios","contacto","notocar"].indexOf(seccion);
-    if(idx>=0) document.querySelectorAll('nav button')[idx].classList.add('active');
-  },410);
+    if(seccion === "home") { document.getElementById("pantalla-inicio").style.display = "block"; document.getElementById("pantalla-inicio").classList.add('fade-in'); }
+    if(seccion === "memes") { document.getElementById("memesGrid").style.display = "grid"; document.getElementById("memesGrid").classList.add('fade-in'); renderMemes(); }
+    if(seccion === "comentarios") { document.getElementById("comentarios").style.display = "block"; document.getElementById("comentarios").classList.add('fade-in'); renderComentarios(); }
+    if(seccion === "contacto") { renderContacto(); document.getElementById('memesGrid').classList.add('fade-in'); }
+    if(seccion === "notocar") { mostrarNoTocar(); }
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    let idx = ["home", "memes", "comentarios", "contacto", "notocar"].indexOf(seccion);
+    if(idx >= 0) document.querySelectorAll('nav button')[idx].classList.add('active');
+  }, 410);
 }
 
 // ===== MEMES =====
 function renderMemes() {
-  document.getElementById('comentarios').style.display="none";
-  document.getElementById('pantalla-inicio').style.display="none";
+  document.getElementById('comentarios').style.display = "none";
+  document.getElementById('pantalla-inicio').style.display = "none";
   document.getElementById('no-tocar-oscuro').style.display = "none";
   const grid = document.getElementById('memesGrid');
-  grid.style.display="grid";
+  grid.style.display = "grid";
   grid.innerHTML = '';
   MEMES.forEach(meme => {
     const card = document.createElement('div');
     card.className = 'meme-card';
-    card.onclick = ()=>{ audioBoot(); window.open(RICKROLL_URL,'_blank'); };
+    card.onclick = () => { audioBoot(); window.open(RICKROLL_URL, '_blank'); };
     card.innerHTML = `
       <img class="meme-img" src="${meme.img}" alt="${escapeHtml(meme.titulo)}" onerror="this.src='${MEME_BACKUP}'" />
       <div class="meme-content">
-        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${escapeHtml(meme.emoji)}</span>`:""} ${escapeHtml(meme.titulo)}</div>
+        <div class="meme-title">${meme.emoji ? `<span class="emoji-huge">${escapeHtml(meme.emoji)}</span>` : ""} ${escapeHtml(meme.titulo)}</div>
         <div class="meme-desc">${escapeHtml(meme.descripcion)}</div>
       </div>
       <div class="meme-actions">
         <button class="btn-rickroll">🎬 Ver Sorpresa</button>
       </div>`;
-    card.querySelector(".btn-rickroll").addEventListener("click", function(e){
-      audioBoot();btnClickSound();window.open(RICKROLL_URL,'_blank');e.stopPropagation();
+    card.querySelector(".btn-rickroll").addEventListener("click", function (e) {
+      audioBoot(); btnClickSound(); window.open(RICKROLL_URL, '_blank'); e.stopPropagation();
     });
     grid.appendChild(card);
   });
@@ -195,7 +175,7 @@ function renderMemes() {
 function renderContacto() {
   document.getElementById('comentarios').style.display = "none";
   document.getElementById('pantalla-inicio').style.display = "none";
-  document.getElementById('no-tocar-oscuro').style.display="none";
+  document.getElementById('no-tocar-oscuro').style.display = "none";
   document.getElementById('memesGrid').style.display = "block";
   document.getElementById('memesGrid').innerHTML = `
     <div style="padding:22px 10px 29px 10px;text-align:center;background:#e5fff2cc;border-radius:17px;max-width:420px;margin:0 auto;">
@@ -208,11 +188,11 @@ function renderContacto() {
     <div id="contactFeedback" style="font-size:0.9em;color:#18697d;margin-top:10px;"></div>
     <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
     </div>`;
-  document.getElementById("formContacto").addEventListener("submit", function(e) {
+  document.getElementById("formContacto").addEventListener("submit", function (e) {
     e.preventDefault();
     let email = document.getElementById('contactEmail').value;
     let sanitized = sanitizeEmail(email);
-    if(/^[^s@]+@[^s@]+.[^s@]+$/.test(sanitized)) {
+    if (/^[^s@]+@[^s@]+.[^s@]+$/.test(sanitized)) {
       playSoundAhh();
       document.getElementById('contactFeedback').innerText = '✅ ¡Email válido! Gracias por suscribirte 🎉';
       document.getElementById('contactEmail').value = '';
@@ -224,28 +204,31 @@ function renderContacto() {
 }
 
 // ===== COMENTARIOS =====
+function cargarComentariosDesdeBackend() {
+  fetch('http://localhost:3000/api/comentarios')
+    .then(res => res.json())
+    .then(array => mostrarComentarios(array))
+    .catch(() => {
+      document.getElementById('comentariosList').innerHTML = "<i>No se pudieron cargar los comentarios</i>";
+    });
+}
+
 function renderComentarios() {
-  userHasCommented = checkUserHasCommented();
-  let array = [];
-  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
+  userHasCommented = false; // Control real debe venir del backend (puedes hacer endpoint para ello)
   const comDiv = document.getElementById('comentarios');
   comDiv.innerHTML = `
     <div class="comentarios-section">
       <h2>💬 Comentarios públicos de usuarios</h2>
       <form id="comentarioForm">
-        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀" ${userHasCommented ? 'disabled' : ''}></textarea><br>
-        <button type="submit" ${userHasCommented ? 'disabled' : ''}>¡Enviar comentario! 🚀</button>
+        <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
+        <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
       <div id="comentarioFeedback" style="font-size:0.9em;color:#18697d;margin:10px 0;"></div>
       <div id="comentariosList" style="margin-top:10px"></div>
     </div>`;
   
-  if(userHasCommented) {
-    document.getElementById('comentarioFeedback').innerText = '✅ Ya has dejado tu comentario. Un comentario por usuario 🎉';
-  }
-
   document.getElementById('comentarioForm').addEventListener("submit", guardarComentario);
-  mostrarComentarios(array);
+  cargarComentariosDesdeBackend();
 }
 
 function guardarComentario(e) {
@@ -256,46 +239,43 @@ function guardarComentario(e) {
     return;
   }
 
-  playSoundAhh();
-  let array = [];
-  if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
   let texto = sanitizeComment(document.getElementById('comentarioText').value);
   let lower = texto.toLowerCase();
-  let found = forbiddenWords.some(word=> lower.includes(word));
+  let found = forbiddenWords.some(word => lower.includes(word));
   
   if (found) {
     document.getElementById('comentarioFeedback').innerText = '🚫 Palabras no permitidas';
     return;
   }
-  if (texto.length<1) {
+  if (texto.length < 1) {
     document.getElementById('comentarioFeedback').innerText = '⚠️ Escribe algo 😎';
     return;
   }
 
-  const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
-  let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-  array.unshift({mensaje: texto, emoji});
-  localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
-  markUserAsCommented();
-  
-  document.getElementById('comentarioText').disabled = true;
-  document.querySelector('#comentarioForm button').disabled = true;
-  document.getElementById('comentarioFeedback').innerText = '✅ ¡Tu comentario fue publicado! 🎉';
-  
-  setTimeout(() => {
-    mostrarComentarios(array);
-  }, 500);
-}
-
-function mostrarComentarios(array) {
-  const list = document.getElementById('comentariosList');
-  if (!array || array.length == 0) {
-    list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
-    return;
-  }
-  list.innerHTML = array.map(c=>
-    `<div class="comentario"><span class="com-emoji">${escapeHtml(c.emoji)}</span> ${escapeHtml(c.mensaje)}</div>`
-  ).join("");
+  fetch('http://localhost:3000/api/comentarios', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ mensaje: texto })
+  })
+  .then(res => {
+    if (res.status === 429) {
+      document.getElementById('comentarioFeedback').innerText = '❌ Ya has enviado un comentario antes.';
+      return Promise.reject('Comentario duplicado');
+    } else if (!res.ok) {
+      document.getElementById('comentarioFeedback').innerText = 'Error al enviar el comentario.';
+      return Promise.reject('Error servidor');
+    }
+    return res.json();
+  })
+  .then(data => {
+    playSoundAhh();
+    userHasCommented = true;
+    document.getElementById('comentarioText').disabled = true;
+    document.querySelector('#comentarioForm button').disabled = true;
+    document.getElementById('comentarioFeedback').innerText = '✅ ¡Tu comentario fue publicado! 🎉';
+    cargarComentariosDesdeBackend();
+  })
+  .catch(console.error);
 }
 
 // ===== SECCIÓN NO TOCAR =====
@@ -304,15 +284,15 @@ function mostrarNoTocar() {
   const container = document.getElementById("no-tocar-oscuro");
   container.style.display = "flex";
   const pasos = [
-    {txt:"Acércate",       size:"2.6em"},
-    {txt:"Acércate más",   size:"3.8em"},
-    {txt:"Un poco más...", size:"2.7em"}
+    { txt: "Acércate", size: "2.6em" },
+    { txt: "Acércate más", size: "3.8em" },
+    { txt: "Un poco más...", size: "2.7em" }
   ];
   container.innerHTML = `<div id="no-tocar-mensaje" class="no-tocar-letra">${pasos[0].txt}</div>`;
   let idx = 0;
   function nextStep() {
     idx++;
-    if(idx < pasos.length) {
+    if (idx < pasos.length) {
       const msg = document.getElementById("no-tocar-mensaje");
       msg.innerText = pasos[idx].txt;
       msg.style.fontSize = pasos[idx].size;
@@ -320,7 +300,7 @@ function mostrarNoTocar() {
       setTimeout(nextStep, 1800);
     } else setTimeout(asustarWasaaa, 1200);
   }
-  setTimeout(nextStep,1800);
+  setTimeout(nextStep, 1800);
 }
 
 function asustarWasaaa() {
@@ -336,10 +316,10 @@ function asustarWasaaa() {
     </div>
   `;
   let audio = document.getElementById("audio-wasaaa");
-  if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); }
+  if (audio) { audio.currentTime = 0; audio.play().catch(() => { }); }
   document.body.style.animation = "shake 0.12s 12";
-  setTimeout(()=>{document.body.style.animation="";},1000);
-  document.getElementById("volver-web-btn").addEventListener("click", function(){ cerrarNoTocar();audioBoot(); });
+  setTimeout(() => { document.body.style.animation = ""; }, 1000);
+  document.getElementById("volver-web-btn").addEventListener("click", function () { cerrarNoTocar(); audioBoot(); });
 }
 
 function cerrarNoTocar() {
@@ -348,24 +328,24 @@ function cerrarNoTocar() {
 }
 
 // ===== INICIALIZACIÓN =====
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Captcha
   document.querySelectorAll('.captcha-option').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       verificarCaptcha(this.getAttribute('data-answer'));
     });
   });
 
   // Navegación
-  document.getElementById("nav-home").addEventListener("click", function(e) { navAnim('home', this); });
-  document.getElementById("nav-memes").addEventListener("click", function(e) { navAnim('memes', this); });
-  document.getElementById("nav-comentarios").addEventListener("click", function(e) { navAnim('comentarios', this); });
-  document.getElementById("nav-contacto").addEventListener("click", function(e) { navAnim('contacto', this); });
-  document.getElementById("notocar-btn").addEventListener("click", function(e) { navAnim('notocar', this); });
+  document.getElementById("nav-home").addEventListener("click", function (e) { navAnim('home', this); });
+  document.getElementById("nav-memes").addEventListener("click", function (e) { navAnim('memes', this); });
+  document.getElementById("nav-comentarios").addEventListener("click", function (e) { navAnim('comentarios', this); });
+  document.getElementById("nav-contacto").addEventListener("click", function (e) { navAnim('contacto', this); });
+  document.getElementById("notocar-btn").addEventListener("click", function (e) { navAnim('notocar', this); });
 
   // Teclado de números
-  document.querySelectorAll(".num-teclado button").forEach(function(btn) {
-    btn.addEventListener("click", function() {
+  document.querySelectorAll(".num-teclado button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
       audioBoot(); muestraFraseXD(this.getAttribute("data-num")); btnClickSound();
     });
   });
@@ -373,6 +353,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // Resize listener
   window.addEventListener('resize', () => {
     let frasexd = document.getElementById('frase-xd');
-    if(frasexd) frasexd.style.fontSize = (window.innerWidth<700) ? "1em" : "1.10em";
+    if (frasexd) frasexd.style.fontSize = (window.innerWidth < 700) ? "1em" : "1.10em";
   });
 });
