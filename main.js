@@ -31,6 +31,8 @@ const FRASES_XD = [
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
+const API_URL = 'https://zoevalo-backend.onrender.com';
+
 let audioAllowed = false;
 let userHasCommented = false;
 let captchaAttempts = 0;
@@ -58,7 +60,7 @@ function verificarCaptcha(answer) {
     return;
   }
 
-  fetch('http://localhost:3000/api/validar-captcha', {
+  fetch(`${API_URL}/api/validar-captcha`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ respuesta: answer })
@@ -205,7 +207,7 @@ function renderContacto() {
 
 // ===== COMENTARIOS =====
 function cargarComentariosDesdeBackend() {
-  fetch('http://localhost:3000/api/comentarios')
+  fetch(`${API_URL}/api/comentarios`)
     .then(res => res.json())
     .then(array => mostrarComentarios(array))
     .catch(() => {
@@ -269,7 +271,7 @@ function guardarComentario(e) {
     return;
   }
 
-  fetch('http://localhost:3000/api/comentarios', {
+  fetch(`${API_URL}/api/comentarios`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ mensaje: texto })
