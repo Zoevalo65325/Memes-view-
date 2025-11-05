@@ -103,7 +103,7 @@ form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;bo
 @keyframes shake{0%{transform:translate(0, 0);}10%{transform:translate(-8px, 0);}20%{transform:translate(8px, 0);}30%{transform:translate(-8px, 0);}40%{transform:translate(8px, 0);}50%{transform:translate(-6px, 0);}60%{transform:translate(6px, 0);}70%{transform:translate(-4px, 0);}80%{transform:translate(4px, 0);}90%{transform:translate(-4px, 0);}100%{transform:translate(0, 0);}}
 </style>
 </head>
-<body ontouchstart="">
+<body>
 <!-- CAPTCHA DIVERTIDO -->
 <div id="captcha-overlay">
   <div class="captcha-box">
@@ -111,7 +111,7 @@ form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;bo
     <p id="captcha-pregunta">¿Cuánto es 2 + 2? 🤔</p>
     <input type="text" id="captcha-input" class="captcha-input" placeholder="Tu respuesta...">
     <br>
-    <button class="captcha-btn" onclick="verificarCaptcha()">Entrar 🚀</button>
+    <button id="captcha-btn" class="captcha-btn">Entrar 🚀</button>
   </div>
 </div>
 
@@ -134,25 +134,25 @@ form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;bo
 </div>
 
 <nav>
-  <button onclick="navAnim('home',this)" class="active">🏠 Inicio</button>
-  <button onclick="navAnim('memes',this)">😂 Memes</button>
-  <button onclick="navAnim('comentarios',this)">💬 Comentarios</button>
-  <button onclick="navAnim('contacto',this)">📧 Contacto</button>
-  <button id="notocar-btn" onclick="navAnim('notocar',this)">🚫 No tocar</button>
+  <button id="nav-home" class="active">🏠 Inicio</button>
+  <button id="nav-memes">😂 Memes</button>
+  <button id="nav-comentarios">💬 Comentarios</button>
+  <button id="nav-contacto">📧 Contacto</button>
+  <button id="notocar-btn">🚫 No tocar</button>
 </nav>
 
 <div id="pantalla-inicio" class="fade-in">
   <div class="pantalla-teclado">Selecciona tu favorito</div>
   <div class="num-teclado">
-    <button onclick="audioBoot();muestraFraseXD(1);btnClickSound()">1</button>
-    <button onclick="audioBoot();muestraFraseXD(2);btnClickSound()">2</button>
-    <button onclick="audioBoot();muestraFraseXD(3);btnClickSound()">3</button>
-    <button onclick="audioBoot();muestraFraseXD(4);btnClickSound()">4</button>
-    <button onclick="audioBoot();muestraFraseXD(5);btnClickSound()">5</button>
-    <button onclick="audioBoot();muestraFraseXD(6);btnClickSound()">6</button>
-    <button onclick="audioBoot();muestraFraseXD(7);btnClickSound()">7</button>
-    <button onclick="audioBoot();muestraFraseXD(8);btnClickSound()">8</button>
-    <button onclick="audioBoot();muestraFraseXD(9);btnClickSound()">9</button>
+    <button data-num="1">1</button>
+    <button data-num="2">2</button>
+    <button data-num="3">3</button>
+    <button data-num="4">4</button>
+    <button data-num="5">5</button>
+    <button data-num="6">6</button>
+    <button data-num="7">7</button>
+    <button data-num="8">8</button>
+    <button data-num="9">9</button>
   </div>
   <div id="frase-xd" class="xd-frase"></div>
 </div>
@@ -212,9 +212,26 @@ const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_imag
 
 let audioAllowed = false;
 
-// Captcha divertido
+// Implementación segura: eliminar eventos inline y usar listeners
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("captcha-btn").addEventListener("click", verificarCaptcha);
+
+  document.getElementById("nav-home").addEventListener("click", function(e) { navAnim('home', this); });
+  document.getElementById("nav-memes").addEventListener("click", function(e) { navAnim('memes', this); });
+  document.getElementById("nav-comentarios").addEventListener("click", function(e) { navAnim('comentarios', this); });
+  document.getElementById("nav-contacto").addEventListener("click", function(e) { navAnim('contacto', this); });
+  document.getElementById("notocar-btn").addEventListener("click", function(e) { navAnim('notocar', this); });
+
+  document.querySelectorAll(".num-teclado button").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      audioBoot(); muestraFraseXD(this.getAttribute("data-num")); btnClickSound();
+    });
+  });
+});
+
+// Captcha seguro: validación en frontend (sin servidor)
 function verificarCaptcha() {
-  let respuesta = document.getElementById('captcha-input').value.trim();
+  let respuesta = document.getElementById('captcha-input').value.trim().toLowerCase();
   if(respuesta === '4' || respuesta === 'cuatro') {
     document.getElementById('captcha-overlay').style.display = 'none';
     audioBoot();
@@ -291,14 +308,17 @@ function renderMemes() {
     card.className = 'meme-card';
     card.onclick = ()=>{ audioBoot(); window.open(RICKROLL_URL,'_blank'); };
     card.innerHTML = `
-      <img class="meme-img" src="${meme.img}" alt="${meme.titulo}" onerror="this.src='${MEME_BACKUP}'" />
+      <img class="meme-img" src="${meme.img}" alt="${escapeHtml(meme.titulo)}" onerror="this.src='${MEME_BACKUP}'" />
       <div class="meme-content">
-        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${meme.titulo}</div>
-        <div class="meme-desc">${meme.descripcion}</div>
+        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${escapeHtml(meme.emoji)}</span>`:""} ${escapeHtml(meme.titulo)}</div>
+        <div class="meme-desc">${escapeHtml(meme.descripcion)}</div>
       </div>
       <div class="meme-actions">
-        <button class="btn-rickroll" onclick="audioBoot();btnClickSound();window.open('${RICKROLL_URL}','_blank');event.stopPropagation();">🎬 Ver Sorpresa</button>
+        <button class="btn-rickroll">🎬 Ver Sorpresa</button>
       </div>`;
+    card.querySelector(".btn-rickroll").addEventListener("click", function(e){
+      audioBoot();btnClickSound();window.open(RICKROLL_URL,'_blank');e.stopPropagation();
+    });
     grid.appendChild(card);
   });
 }
@@ -311,13 +331,15 @@ function renderContacto() {
     <div style="padding:22px 10px 29px 10px;text-align:center;background:#e5fff2cc;border-radius:17px;max-width:420px;margin:0 auto;">
     <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.21em">Contacto &amp; Newsletter 💌</h2>
     <p style="color:#18697d;font-weight:700;">¿Ideas, memes o saludos? <br> Escribe a: <b style="color:#21b7a6;">zoevaloprueba@gmail.com</b> 📧</p>
-    <form style="margin:14px auto;max-width:315px;" onsubmit="playSoundAhh();return false;">
+    <form style="margin:14px auto;max-width:315px;" id="formContacto">
       <input type="email" placeholder="Tu email para memes 🔥" style="padding:10px 12px;width:83%;border-radius:11px;border:2px solid #53E083;font-size:1em;margin-bottom:7px;">
       <button type="submit" style="padding:9px 17px;border:none;background:#21b7a6;color:#fff;border-radius:13px;font-size:1em;cursor:pointer;">Suscribirse 😍</button>
     </form>
     <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
     </div>`;
+  document.getElementById("formContacto").addEventListener("submit", e => { e.preventDefault(); playSoundAhh(); });
 }
+
 function renderComentarios() {
   let array = [];
   if (localStorage.zoeva_coments) array = JSON.parse(localStorage.zoeva_coments);
@@ -325,12 +347,13 @@ function renderComentarios() {
   comDiv.innerHTML = `
     <div class="comentarios-section">
       <h2>💬 Comentarios públicos de usuarios</h2>
-      <form id="comentarioForm" onsubmit="guardarComentario(event)">
+      <form id="comentarioForm">
         <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
         <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
       <div id="comentariosList" style="margin-top:10px"></div>
     </div>`;
+  document.getElementById('comentarioForm').addEventListener("submit", guardarComentario);
   mostrarComentarios(array);
 }
 function guardarComentario(e) {
@@ -349,7 +372,7 @@ function guardarComentario(e) {
   else {
     const emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
     let emoji = emojiList[Math.floor(Math.random()*emojiList.length)];
-    array.unshift({mensaje:texto,emoji});
+    array.unshift({mensaje: texto, emoji});
     localStorage.zoeva_coments = JSON.stringify(array.slice(0,20));
     document.getElementById('comentarioText').value = "";
     mostrarComentarios(array);
@@ -361,7 +384,9 @@ function mostrarComentarios(array) {
     list.innerHTML = "<i>¡Sé el primero en comentar! 😃</i>";
     return;
   }
-  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
+  list.innerHTML = array.map(c=>
+    `<div class="comentario"><span class="com-emoji">${escapeHtml(c.emoji)}</span> ${escapeHtml(c.mensaje)}</div>`
+    ).join("");
 }
 function escapeHtml(str){return str.replace(/[<>"']/g,function(m){return ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]})}
 window.addEventListener('resize',()=>{
@@ -399,7 +424,7 @@ function asustarWasaaa() {
     <div id="no-tocar-wasaaa">
       <img src="https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/wasaa.jpg" alt="wasaaa" />
       <div class="wasa-text">¡WASAAAA! 😱</div>
-      <button onclick="cerrarNoTocar();audioBoot();" style="font-size:1.13em;background:#23e2bb;color:#101;border:none;border-radius:13px;padding:7px 15px;margin-top:18px;cursor:pointer;box-shadow:0 3px 21px #f33a;">
+      <button id="volver-web-btn" style="font-size:1.13em;background:#23e2bb;color:#101;border:none;border-radius:13px;padding:7px 15px;margin-top:18px;cursor:pointer;box-shadow:0 3px 21px #f33a;">
         Volver a la web
       </button>
     </div>
@@ -408,10 +433,11 @@ function asustarWasaaa() {
   if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); }
   document.body.style.animation = "shake 0.12s 12";
   setTimeout(()=>{document.body.style.animation="";},1000);
+  document.getElementById("volver-web-btn").addEventListener("click", function(){ cerrarNoTocar();audioBoot(); });
 }
 function cerrarNoTocar() {
   document.getElementById("no-tocar-oscuro").style.display = "none";
-  navAnim("home",document.querySelectorAll('nav button')[0]);
+  navAnim("home",document.getElementById('nav-home'));
 }
 </script>
 </body>
