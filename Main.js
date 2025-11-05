@@ -1,4 +1,23 @@
-// DATOS ESTÁTICOS
+// --- CAPTCHA ---
+function verificarCaptcha() {
+  let respuesta = document.getElementById('captcha-input').value.trim().toLowerCase();
+  if(respuesta === '4' || respuesta === 'cuatro') {
+    document.getElementById('captcha-overlay').style.display = 'none';
+    audioBoot();
+  } else {
+    alert('¡Intenta de nuevo! 🤔 Pista: 2 + 2 = ?');
+    document.getElementById('captcha-input').value = "";
+  }
+}
+
+// --- DATOS ---
+const FRASES_XD = [
+  "Mi cara cuando veo pizza gratis... 🤤🍕", "Quise madrugar... mi cama dijo NO. 😴",
+  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦", "Desayuné y ya tengo hambre otra vez. 🥞😂",
+  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️", "Me reí tan fuerte que desperté al perro. 🐶🤣",
+  "Aplausos para mí: no perdí las llaves hoy. 🗝👏", "¿Quién dejó el modo flojera encendido? 🛋️💤",
+  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
+];
 const MEMES = [
   { titulo:"Chill de cojones 😌", descripcion:"Relajación máxima 💆‍♂️", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/chillde.jpeg", emoji:"😌"},
   { titulo:"Bob Esponja 🤪", descripcion:"¡Burla asegurada! 🍍", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/bob.jpg", emoji:"🤪"},
@@ -7,195 +26,148 @@ const MEMES = [
   { titulo:"Patrick Malvado 😏", descripcion:"Risa traviesa 🦑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/patricio.jpg", emoji:"😏"},
   { titulo:"Stonks 💹", descripcion:"Dinero para todos 🤑", img:"https://raw.githubusercontent.com/Zoevalo65325/Memes-view-/refs/heads/main/stonks.jpeg", emoji:"💹"}
 ];
-const FRASES_XD = [
-  "Mi cara cuando veo pizza gratis... 🤤🍕",
-  "Quise madrugar... mi cama dijo NO. 😴",
-  "¿Por qué día lluvioso? ¡Quiero mi sol y mi helado! 🌞🍦",
-  "Desayuné y ya tengo hambre otra vez. 🥞😂",
-  "¡Hoy sí hago ejercicio! ...Bueno, mejor mañana 😂🏋️‍♂️",
-  "Me reí tan fuerte que desperté al perro. 🐶🤣",
-  "Aplausos para mí: no perdí las llaves hoy. 🗝👏",
-  "¿Quién dejó el modo flojera encendido? 🛋️💤",
-  "Hoy no hay tarea, ¿verdad profe? 😶✏️"
-];
-const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
-let audioAllowed = false;
-let comentariosData = [];
+const RICKROLL_URL="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const MEME_BACKUP="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
-// AUDIO
-function audioBoot() {
-  if (!audioAllowed) {
-    let a1 = document.getElementById('audio-burbujas');
-    if(a1) { a1.muted = false; a1.volume=0.5; a1.currentTime=0; a1.play().catch(()=>{}); }
-    audioAllowed = true;
-    setTimeout(()=>{if(a1)a1.pause();},70);
-  }
+// FUNCIONES PRINCIPALES (memes, frases, botones, comentarios)
+function muestraFraseXD(num){
+  document.getElementById("frase-xd").innerText = FRASES_XD[num-1];
 }
-function btnClickSound() {
-  audioBoot();
-  let a = document.getElementById('audio-burbujas');
-  if(a) { a.currentTime=0; a.play().catch(()=>{}); }
-}
-function playSoundAhh() {
-  audioBoot();
-  let a = document.getElementById('audio-ahh');
-  if(a) { a.currentTime=0; a.play().catch(()=>{}); }
-}
-
-// FRASES
-function muestraFraseXD(num) {
-  let frase = FRASES_XD[num-1] || FRASES_XD[0];
-  document.getElementById("frase-xd").innerText = frase;
-}
-
-// MEMES
-function renderMemes() {
+function renderMemes(){
   document.getElementById('comentarios').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
-  document.getElementById('no-tocar-oscuro').style.display = "none";
-  const grid = document.getElementById('memesGrid');
-  grid.style.display="grid";
-  grid.innerHTML = '';
-  MEMES.forEach(meme => {
+  document.getElementById('no-tocar-oscuro').style.display="none";
+  const grid = document.getElementById('memesGrid'); grid.style.display="grid"; grid.innerHTML='';
+  MEMES.forEach(meme=>{
     const card = document.createElement('div');
     card.className = 'meme-card';
-    card.innerHTML = `
-      <img class="meme-img" src="${escapeHtml(meme.img)}" alt="${escapeHtml(meme.titulo)}" onerror="this.src='${MEME_BACKUP}'" />
-      <div class="meme-content">
-        <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${escapeHtml(meme.titulo)}</div>
-        <div class="meme-desc">${escapeHtml(meme.descripcion)}</div>
-      </div>
-      <div class="meme-actions">
-        <button class="btn-rickroll" type="button">🎬 Ver Sorpresa</button>
-      </div>`;
+    card.innerHTML = `<img class="meme-img" src="${escapeHtml(meme.img)}" alt="${escapeHtml(meme.titulo)}" onerror="this.src='${MEME_BACKUP}'" />
+    <div class="meme-content">
+      <div class="meme-title">${meme.emoji?`<span class="emoji-huge">${meme.emoji}</span>`:""} ${escapeHtml(meme.titulo)}</div>
+      <div class="meme-desc">${escapeHtml(meme.descripcion)}</div>
+    </div>
+    <div class="meme-actions">
+      <button class="btn-rickroll" type="button">🎬 Ver Sorpresa</button>
+    </div>`;
     grid.appendChild(card);
     let rickBtn = card.querySelector('.btn-rickroll');
-    if (rickBtn) rickBtn.addEventListener("click", function(e) {
+    if(rickBtn) rickBtn.addEventListener("click",e=>{
       audioBoot(); btnClickSound(); window.open(RICKROLL_URL,'_blank'); e.stopPropagation();
     });
   });
 }
-
-// COMENTARIOS (SIN SUPABASE, LOCAL)
-function renderComentarios() {
-  document.getElementById('memesGrid').style.display="none";
+function renderContacto(){
+  document.getElementById('comentarios').style.display="none";
   document.getElementById('pantalla-inicio').style.display="none";
-  document.getElementById('no-tocar-oscuro').style.display = "none";
-  document.getElementById('comentarios').style.display = "block";
-  document.getElementById('comentarios').innerHTML = `
+  document.getElementById('no-tocar-oscuro').style.display="none";
+  document.getElementById('memesGrid').style.display="block";
+  document.getElementById('memesGrid').innerHTML=`
+    <div style="padding:22px 10px;text-align:center;background:rgba(229,255,242,0.8);border-radius:17px;max-width:420px;margin:0 auto;">
+    <h2 style="color:#1ca87e;font-size:1.21em">Contacto 💌</h2>
+    <p style="color:#18697d;font-weight:700;">¿Ideas o saludos? <b style="color:#21b7a6;">zoevaloprueba@gmail.com</b> 📧</p>
+    <div style="font-size:1.59em">💚🦄🎉🤣😂🍀</div>
+    </div>`;
+}
+function renderComentarios(){
+  let array = JSON.parse(localStorage.getItem("zoeva_coments")||"[]");
+  const comDiv = document.getElementById('comentarios');
+  comDiv.innerHTML = `
     <div class="comentarios-section">
-      <h2>💬 Comentarios públicos (Guardados localmente)</h2>
+      <h2>💬 Comentarios públicos</h2>
       <form id="comentarioForm">
         <textarea id="comentarioText" maxlength="120" placeholder="Escribe aquí tu comentario 😀"></textarea><br>
-        <button id="comentarioSendBtn" type="submit">¡Enviar comentario! 🚀</button>
+        <button type="submit">¡Enviar comentario! 🚀</button>
       </form>
-      <div id="comentariosList" style="margin-top:15px"></div>
+      <div id="comentariosList" style="margin-top:10px"></div>
     </div>`;
-  const comentarioForm = document.getElementById('comentarioForm');
-  if(comentarioForm) comentarioForm.addEventListener('submit', guardarComentario);
-  cargarComentarios();
+  const form = document.getElementById('comentarioForm');
+  if(form) form.addEventListener('submit',guardarComentario);
+  mostrarComentarios(array);
 }
-
-function guardarComentario(e) {
-  if(e) e.preventDefault();
-  let mensaje = document.getElementById('comentarioText').value.trim();
-  let emojiList = ['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺'];
-  let emoji = emojiList[Math.floor(Math.random() * emojiList.length)];
-  if (antispamDebounce()) {
-    alert("¡Espera antes de enviar otro comentario!");
-    return false;
-  }
-  if(mensaje.length < 1) { alert("Escribe un comentario."); return false; }
-  if(mensaje.length > 120) { alert("¡Demasiado largo! Máx 120 caract."); return false; }
-  if(contieneGroserias(mensaje)) {
-    alert("¡No se permiten groserías!");
-    document.getElementById('comentarioText').value = "";
-    return false;
-  }
-  comentariosData.push({ mensaje, emoji });
+function guardarComentario(e){
+  e.preventDefault();
+  let texto = document.getElementById('comentarioText').value.trim();
+  if(contieneGroserias(texto)){ alert('¡No se permiten groserías! 😬');return false; }
+  if(texto.length<1){alert("Coloca tu comentario 😎");return false;}
+  let array=JSON.parse(localStorage.getItem("zoeva_coments")||"[]");
+  const emojis=['🤣','✨','😎','🥳','🤩','🚀','😂','🥇','💥','😺','🧠','🐸','🍀','🎉','😻'];
+  let emoji = emojis[Math.floor(Math.random()*emojis.length)];
+  array.unshift({mensaje:texto,emoji});
+  localStorage.setItem("zoeva_coments",JSON.stringify(array.slice(0,20)));
   document.getElementById('comentarioText').value = "";
-  cargarComentarios();
-  return false;
+  mostrarComentarios(array);
+}
+function mostrarComentarios(array){
+  const list = document.getElementById('comentariosList');
+  if(!array||array.length==0){
+    list.innerHTML="<i>¡Sé el primero en comentar! 😃</i>";
+    return;
+  }
+  list.innerHTML = array.map(c=>`<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`).join("");
 }
 
-function cargarComentarios() {
-  document.getElementById('comentariosList').innerHTML =
-    comentariosData.map(c =>
-      `<div class="comentario"><span class="com-emoji">${c.emoji}</span> ${escapeHtml(c.mensaje)}</div>`
-    ).join('');
+// --- AUDIO ---
+let audioAllowed = false;
+function audioBoot() {
+  if (!audioAllowed) {
+    let a1 = document.getElementById('audio-burbujas');
+    if(a1){ a1.muted=false; a1.volume=0.5; a1.currentTime=0; a1.play().catch(()=>{});}
+    audioAllowed=true;
+    setTimeout(()=>{if(a1)a1.pause();},70);
+  }
+}
+function btnClickSound(){
+  let a = document.getElementById('audio-burbujas');
+  if(a){ a.currentTime=0; a.play().catch(()=>{}); }
 }
 
-// CONTACTO
-function renderContacto() {
-  document.getElementById('comentarios').style.display = "none";
-  document.getElementById('pantalla-inicio').style.display = "none";
-  document.getElementById('no-tocar-oscuro').style.display="none";
-  document.getElementById('memesGrid').style.display = "block";
-  document.getElementById('memesGrid').innerHTML = `
-    <div style="padding:30px 15px;text-align:center;background:rgba(229,255,242,0.8);border-radius:17px;max-width:450px;margin:0 auto;">
-    <h2 style="font-family:Baloo 2,cursive;color:#1ca87e;font-size:1.4em">Contacto 💌</h2>
-    <p style="color:#18697d;font-weight:700;">¿Ideas, memes o saludos? <br> Escribe a: <b style="color:#21b7a6;">zoevaloprueba@gmail.com</b> 📧</p>
-    <div style="font-size:2em;margin-top:15px">💚🦄🎉🤣😂🍀</div>
-    </div>`;
-}
-
-// NAVEGACIÓN
-function navAnim(seccion, el) {
-  audioBoot(); btnClickSound();
-  let pantallas = ["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
+// --- MENÚ, NÚMERO y EVENTOS ---
+window.addEventListener("DOMContentLoaded",function(){
+  // CAPTCHA
+  document.getElementById('captcha-btn').addEventListener('click',verificarCaptcha);
+  document.getElementById('captcha-input').addEventListener('keydown',function(e){if(e.key=="Enter")verificarCaptcha();});
+  // TECLADO FRASES
+  const teclado=document.getElementById('num-teclado');
+  for(let i=1;i<=9;i++){
+    const btn=document.createElement('button');
+    btn.textContent=i;
+    btn.addEventListener('click',function(){audioBoot();muestraFraseXD(i);btnClickSound();});
+    teclado.appendChild(btn);
+  }
+  muestraFraseXD(Math.floor(Math.random()*9+1));
+  // NAV
+  document.getElementById('btn-home').addEventListener("click",function(){navAnim('home');});
+  document.getElementById('btn-memes').addEventListener("click",function(){navAnim('memes');});
+  document.getElementById('btn-comentarios').addEventListener("click",function(){navAnim('comentarios');});
+  document.getElementById('btn-contacto').addEventListener("click",function(){navAnim('contacto');});
+  document.getElementById('notocar-btn').addEventListener("click",function(){navAnim('notocar');});
+});
+function navAnim(seccion){
+  let pantallas=["pantalla-inicio","memesGrid","comentarios","no-tocar-oscuro"];
   pantallas.forEach(id=>{
-    let el2 = document.getElementById(id);
-    if(el2 && el2.style.display!="none") {
-      el2.classList.add('fade-out');
-    }
+    let el=document.getElementById(id);
+    if(el&&el.style.display!="none"){el.classList.add('fade-out');}
   });
   setTimeout(()=>{
     pantallas.forEach(id=>{
-      let el2 = document.getElementById(id);
-      if(el2) { el2.style.display="none"; el2.classList.remove('fade-out'); }
+      let el=document.getElementById(id);
+      if(el){el.style.display="none";el.classList.remove('fade-out');}
     });
-    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";document.getElementById("pantalla-inicio").classList.add('fade-in');}
+    if(seccion=="home"){document.getElementById("pantalla-inicio").style.display="block";}
     if(seccion=="memes"){document.getElementById("memesGrid").style.display="grid";renderMemes();}
-    if(seccion=="comentarios"){renderComentarios();}
+    if(seccion=="comentarios"){document.getElementById("comentarios").style.display="block";renderComentarios();}
     if(seccion=="contacto"){renderContacto();}
     if(seccion=="notocar"){mostrarNoTocar();}
     document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    if(el) el.classList.add('active');
+    document.getElementById('btn-'+seccion).classList.add('active');
   },420);
 }
-
-// NO TOCAR (JUMPSCARE)
+// NO TOCAR (simplificado)
 function mostrarNoTocar() {
   document.getElementById('no-tocar-oscuro').style.display = "flex";
-  document.getElementById('no-tocar-oscuro').innerHTML = '<div class="no-tocar-letra">¿Seguro que quieres tocar? 😱</div><button id="btn-si-tocar" style="background:#ff4848;color:#fff;font-size:1.3em;padding:12px 30px;border:none;border-radius:15px;cursor:pointer;font-family:Baloo 2,cursive;">Sí, quiero tocar</button>';
-  document.getElementById('btn-si-tocar').addEventListener('click', asustarWasaaa);
+  document.getElementById('no-tocar-oscuro').innerHTML = `<div class="no-tocar-letra">¡No deberías estar aquí! 😱<br><button id="cerrarNotocar" style="margin-top:27px;">Quitar</button></div>`;
+  document.getElementById('cerrarNotocar').onclick = function(){
+    document.getElementById('no-tocar-oscuro').style.display = "none";
+    navAnim('home');
+  }
 }
-
-function asustarWasaaa() {
-  playSoundAhh();
-  let wasaImg = "https://i.kym-cdn.com/photos/images/newsfeed/000/284/922/0e3.png";
-  document.getElementById('no-tocar-oscuro').innerHTML = `<div id="no-tocar-wasaaa"><img src="${wasaImg}" alt="WASAAA"><div class="wasa-text">¡WASAAA! 😂</div><button id="cerrar-wasaaa" style="margin-top:20px;background:#21e75a;color:#fff;padding:10px 25px;border:none;border-radius:12px;font-size:1.1em;cursor:pointer;font-family:Baloo 2;">Cerrar</button></div>`;
-  document.getElementById('cerrar-wasaaa').addEventListener('click', cerrarNoTocar);
-}
-
-function cerrarNoTocar() {
-  document.getElementById('no-tocar-oscuro').style.display = "none";
-  navAnim('home', document.getElementById('nav-home'));
-}
-
-// EVENTOS NAV
-window.addEventListener("DOMContentLoaded", function() {
-  muestraFraseXD(Math.floor(Math.random()*9+1));
-  document.getElementById('nav-home').addEventListener("click", function(){ navAnim('home', this); });
-  document.getElementById('nav-memes').addEventListener("click", function(){ navAnim('memes', this); });
-  document.getElementById('nav-comentarios').addEventListener("click", function(){ navAnim('comentarios', this); });
-  document.getElementById('nav-contacto').addEventListener("click", function(){ navAnim('contacto', this); });
-  document.getElementById('nav-notocar').addEventListener("click", function(){ navAnim('notocar', this); });
-});
-
-// RESPONSIVE
-window.addEventListener('resize',()=>{
-  let frasexd = document.getElementById('frase-xd');
-  if(frasexd) frasexd.style.fontSize=(window.innerWidth<700)?"1em":"1.2em";
-});
