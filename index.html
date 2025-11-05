@@ -3,35 +3,71 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Memes Epic Comments</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Zoevaloprueba - Memes épicos</title>
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Bangers&family=Baloo+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <!-- NAV BAR -->
-  <nav>
-    <button id="nav-home">🏠 Inicio</button>
-    <button id="nav-memes">😹 Memes</button>
-    <button id="nav-comentarios">💬 Comentarios</button>
-    <button id="nav-contacto">📫 Contacto</button>
-    <button id="nav-notocar">😱 No Tocar</button>
-  </nav>
+<body ontouchstart="">
 
-  <!-- Pantallas principales -->
-  <div id="pantalla-inicio" style="display:block;">
-    <h1 style="font-family:'Luckiest Guy',cursive;">¡Bienvenido a Memes y Sorpresas!</h1>
-    <div id="frase-xd" style="margin-bottom:22px;"></div>
+<div id="captcha-overlay">
+  <div class="captcha-box">
+    <h2>🤖 Captcha Divertido 🎉</h2>
+    <p id="captcha-pregunta">¿Cuánto es 2 + 2? 🤔</p>
+    <input type="text" id="captcha-input" class="captcha-input" placeholder="Tu respuesta...">
+    <br>
+    <button class="captcha-btn" id="captcha-btn">Entrar 🚀</button>
   </div>
-  <div id="memesGrid" style="display:none;"></div>
-  <div id="comentarios" style="display:none;"></div>
-  <div id="no-tocar-oscuro" style="display:none;"></div>
+</div>
 
-  <!-- Audios ocultos para efectos -->
-  <audio id="audio-burbujas" src="https://cdn.pixabay.com/audio/2022/09/02/audio_10e71bcdc2.mp3" preload="auto"></audio>
-  <audio id="audio-wasaaa" src="https://cdn.pixabay.com/audio/2023/02/06/audio_12f06a6525.mp3" preload="auto"></audio>
-  <audio id="audio-ahh" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bce1e08.mp3" preload="auto"></audio>
+<div class="epic-title-poster">
+  <div class="poster-bg-deco"></div>
+  <span class="poster-sticker" style="left:7%;top:12%;">🍌</span>
+  <span class="poster-sticker" style="left:87%;top:12%;">🧠</span>
+  <span class="poster-sticker" style="left:17%;top:7%;">🤣</span>
+  <span class="poster-sticker" style="left:91%;top:49%;">😺</span>
+  <span class="poster-sticker" style="left:81%;top:79%;">🍟</span>
+  <span class="poster-sticker" style="left:6%;top:60%;">🥑</span>
+  <span class="poster-sticker" style="left:51%;top:16%;">👑</span>
+  <span class="poster-sticker" style="left:41%;top:77%;">😂</span>
+  <span class="poster-sticker" style="left:92%;top:64%;">👍</span>
+  <span class="poster-sticker" style="left:19%;top:87%;font-size:2.3em;">😎</span>
+  <span class="poster-sticker" style="left:61%;top:21%;">🔍</span>
+  <div class="poster-title">
+    <span>Z</span><span>O</span><span>E</span><span>V</span><span>A</span><span>L</span><span>O</span><span>P</span><span>R</span><span>U</span><span>E</span><span>B</span><span>A</span>
+  </div>
+</div>
 
-  <script src="seguridad.js"></script>
-  <script src="main.js"></script>
+<nav>
+  <button id="btn-home" class="active">🏠 Inicio</button>
+  <button id="btn-memes">😂 Memes</button>
+  <button id="btn-comentarios">💬 Comentarios</button>
+  <button id="btn-contacto">📧 Contacto</button>
+  <button id="notocar-btn">🚫 No tocar</button>
+</nav>
+
+<div id="pantalla-inicio" class="fade-in">
+  <div class="pantalla-teclado">Selecciona tu favorito</div>
+  <div class="num-teclado" id="num-teclado"></div>
+  <div id="frase-xd" class="xd-frase"></div>
+</div>
+<div class="memes-grid fade-in" id="memesGrid" style="display:none"></div>
+<div id="comentarios" class="fade-in" style="display:none"></div>
+<div id="no-tocar-oscuro"></div>
+
+<footer>
+  <div class="social-icons">
+    <a href="#">🌈</a>
+    <a href="#">🤣</a>
+    <a href="#">🌟</a>
+    <a href="#">🍀</a>
+  </div>
+  <div style="margin-top:8px;">&copy; 2025 zoevaloprueba. Todos los derechos reservados. 🚀😎</div>
+</footer>
+<audio id="audio-burbujas" preload="auto"><source src="1qngpb0ez1z-bubbles-sfx-1 (1).mp3" type="audio/mpeg"></audio>
+<audio id="audio-ahh" preload="auto"><source src="ahh.mp3" type="audio/mpeg"></audio>
+<audio id="audio-wasaaa" preload="auto"><source src="five-nights-at-freddys-full-scream-sound_2.mp3" type="audio/mpeg"></audio>
+
+<script src="seguridad.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
