@@ -213,6 +213,23 @@ function cargarComentariosDesdeBackend() {
     });
 }
 
+function mostrarComentarios(comentarios) {
+  const contenedor = document.getElementById('comentariosList');
+  if (!contenedor) return;
+  contenedor.innerHTML = '';
+
+  comentarios.forEach(({mensaje, ip}) => {
+    const div = document.createElement('div');
+    div.className = 'comentario';
+    div.textContent = `${mensaje} (IP: ${ip})`;
+    contenedor.appendChild(div);
+  });
+
+  if (comentarios.length === 0) {
+    contenedor.innerHTML = '<i>No hay comentarios aún</i>';
+  }
+}
+
 function renderComentarios() {
   userHasCommented = false; // Control real debe venir del backend (puedes hacer endpoint para ello)
   const comDiv = document.getElementById('comentarios');
