@@ -1,51 +1,118 @@
-body { margin:0; background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png'); min-height:100vh; font-family:'Baloo 2',Arial,sans-serif; color:#fff; }
+body {
+  margin:0;
+  background:#0d1023 url('https://www.transparenttextures.com/patterns/stardust.png');
+  min-height:100vh;
+  font-family:'Baloo 2',Arial,sans-serif;
+  color:#fff;
+}
 
-/* NAV */
-nav{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;background:rgba(13,16,35,0.5);margin-bottom:18px;padding:12px 0;}
-nav button{background:#fff;color:#29F4FF;font-family:'Baloo 2',cursive;font-size:1.07em;font-weight:600;border:none;border-radius:14px;padding:9px 20px;cursor:pointer;transition:0.13s;}
+/* --- CAPTCHA DIVERTIDO --- */
+#captcha-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:#0e1221f7; z-index:999999;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+}
+.captcha-box {
+  background:linear-gradient(135deg,#29f4ff 10%,#53e083 90%);
+  padding:32px 26px; border-radius:22px; text-align:center; max-width:380px;
+  box-shadow:0 12px 48px #1ff5e933; border:6px solid #1c172e;
+}
+.captcha-box h2 {
+  font-family:'Luckiest Guy',cursive; font-size:2.3em; color:#fff;
+  text-shadow:0 3px 18px #000,2px 2px 0 #ff31a8; margin-bottom:14px;
+}
+.captcha-box p {
+  font-family:'Baloo 2',cursive; font-size:1.32em; color:#18697d;
+  margin-bottom:19px; font-weight:700;
+}
+.captcha-input {
+  font-size:1.54em; padding:11px 18px; border-radius:14px; border:3px solid #21e75a;
+  font-family:'Baloo 2',cursive; text-align:center; width:78%; margin-bottom:18px;
+}
+.captcha-btn {
+  background:#21e75a; color:#fff; font-family:'Baloo 2',cursive; font-size:1.27em; font-weight:bold;
+  border:none; border-radius:16px; padding:13px 35px; cursor:pointer; box-shadow:0 6px 18px #21e75a55;
+  transition:0.14s;
+}
+.captcha-btn:hover { background:#ff48c4; transform:scale(1.07); }
+
+/* --- CABECERA PÓSTER Y DECORACIÓN --- */
+.epic-title-poster { position:relative;width:100vw;max-width:900px;margin:0 auto 0 auto;min-height:315px;padding-top:90px;text-align:center;overflow:visible;}
+.poster-bg-deco{position:absolute;left:50%;top:66px;width:460px;height:230px;transform:translateX(-50%);z-index:1;background-image:repeating-conic-gradient(from 0deg,#ffd553 0 14%,#ff70d3 14% 32%,#25e0f2 34% 50%,#fff 50% 65%,#21ffb3 65% 74%,#303bbf 74% 100%);background-size:180% 180%;filter:blur(8px) brightness(1.16) opacity(.65) saturate(1.8);border-radius:50%;animation:bgAuraSpin 7.5s linear infinite alternate;box-shadow:0 0 70px 22px #09c7f722;}
+@keyframes bgAuraSpin {100%{background-position:180% 0;}}
+.poster-title{position:relative;z-index:3;font-family:'Luckiest Guy','Bangers',Impact,sans-serif;font-size:clamp(2.3em,9vw,5.8em);color:#ff31a8;letter-spacing:.06em;font-weight:900;text-transform:uppercase;background:rgba(0,0,0,0.19);border-radius:28px;border:7px solid #1c172e;padding:18px 33px 22px 33px;display:inline-block;box-shadow:0 7px 38px #1ff5e929,0 0px 14px #303bbf50;margin:0 auto 10px auto;text-shadow:0 3px 0 #fff373,0 8px 28px #1ff6b3a9,3px 3px 12px #ff31a892;animation:breatheTitle 4.2s alternate ease-in-out infinite;}
+@keyframes breatheTitle{50%{transform:scale(1.036);}}
+.poster-title span{display:inline-block;font-size:1em;animation:popTitle .6s cubic-bezier(.6,-1.0,.3,2.1) alternate infinite;margin:0 1.9px;}
+.poster-title span:nth-child(1){color:#ff48c4;animation-delay:.04s;} .poster-title span:nth-child(2){color:#21e75a;animation-delay:.11s;}
+.poster-title span:nth-child(3){color:#fff373;animation-delay:.16s;} .poster-title span:nth-child(4){color:#21ffb3;animation-delay:.18s;}
+.poster-title span:nth-child(5){color:#25e0f2;animation-delay:.24s;} .poster-title span:nth-child(6){color:#ff31a8;animation-delay:.29s;}
+.poster-title span:nth-child(7){color:#fff373;animation-delay:.34s;} .poster-title span:nth-child(8){color:#21e75a;animation-delay:.38s;}
+.poster-title span:nth-child(9){color:#21ffb3;animation-delay:.44s;} .poster-title span:nth-child(10){color:#25e0f2;animation-delay:.52s;}
+.poster-title span:nth-child(11){color:#ff48c4;animation-delay:.59s;} .poster-title span:nth-child(12){color:#21e75a;animation-delay:.07s;}
+.poster-title span:nth-child(13){color:#ff31a8;animation-delay:.14s;}
+@keyframes popTitle{45%{transform:scale(1.14) rotate(-2deg);}100%{transform:scale(0.97) rotate(2deg);}}
+.poster-sticker{position:absolute;font-size:2em;z-index:3;pointer-events:none;user-select:none;filter:drop-shadow(0 5px 22px #fff3) brightness(1.14);animation:flotarSticker 8s ease-in-out infinite alternate;}
+@keyframes flotarSticker{60%{transform:translateY(-18px) scale(1.13);}100%{transform:translateY(2px) scale(0.99);}}
+
+/* --- NAVIGATION --- */
+nav{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;background:rgba(13,16,35,0.03);margin-bottom:18px;padding:12px 0;}
+nav button{background:#fff;color:#29F4FF;font-family:'Baloo 2',cursive;font-size:1.07em;font-weight:600;border:none;border-radius:14px;padding:9px 20px;cursor:pointer;margin:3px 2px;transition:0.13s;}
 nav button.active,nav button:hover{background:#21e75a;color:#fff;transform:scale(1.052);}
+nav button#notocar-btn{background:#fc8181;color:#fff;font-weight:bold;}
 
-/* INICIO */
-#pantalla-inicio{padding:26px 15px;max-width:500px;margin:18px auto;background:rgba(31,89,190,0.1);border-radius:20px;box-shadow:0 7px 23px rgba(83,224,131,0.17);text-align:center;}
-#frase-xd{font-size:1.2em;color:#18697d;font-weight:bold;background:rgba(203,253,238,0.8);border-radius:10px;padding:12px 15px;margin-top:15px;}
+/* --- INICIO Y FRASES --- */
+#pantalla-inicio{padding:26px 7px 17px 7px;max-width:430px;margin:18px auto 0 auto;background:rgba(31,89,190,0.1);border-radius:20px;box-shadow:0 7px 23px rgba(83,224,131,0.17);}
+.pantalla-teclado{font-family:'Baloo 2',cursive;font-size:2em;color:#2cd0ba;margin-bottom:16px;text-align:center;}
+.num-teclado{display:grid;grid-template-columns:repeat(3,78px);gap:23px;justify-content:center;margin:18px 0 9px 0;}
+.num-teclado button{font-size:2em;font-family:'Baloo 2',cursive;background:#fff;color:#2ae97e;border:2.5px solid #34b4ff;border-radius:20px;box-shadow:0 3px 24px rgba(81,252,195,0.2);cursor:pointer;transition:0.13s;width:78px;height:78px;font-weight:900;}
+.num-teclado button:hover{background:#25e0f3;color:#fff;border:2.5px solid #23e2bb;transform:scale(1.09);}
+.xd-frase{min-height:37px;margin-top:13px;font-family:'Baloo 2',cursive;font-size:1.11em;text-align:center;color:#18697d;font-weight:bold;background:rgba(203,253,238,0.8);border-radius:10px;padding:12px 15px;box-shadow:0 2px 7px rgba(170,253,228,0.09);animation:fraseXDfade 0.5s;}
+@keyframes fraseXDfade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 
-/* MEMES GRID */
-#memesGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:19px;max-width:900px;margin:0 auto 23px auto;padding:0 11px;}
-.meme-card{background:linear-gradient(129deg,#dbfff7 50%,#e5f2fc 90%);border-radius:28px;box-shadow:0 7px 30px rgba(43,238,216,0.1);cursor:pointer;min-height:270px;display:flex;flex-direction:column;border:5px solid #f3fafd;transition:0.16s;}
-.meme-card:hover{transform:scale(1.042);box-shadow:0 12px 32px rgba(51,224,255,0.44);}
-.meme-img{width:100%;height:170px;object-fit:cover;border-radius:23px 23px 0 0;border-bottom:5px solid #53E083;background:#e0fff8;}
-.meme-content{flex:1;padding:12px 13px;}
-.meme-title{font-family:'Baloo 2',cursive;font-weight:900;font-size:1.1em;color:#21b7a6;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-.meme-desc{font-size:1em;color:#17875a;font-family:'Baloo 2',cursive;margin-bottom:6px;}
-.emoji-huge{font-size:1.3em;}
-.meme-actions{display:flex;justify-content:flex-end;padding:0 17px 10px 17px;}
-.btn-rickroll{background:#29F4FF;color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;border:none;border-radius:17px;padding:9px 18px;cursor:pointer;transition:0.12s;}
+/* --- MEMES GRID, CARDS --- */
+.memes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:19px;max-width:900px;margin:0 auto 23px auto;padding:0 11px;}
+.meme-card{background:linear-gradient(129deg,#dbfff7 50%,#e5f2fc 90%);border-radius:28px;box-shadow:0 7px 30px rgba(43,238,216,0.1);cursor:pointer;min-height:244px;display:flex;flex-direction:column;border:5px solid #f3fafd;transition:0.16s;}
+.meme-card:hover{transform:scale(1.042) rotate(-1deg);box-shadow:0 12px 32px rgba(51,224,255,0.44);}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(13px);}100%{opacity:1;transform:none;}}
+.meme-img{width:100%;height:156px;object-fit:cover;border-radius:28px 28px 0 0;border-bottom:5px solid #53E083;background:#e0fff8;margin-bottom:-8px;}
+.meme-content{flex:1;padding:10px 13px 3px 13px;}
+.meme-title{font-family:'Baloo 2',cursive;font-weight:900;font-size:1.09em;color:#21b7a6;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.meme-desc{font-size:.97em;color:#17875a;font-family:'Baloo 2',cursive;margin-bottom:4px;}
+.emoji-huge{font-size:1.2em;}
+.meme-actions{display:flex;justify-content:flex-end;padding:4px 17px 8px 17px;}
+.btn-rickroll{background:#29F4FF;color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;border:none;border-radius:17px;padding:8px 16px;cursor:pointer;transition:0.12s;}
 .btn-rickroll:hover{background:#53E083;color:#183010;transform:scale(1.06);}
 
-/* COMENTARIOS */
-.comentarios-section{max-width:520px;margin:0 auto 17px auto;background:rgba(229,255,242,0.8);border-radius:17px;padding:20px 15px;box-shadow:0 3px 8px rgba(41,244,255,0.04);}
+/* --- COMENTARIOS --- */
+.comentarios-section{max-width:510px;margin:0 auto 17px auto;background:rgba(229,255,242,0.8);border-radius:17px;padding:16px 11px;box-shadow:0 3px 8px rgba(41,244,255,0.04);}
 .comentarios-section h2{font-family:'Baloo 2',cursive;color:#21b7a6;}
-form textarea{width:calc(100% - 20px);min-height:60px;border-radius:11px;border:2px solid #29F4FF;font-size:1em;font-family:'Baloo 2';padding:10px;margin-bottom:10px;}
-form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1.05em;border:none;border-radius:13px;padding:10px 20px;cursor:pointer;}
-.comentario{color:#24a16c;margin-bottom:8px;border-radius:10px;background:#fff;padding:10px 12px;font-size:1em;font-family:'Baloo 2';box-shadow:0 1px 3px rgba(83,224,131,0.06);}
-.com-emoji{font-size:1.2em;margin-right:6px;}
+form textarea{width:90%;min-height:34px;border-radius:11px;border:2px solid #29F4FF;font-size:1em;font-family:'Baloo 2';margin-bottom:10px;padding:8px;}
+form button{background:#29F4FF;color:#fff;font-family:'Baloo 2';font-size:1em;border:none;border-radius:13px;padding:8px 15px;cursor:pointer;}
+.comentario{color:#24a16c;margin-bottom:4px;border-radius:10px;background:#fff;padding:8px 10px;font-size:.97em;font-family:'Baloo 2';box-shadow:0 1px 3px rgba(83,224,131,0.06);}
+.com-emoji{font-size:1em;margin-right:4px;}
 
-/* JUMPSCARE */
-#no-tocar-oscuro{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(16,24,32,0.95);z-index:99999;align-items:center;justify-content:center;flex-direction:column;}
-.no-tocar-letra{color:#fff;font-family:'Luckiest Guy',cursive;font-size:2.5em;text-align:center;margin-bottom:25px;letter-spacing:2px;text-shadow:0 15px 45px rgba(0,0,0,0.93);}
+/* --- NO TOCAR/JUMPSCARE --- */
+#no-tocar-oscuro{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(16,24,32,0.95);z-index:99999;display:none;align-items:center;justify-content:center;flex-direction:column;}
+.no-tocar-letra{color:#fff;font-family:'Luckiest Guy',cursive;font-size:2.45em;text-align:center;margin-bottom:25px;letter-spacing:2px;text-shadow:0 15px 45px rgba(0,0,0,0.93);}
 #no-tocar-wasaaa{display:flex;flex-direction:column;align-items:center;justify-content:center;}
-#no-tocar-wasaaa img{width:90vw;max-width:400px;border-radius:22px;box-shadow:0 12px 60px rgba(17,17,17,0.67);}
-#no-tocar-wasaaa .wasa-text{color:#fff;font-size:2em;font-family:'Luckiest Guy',cursive;margin-top:13px;}
+#no-tocar-wasaaa img{width:95vw;max-width:430px;border-radius:22px;box-shadow:0 12px 60px rgba(17,17,17,0.67);}
+#no-tocar-wasaaa .wasa-text{color:#fff;font-size:2.1em;font-family:'Luckiest Guy',cursive;margin-top:13px;text-shadow:0 8px 20px rgba(255,0,0,0.11);}
 
-/* ANIMACIONES */
+/* --- FOOTER --- */
+footer{background:linear-gradient(96deg,#1fe7f1 68%,#53E083 100%);color:#fff;text-align:center;font-size:1.07em;padding:9px 10px;margin-top:18px;border-radius:18px 18px 0 0;font-family:'Baloo 2',cursive;}
+footer .social-icons{margin:4px 0 8px 0;}
+footer .social-icons a{display:inline-block;margin:0 7px;cursor:pointer;font-size:1.05em;transition:0.11s;}
+footer .social-icons a:hover{transform:scale(1.13);}
+
 .fade-out{animation:fadeOutSection 0.4s;}
 @keyframes fadeOutSection{0%{opacity:1;}100%{opacity:0;}}
 .fade-in{animation:fadeInSection 0.4s;}
 @keyframes fadeInSection{0%{opacity:0;}100%{opacity:1;}}
 
-/* RESPONSIVE */
 @media (max-width:700px){
-  #frase-xd{font-size:1em;}
+  .epic-title-poster{min-height:100px;padding-top:30px;}
+  .poster-title{padding:5px 6px;font-size:1.08em;}
   .no-tocar-letra{font-size:1.3em;}
-  #no-tocar-wasaaa img{width:95vw;}
+  .captcha-box{max-width:99vw;padding:10px 2vw;}
+  #no-tocar-wasaaa img{width:94vw;}
 }
