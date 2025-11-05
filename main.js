@@ -221,7 +221,7 @@ function mostrarComentarios(comentarios) {
   comentarios.forEach(({mensaje, ip}) => {
     const div = document.createElement('div');
     div.className = 'comentario';
-    div.textContent = `${mensaje} (IP: ${ip})`;
+    div.textContent = mensaje;
     contenedor.appendChild(div);
   });
 
