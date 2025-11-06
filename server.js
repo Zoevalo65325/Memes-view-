@@ -1,16 +1,14 @@
-require('dotenv').config(); // Carga variables desde .env (local) o desde variables de entorno de Render
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-// Usa la variable de entorno MONGO_URI (se configura en Render, no aquí)
 const MONGO_URI = process.env.MONGO_URI;
 
-// Validación: asegúrate de que la variable existe
 if (!MONGO_URI) {
   console.error('❌ ERROR: Variable de entorno MONGO_URI no está configurada');
   console.error('En Render: Ve a Environment y configura MONGO_URI con tu cadena de conexión');
@@ -18,9 +16,9 @@ if (!MONGO_URI) {
 }
 
 app.use(cors());
-app.use(express.json()); // Para parsear JSON en requests
+app.use(express.json());
 
-// Definición del esquema y modelo
+// ===== ESQUEMA COMENTARIOS =====
 const comentarioSchema = new mongoose.Schema({
   mensaje: { 
     type: String, 
@@ -31,12 +29,26 @@ const comentarioSchema = new mongoose.Schema({
   ip: String,
   fecha: { type: Date, default: Date.now }
 }, {
-  collection: 'comentarios' // Especificar explícitamente la colección
+  collection: 'comentarios'
 });
 
 const Comentario = mongoose.model('Comentario', comentarioSchema);
 
-// Endpoint para obtener comentarios
+// ===== ENDPOINT CAPTCHA =====
+app.post('/api/validar-captcha', (req, res) => {
+  const { respuesta } = req.body;
+
+  // La respuesta correcta es '4' (2 + 2 = 4)
+  if (respuesta === '4' || respuesta === 4) {
+    console.log('✅ Captcha validado correctamente');
+    res.json({ ok: true });
+  } else {
+    console.log('❌ Captcha inválido, respuesta recibida:', respuesta);
+    res.json({ ok: false });
+  }
+});
+
+// ===== ENDPOINT COMENTARIOS - GET =====
 app.get('/api/comentarios', async (req, res) => {
   try {
     const comentarios = await Comentario.find().sort({ fecha: -1 }).limit(100);
@@ -47,13 +59,15 @@ app.get('/api/comentarios', async (req, res) => {
   }
 });
 
-// Endpoint para guardar un comentario
+// ===== ENDPOINT COMENTARIOS - POST =====
 app.post('/api/comentarios', async (req, res) => {
   try {
     const { mensaje } = req.body;
+    
     if (!mensaje || mensaje.trim() === '') {
       return res.status(400).json({ error: 'Comentario vacío' });
     }
+    
     if (mensaje.length > 500) {
       return res.status(400).json({ error: 'Comentario muy largo' });
     }
@@ -72,7 +86,7 @@ app.post('/api/comentarios', async (req, res) => {
   }
 });
 
-// Rutas adicionales
+// ===== RUTAS ADICIONALES =====
 app.get('/', (req, res) => {
   res.send('Backend de Zoevalo funcionando');
 });
@@ -86,7 +100,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Conectar a MongoDB y levantar servidor
+// ===== CONEXIÓN MONGODB Y LEVANTAMIENTO DEL SERVIDOR =====
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -105,14 +119,13 @@ mongoose.connect(MONGO_URI, {
   .catch((err) => {
     console.error('❌ Error de conexión MongoDB:', err.message);
     console.error('Verifica:');
-    console.error('1. Variable MONGO_URI en Render (Environment)');
+    console.error('1. Variable MONGO_URI en Render');
     console.error('2. Whitelist IP en MongoDB Atlas (0.0.0.0/0)');
     console.error('3. Usuario y contraseña correctos');
-    console.error('4. Firewall/antivirus no bloquea puerto 27017');
     process.exit(1);
   });
 
-// Eventos de conexión
+// ===== EVENTOS DE CONEXIÓN =====
 mongoose.connection.on('connected', () => {
   console.log('🔗 Mongoose conectado a MongoDB');
 });
@@ -125,7 +138,7 @@ mongoose.connection.on('disconnected', () => {
   console.log('⚠️ Mongoose desconectado de MongoDB');
 });
 
-// Manejo de errores no capturados
+// ===== MANEJO DE ERRORES NO CAPTURADOS =====
 process.on('unhandledRejection', (reason) => {
   console.error('⚠️ Rechazo no manejado:', reason);
 });
