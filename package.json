@@ -14,7 +14,7 @@
     "mongoose": "^8.19.3"
   },
   "engines": {
-    "node": ">=14"
+    "node": "18.x"
   },
   "author": "Zoevalo",
   "license": "MIT"
