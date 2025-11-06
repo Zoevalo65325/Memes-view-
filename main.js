@@ -1,10 +1,10 @@
 // ===== SEGURIDAD Y CONFIGURACIÓN =====
 const forbiddenWords = [
-    'puta','puto','mierda','verga','joder','coño','idiota','estúpido','gilipollas',
-    'marica','pendejo','culero','fuck','shit','bitch','asshole','faggot','bastard',
-    'dick','cunt','motherfucker','slut','dumb','stupid','jerk','moron','idiot',
-    'gay','homo','retard','fool','foolish','suck','sucker','bollocks','bollock',
-    'cabron','imbecil','imbécil','zorra','lame','huevon','huevón','perra','culiao','pelotudo','mongol','polla'
+  'puta','puto','mierda','verga','joder','coño','idiota','estúpido','gilipollas',
+  'marica','pendejo','culero','fuck','shit','bitch','asshole','faggot','bastard',
+  'dick','cunt','motherfucker','slut','dumb','stupid','jerk','moron','idiot',
+  'gay','homo','retard','fool','foolish','suck','sucker','bollocks','bollock',
+  'cabron','imbecil','imbécil','zorra','lame','huevon','huevón','perra','culiao','pelotudo','mongol','polla'
 ];
 
 const MEMES = [
@@ -31,6 +31,7 @@ const FRASES_XD = [
 const RICKROLL_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const MEME_BACKUP = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
+// Aquí la URL base de tu backend desplegado en Render
 const API_URL = 'https://zoevalo-backend.onrender.com';
 
 let audioAllowed = false;
